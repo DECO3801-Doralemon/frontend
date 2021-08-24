@@ -46,15 +46,15 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Row _navItemIcon(IconData icon, String label, Color? backgrondColor,
+  Row _navItemIcon(IconData icon, String label, Color? backgroundColor,
       Color? foregroundColor) {
     return Row(
       children: [
         Expanded(
           child: Container(
-            color: backgrondColor,
+            color: backgroundColor,
             child: Padding(
-              padding: const EdgeInsets.all(12.0),
+              padding: const EdgeInsets.all(6.0),
               child: Column(
                 children: [
                   Icon(
