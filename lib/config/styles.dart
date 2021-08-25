@@ -7,11 +7,13 @@ const Color greenPale = Color(0xff4FBA4F);
 const Color darkGreen = Color(0xff347D34);
 const Color redPrimary = Color(0xffff0f0f);
 const Color greyPrimary = Color(0xff828282);
+const Color greyDM = Color(0xffc3bcbc);
 const Color purple = Color(0xff6A2C57);
 const Color red = Color(0xffDF3535);
 const Color greenDM = Color(0xff008A00);
 const Color blue = Color(0xff495AA8);
 const Color orangePrimary = Color(0xFFFF8D07);
+const Color blackPrimary = Color(0xFF5A5A5A);
 
 const double superSmallSpace = 2.0;
 const double smallSpace = 4.0;

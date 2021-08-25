@@ -3,9 +3,11 @@ import 'package:pantry_saver_fe/model/user.dart';
 class UserPreferences {
   static const myUser = User(
       imagePath:
-          'https://images.unsplash.com/photo-1554151228-14d9def656e4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=333&q=80',
+          'https://static.wikia.nocookie.net/disney/images/f/f0/Profile_-_Jiminy_Cricket.jpeg/revision/latest?cb=20190312063605',
       name: 'John Doe',
+      followers: 423,
+      likes: 290,
+      waste_percentage: 40,
       email: 'doe.master99@gmail.com',
-      about: "I'm energetic. I like to eat, but I hate vegetables",
-      avoided_food: 'Soy, milk, peanut');
+      about: "I'm energetic. I like to eat, but I hate vegetables");
 }
