@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:pantry_saver_fe/component/appbar_widget.dart';
 import 'package:pantry_saver_fe/config/styles.dart';
+import 'package:pantry_saver_fe/page/edit_profile.dart';
 import 'package:pantry_saver_fe/utils/button_border_widget.dart';
 import 'package:pantry_saver_fe/utils/button_widget.dart';
 import 'package:pantry_saver_fe/utils/numbers_widget.dart';
@@ -36,7 +37,11 @@ class _ProfilePageState extends State<ProfilePage> {
           const SizedBox(height: 45),
           ProfileWidget(
             imagePath: user.imagePath,
-            onClicked: () async {},
+            onClicked: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => EditProfilePage()),
+              );
+            },
           ),
           const SizedBox(height: 24),
           buildName(user),
@@ -158,7 +163,11 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget editProfileButton() => ButtonWidget(
         text: 'Edit Profile',
-        onClicked: () {},
+        onClicked: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => EditProfilePage()),
+          );
+        },
       );
 
   Widget changePasswordButton() => ButtonWidget(

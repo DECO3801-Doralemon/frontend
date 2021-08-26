@@ -16,6 +16,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pantry_saver_fe/config/styles.dart';
+import 'package:pantry_saver_fe/page/edit_profile.dart';
 import 'package:pantry_saver_fe/page/profile.dart';
 
 Future main() async {
