@@ -27,7 +27,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    final user = UserPreferences.myUser;
+    final user = UserPreferences.getUser();
 
     return Scaffold(
       appBar: buildAppBar(context),
@@ -37,10 +37,11 @@ class _ProfilePageState extends State<ProfilePage> {
           const SizedBox(height: 45),
           ProfileWidget(
             imagePath: user.imagePath,
-            onClicked: () {
-              Navigator.of(context).push(
+            onClicked: () async {
+              await Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => EditProfilePage()),
               );
+              setState(() {});
             },
           ),
           const SizedBox(height: 24),
@@ -120,7 +121,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               fontWeight: FontWeight
                                   .bold)), //MUST BE REPLACED WITH user.waste_percentage
                       Text(
-                        "waste percentage",
+                        "waste",
                         style: TextStyle(color: greyPrimary, fontSize: 15),
                       )
                     ],

@@ -1,23 +1,9 @@
-// void main() {
-//   runApp(MyApp());
-// }
-//
-// class MyApp extends StatelessWidget {
-//   // This widget is the root of your application.
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Pantry Saver',
-//       home: Home(),
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pantry_saver_fe/config/styles.dart';
 import 'package:pantry_saver_fe/page/edit_profile.dart';
 import 'package:pantry_saver_fe/page/profile.dart';
+import 'package:pantry_saver_fe/utils/user_preferences.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,6 +11,8 @@ Future main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+
+  await UserPreferences.init();
 
   runApp(MyApp());
 }
@@ -34,6 +22,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = UserPreferences.getUser();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

@@ -80,6 +80,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:pantry_saver_fe/config/styles.dart';
 
 class ProfileWidget extends StatelessWidget {
   final String imagePath;
@@ -132,7 +133,7 @@ class ProfileWidget extends StatelessWidget {
         color: Colors.white,
         all: 3,
         child: buildCircle(
-          color: color,
+          color: orangePrimary,
           all: 8,
           child: Icon(
             isEdit ? Icons.add_a_photo : Icons.edit,
