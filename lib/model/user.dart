@@ -1,58 +1,34 @@
+import 'package:json_annotation/json_annotation.dart';
+part 'user.g.dart';
+
+@JsonSerializable()
 class User {
-  final String imagePath;
-  final String name;
-  final int followers;
-  final int likes;
-  final int waste_percentage;
-  final String email;
-  final String about;
+  final List<UserModel> user;
+  User(this.user);
+}
 
-  const User({
-    required this.imagePath,
-    required this.name,
-    required this.followers,
-    required this.likes,
-    required this.waste_percentage,
-    required this.email,
-    required this.about,
-  });
+@JsonSerializable()
+class UserModel {
+  bool is_login;
+  String username;
+  String first_name;
+  String last_name;
+  String email;
+  String? bio;
+  String? photo;
+  String token;
 
-  User copy({
-    String? imagePath,
-    String? name,
-    int? followers,
-    int? likes,
-    int? waste_percentage,
-    String? email,
-    String? about,
-  }) =>
-      User(
-        imagePath: imagePath ?? this.imagePath,
-        name: name ?? this.name,
-        followers: followers ?? this.followers,
-        likes: likes ?? this.likes,
-        waste_percentage: waste_percentage ?? this.waste_percentage,
-        email: email ?? this.email,
-        about: about ?? this.about,
-      );
+  UserModel(
+      {required this.is_login,
+      required this.username,
+      required this.first_name,
+      required this.last_name,
+      required this.email,
+      this.bio,
+      this.photo,
+      required this.token});
 
-  static User fromJson(Map<String, dynamic> json) => User(
-        imagePath: json['imagePath'],
-        name: json['name'],
-        followers: json['followers'],
-        likes: json['likes'],
-        waste_percentage: json['waste_percentage'],
-        email: json['email'],
-        about: json['about'],
-      );
-
-  Map<String, dynamic> toJson() => {
-        'imagePath': imagePath,
-        'name': name,
-        'followers': followers,
-        'likes': likes,
-        'waste_percentage': waste_percentage,
-        'email': email,
-        'about': about,
-      };
+  factory UserModel.fromJson(Map<String, dynamic> json) =>
+      _$UserModelFromJson(json);
+  Map<String, dynamic> toJson() => _$UserModelToJson(this);
 }

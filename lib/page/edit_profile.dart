@@ -21,7 +21,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   void initState() {
     super.initState();
 
-    user = UserPreferences.getUser();
+    //user = UserPreferences.getUser();
   }
 
   @override
@@ -35,34 +35,38 @@ class _EditProfilePageState extends State<EditProfilePage> {
               children: [
                 const SizedBox(height: 45),
                 ProfileWidget(
-                  imagePath: user.imagePath,
+                  imagePath:
+                      'https://static.wikia.nocookie.net/disney/images/f/f0/Profile_-_Jiminy_Cricket.jpeg/revision/latest?cb=20190312063605', //MUST REPLACE WITH user.imagePath
                   isEdit: true,
                   onClicked: () async {},
                 ),
                 const SizedBox(height: 24),
                 TextFieldWidget(
                   label: 'username',
-                  text: user.name,
-                  onChanged: (name) => user = user.copy(name: name),
+                  text: "user.name", //MUST REMOVE KUTIP
+                  onChanged: (name) => {},
+                  // onChanged: (name) => user = user.copy(name: name),
                 ),
                 const SizedBox(height: 24),
                 TextFieldWidget(
                   label: 'About',
-                  text: user.about,
+                  text: "user.about", //MUST REMOVE KUTIP
                   maxLines: 5,
-                  onChanged: (about) => user = user.copy(about: about),
+                  onChanged: (about) => {},
+                  // onChanged: (about) => user = user.copy(about: about),
                 ),
                 const SizedBox(height: 24),
                 TextFieldWidget(
                   label: 'Email',
-                  text: user.email,
-                  onChanged: (email) => user = user.copy(email: email),
+                  text: "user.email", //MUST REMOVE KUTIP
+                  onChanged: (email) => {},
+                  // onChanged: (email) => user = user.copy(email: email),
                 ),
                 const SizedBox(height: 24),
                 ButtonWidget(
                     text: 'Confirm',
                     onClicked: () {
-                      UserPreferences.setUser(user);
+                     // UserPreferences.setUser(user);
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => ProfilePage()),
