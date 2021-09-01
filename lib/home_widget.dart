@@ -14,7 +14,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   String _lastSelected = 'TAB: 0';
 
-  void _selectedTab(int index) {
+    void _selectedTab(int index) {
     setState(() {
       _lastSelected = 'TAB: $index';
     });

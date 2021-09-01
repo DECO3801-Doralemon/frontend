@@ -23,6 +23,7 @@ class NetworkInterface {
             'Token ${sharedPreferences.getString('token')}';
       }
       dio.options.headers['content-type'] = 'application/json';
+      print('${ApiFlavor.getBaseUrl()}$url');
       final response = await dio.post(
         '${ApiFlavor.getBaseUrl()}$url',
         data:
