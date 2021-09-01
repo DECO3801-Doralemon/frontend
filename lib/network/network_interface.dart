@@ -12,15 +12,16 @@ class NetworkInterface {
   Future<dynamic> post({
     String? url,
     Map<String, dynamic>? bodyParams,
-    // bool? isLogin,
+    bool isLogin = false,
     bool formData = true,
   }) async {
     var responseJson;
     try {
       final sharedPreferences = await SharedPreferences.getInstance();
-
-      dio.options.headers['Authorization'] =
-          'Token ${sharedPreferences.getString('token')}';
+      if (!isLogin) {
+        dio.options.headers['Authorization'] =
+            'Token ${sharedPreferences.getString('token')}';
+      }
       dio.options.headers['content-type'] = 'application/json';
       final response = await dio.post(
         '${ApiFlavor.getBaseUrl()}$url',

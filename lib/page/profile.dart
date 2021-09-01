@@ -1,15 +1,9 @@
-// import 'package:bisaGo/bloc/user_bloc.dart';
-// import 'package:bisaGo/component/bisago_appbar.dart';
-// import 'package:bisaGo/config/styles.dart';
-// import 'package:bisaGo/model/user.dart';
-// import 'package:bisaGo/page/profile/edit_profile.dart';
-// import 'package:flutter/material.dart';
-// import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:pantry_saver_fe/bloc/login_bloc.dart';
 import 'package:pantry_saver_fe/component/appbar_widget.dart';
 import 'package:pantry_saver_fe/config/styles.dart';
+import 'package:pantry_saver_fe/page/edit_profile.dart';
 import 'package:pantry_saver_fe/utils/button_border_widget.dart';
 import 'package:pantry_saver_fe/utils/button_widget.dart';
 import 'package:pantry_saver_fe/utils/numbers_widget.dart';
@@ -24,9 +18,20 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  late LoginBloc _bloc;
+
+  @override
+  void initState() {
+    super.initState();
+    print("tiddis");
+    _bloc = LoginBloc();
+    _bloc.loginUser("gibran", "gibran").then((value) => print(value));
+  }
+
   @override
   Widget build(BuildContext context) {
-    final user = UserPreferences.myUser;
+    //  final user = UserPreferences.getUser();
+    //COMMENTS TO REMOVE OR EDIT
 
     return Scaffold(
       appBar: buildAppBar(context),
@@ -35,13 +40,19 @@ class _ProfilePageState extends State<ProfilePage> {
         children: [
           const SizedBox(height: 45),
           ProfileWidget(
-            imagePath: user.imagePath,
-            onClicked: () async {},
+            imagePath:
+                'https://static.wikia.nocookie.net/disney/images/f/f0/Profile_-_Jiminy_Cricket.jpeg/revision/latest?cb=20190312063605', //MUST REPLACE WITH user.imagePath
+            onClicked: () async {
+              await Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => EditProfilePage()),
+              );
+              setState(() {});
+            },
           ),
           const SizedBox(height: 24),
-          buildName(user),
+          // buildName(user),
 
-          buildAbout(user),
+          // buildAbout(user),
           const SizedBox(height: 24),
           Container(
             alignment: Alignment.center,
@@ -67,6 +78,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ),
           const SizedBox(height: 24),
+
           // Text(
           //   "FONT TEST",
           //   style: TextStyle(fontFamily: 'BalsamiqSans', fontSize: 50),
@@ -79,7 +91,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget buildName(User user) => Column(
         children: [
           Text(
-            user.name,
+            "user.name", //MUST REMOVE KUTIP
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 30,
@@ -94,11 +106,11 @@ class _ProfilePageState extends State<ProfilePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
-                      "${user.followers} followers", //MUST BE REPLACED WITH user.followers
+                      "420", //MUST BE REPLACED WITH ${user.followers} followers
                       style: TextStyle(color: greyPrimary, fontSize: 15),
                     ),
                     Text(
-                      "${user.likes} likes",
+                      "69", //${user.likes} likes
                       style: TextStyle(color: greyPrimary, fontSize: 15),
                     )
                   ],
@@ -108,14 +120,14 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("${user.waste_percentage} %",
+                      Text("32", //"${user.waste_percentage} %",
                           style: TextStyle(
                               color: orangePrimary,
                               fontSize: 26,
                               fontWeight: FontWeight
                                   .bold)), //MUST BE REPLACED WITH user.waste_percentage
                       Text(
-                        "waste percentage",
+                        "waste",
                         style: TextStyle(color: greyPrimary, fontSize: 15),
                       )
                     ],
@@ -138,7 +150,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const SizedBox(height: 16),
             Text(
-              user.about,
+              "user.about", //MUST REMOVE KUTIP
               style: TextStyle(fontSize: 16, height: 1.4, color: greyPrimary),
             ),
             const SizedBox(height: 16),
@@ -148,7 +160,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const SizedBox(height: 16),
             Text(
-              user.email,
+              "user.email", //MUST REMOVE KUTIP
               style: TextStyle(fontSize: 16, height: 1.4, color: greyPrimary),
             ),
             const SizedBox(height: 16),
@@ -158,7 +170,11 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget editProfileButton() => ButtonWidget(
         text: 'Edit Profile',
-        onClicked: () {},
+        onClicked: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => EditProfilePage()),
+          );
+        },
       );
 
   Widget changePasswordButton() => ButtonWidget(
@@ -170,4 +186,10 @@ class _ProfilePageState extends State<ProfilePage> {
         text: 'Log out',
         onClicked: () {},
       );
+
+  @override
+  void dispose() {
+    _bloc.dispose();
+    super.dispose();
+  }
 }
