@@ -6,14 +6,12 @@ import 'package:pantry_saver_fe/bloc/new_user_bloc.dart';
 import 'package:pantry_saver_fe/bloc/user_bloc.dart';
 import 'package:pantry_saver_fe/components/already_have_an_account_acheck.dart';
 import 'package:pantry_saver_fe/config/styles.dart';
+import 'package:pantry_saver_fe/home_widget.dart';
 import 'package:pantry_saver_fe/model/new_user.dart';
-import 'package:pantry_saver_fe/page/Signup/signup_screen.dart';
-import 'package:pantry_saver_fe/page/Welcome/components/body.dart';
+import 'package:pantry_saver_fe/page/Signup/signup.dart';
 import 'package:pantry_saver_fe/utils/button_widget.dart';
 import 'package:pantry_saver_fe/utils/customTextField.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../home_widget.dart';
 
 
 class Login extends StatefulWidget {
@@ -99,9 +97,6 @@ class LoginState extends State<Login> {
     );
   }
 
-  late NewUserBloc _newUserBloc;
-  late UserBloc _userBloc;
-  late NewUser newUser;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 

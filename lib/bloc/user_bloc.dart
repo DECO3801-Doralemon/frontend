@@ -4,6 +4,7 @@ import 'dart:async';
 // import 'package:bisaGo/repository/user_repository.dart';
 // import 'package:bisaGo/model/user.dart';
 import 'package:get_it/get_it.dart';
+import 'package:http/http.dart';
 import 'package:pantry_saver_fe/model/new_user.dart';
 import 'package:pantry_saver_fe/model/user.dart';
 import 'package:pantry_saver_fe/network/data/network_model.dart';
@@ -17,9 +18,9 @@ class UserBloc {
   StreamSink<NetworkModel<User>> get userSink => _userController.sink;
   Stream<NetworkModel<User>> get userStream => _userController.stream;
 
-  UserBloc(String email) {
+  UserBloc() {
     _userRepository = GetIt.instance.get<UserRepository>();
-    fetchUserDetail(email);
+    //fetchUserDetail(email);
   }
 
   Future<void> fetchUserDetail(String email) async {
@@ -41,6 +42,14 @@ class UserBloc {
       return userFromApi!.first;
     } catch (e) {
       return null;
+    }
+  }
+
+  Future<Response> registerNewUser(NewUser newUser) async {
+    try {
+      return await _userRepository.createUser(newUser);
+    } catch (_) {
+      return Response('Failed to register user', 400);
     }
   }
 

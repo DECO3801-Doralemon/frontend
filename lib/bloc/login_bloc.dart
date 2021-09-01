@@ -16,11 +16,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginBloc {
   late LoginRepository _loginRepository;
-
   final _loginController = StreamController<NetworkModel<Login>>();
-
   StreamSink<NetworkModel<Login>> get loginSink => _loginController.sink;
-
   Stream<NetworkModel<Login>> get loginStream => _loginController.stream;
 
   LoginBloc() {

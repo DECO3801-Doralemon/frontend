@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:pantry_saver_fe/bloc/new_user_bloc.dart';
+import 'package:pantry_saver_fe/bloc/user_bloc.dart';
 import 'package:pantry_saver_fe/config/styles.dart';
 import 'package:pantry_saver_fe/model/new_user.dart';
+import 'package:pantry_saver_fe/model/user.dart';
 import 'package:pantry_saver_fe/utils/button_widget.dart';
 import 'package:pantry_saver_fe/utils/customTextField.dart';
 import 'package:pantry_saver_fe/utils/validator.dart';
@@ -18,13 +20,18 @@ class SignUpScreen extends StatefulWidget {
 class SignUpScreenState extends State<SignUpScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  late NewUserBloc bloc;
-  late NewUser newUser;
+  late NewUserBloc _newUserBloc;
+  late NewUser _newUser;
   TextEditingController firstnameController = TextEditingController();
   TextEditingController lastnameController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  
+  @override
+  void initState() {
+    _newUserBloc = NewUserBloc();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +100,12 @@ class SignUpScreenState extends State<SignUpScreen> {
                   ButtonWidget(
                     text: "Create Account",
                     onClicked: () {
-                      _validateLoginInput();
+                      _createUser(usernameController.text.toString(),
+                        firstnameController.text.toString(),
+                        lastnameController.text.toString(),
+                        passwordController.text.toString(),
+                        emailController.text.toString()
+                      );
                     },
                   ),
                   SizedBox(height: size.height * 0.03),
@@ -106,7 +118,7 @@ class SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  void _validateLoginInput() async {
+  /*void _validateLoginInput() async {
     final form = _formKey.currentState;
     if (_formKey.currentState!.validate()) {
       form!.save();
@@ -119,10 +131,10 @@ class SignUpScreenState extends State<SignUpScreen> {
 
       createUser(newUser);
     }
-  }
+  }*/
 
-  void createUser(NewUser newUser) async {
-    bloc = NewUserBloc();
+  void _createUser(String username, String fname, String lname, String password, String email) async {
+    /*bloc = NewUserBloc();
     final response = await bloc.registerNewUser(newUser);
     if (response.statusCode == 201) {
       successDialog(context);
@@ -132,7 +144,17 @@ class SignUpScreenState extends State<SignUpScreen> {
     } else {
       failedDialog(context);
     }
-    bloc.dispose();
+    bloc.dispose();*/
+    print('register...');
+    _newUser = NewUser(username: username,
+        first_name: fname,
+        last_name: lname,
+        email: email,
+        password: password);
+    _newUserBloc.registerNewUser(_newUser).then((value) {
+      print(value);
+      _navigateToHome(context);
+    }).catchError((onError) => print(onError));
   }
 
   void _navigateToHome(BuildContext context) {
@@ -142,7 +164,7 @@ class SignUpScreenState extends State<SignUpScreen> {
 
   void successDialog(BuildContext context) {
     var alertDialog = AlertDialog(
-      title: Text('Registrasi berhasil! \nCek email anda untuk konfirmasi.'),
+      title: Text('Registrasi berhasil!'),
       //content: Icon(FontAwesomeIcons.checkCircle),
     );
     showDialog(
