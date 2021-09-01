@@ -1,21 +1,35 @@
+import 'package:json_annotation/json_annotation.dart';
+part 'user.g.dart';
+
+@JsonSerializable()
 class User {
-  final String imagePath;
-  final String name;
-  final int followers;
-  final int likes;
-  final int waste_percentage;
-  final String email;
-  final String about;
+  final List<UserModel> user;
+  User(this.user);
+}
 
+@JsonSerializable()
+class UserModel {
+  bool is_login;
 
-  const User({
-    required this.imagePath,
-    required this.name,
-    required this.followers,
-    required this.likes,
-    required this.waste_percentage,
-    required this.email,
-    required this.about,
+  String username;
+  String first_name;
+  String last_name;
+  String email;
+  String? bio;
+  String? photo;
+  String token;
 
-  });
+  UserModel(
+      {required this.is_login,
+      required this.username,
+      required this.first_name,
+      required this.last_name,
+      required this.email,
+      this.bio,
+      this.photo,
+      required this.token});
+
+  factory UserModel.fromJson(Map<String, dynamic> json) =>
+      _$UserModelFromJson(json);
+  Map<String, dynamic> toJson() => _$UserModelToJson(this);
 }

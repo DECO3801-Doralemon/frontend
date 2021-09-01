@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pantry_saver_fe/constants.dart';
+import 'package:pantry_saver_fe/config/styles.dart';
 
 class TextFieldContainer extends StatelessWidget {
   final Widget child;
