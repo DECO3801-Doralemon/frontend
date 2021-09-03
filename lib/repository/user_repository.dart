@@ -30,7 +30,7 @@ class UserRepository implements BaseUserRepository {
     final response = await _network.post(
         //'${ApiFlavor.getBaseUrl()}/api/register/',
         //body: newUser.toJson(),
-        url: '${ApiFlavor.getBaseUrl()}/api/register/',
+        url: '/api/v1/auth/register',
         bodyParams: newUser.toJson());
     return response;
   }

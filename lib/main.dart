@@ -14,15 +14,9 @@ import 'get_it.dart';
 import 'globalnetwork.dart';
 
 Future main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
-
   final _getIt = AppGetIt();
   _getIt.initialize();
-  await DotEnv().load('.env');
+  //await DotEnv().load(fileName: '.env');
   getDioInstance('build');
   await initializeDateFormatting('id_ID', null);
   Intl.defaultLocale = 'id_ID';
@@ -33,3 +27,6 @@ Future main() async {
 
   runApp(PantrySaver());
 }
+
+
+

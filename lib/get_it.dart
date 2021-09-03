@@ -6,7 +6,7 @@ class AppGetIt {
   final _getIt = GetIt.instance;
 
   void initialize() {
-    _getIt.registerLazySingleton<BaseUserRepository>(() => UserRepository());
+    _getIt.registerLazySingleton<UserRepository>(() => UserRepository());
     _getIt.registerLazySingleton<LoginRepository>(() => LoginRepository());
   }
 }

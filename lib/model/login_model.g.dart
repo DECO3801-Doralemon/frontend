@@ -8,7 +8,7 @@ part of 'login_model.dart';
 
 Login _$LoginFromJson(Map<String, dynamic> json) {
   return Login(
-    (json['login'] as List)
+    (json['login'] as List<dynamic>)
         .map((e) => LoginModel.fromJson(e as Map<String, dynamic>))
         .toList(),
   );

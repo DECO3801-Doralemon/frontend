@@ -14,6 +14,9 @@ const Color greenDM = Color(0xff008A00);
 const Color blue = Color(0xff495AA8);
 const Color orangePrimary = Color(0xFFFF8D07);
 const Color blackPrimary = Color(0xFF5A5A5A);
+const kPrimaryColor = Color(0xC918AC00);
+const kPrimaryLightColor = Color(0xFFFF8D07);
+
 
 const double superSmallSpace = 2.0;
 const double smallSpace = 4.0;
