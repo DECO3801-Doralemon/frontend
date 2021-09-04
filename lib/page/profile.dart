@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 //import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:pantry_saver_fe/bloc/login_bloc.dart';
+import 'package:pantry_saver_fe/bloc/user_bloc.dart';
 import 'package:pantry_saver_fe/component/appbar_widget.dart';
 import 'package:pantry_saver_fe/config/styles.dart';
 import 'package:pantry_saver_fe/page/edit_profile.dart';
@@ -19,11 +20,12 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   late LoginBloc _bloc;
+  late UserModel user;
 
   @override
   void initState() {
     super.initState();
-    print("tiddis");
+    // print("test");
     _bloc = LoginBloc();
     _bloc.loginUser("gibran", "gibran").then((value) => print(value));
   }
@@ -184,7 +186,39 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget logoutButton() => ButtonBorderWidget(
         text: 'Log out',
-        onClicked: () {},
+        onClicked: () => showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(32.0))),
+            content: const Text(
+              'Are you sure you want to Log out ?',
+              style: TextStyle(fontSize: 24, color: blackPrimary),
+              textAlign: TextAlign.center,
+            ),
+            actions: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'Cancel'),
+                    child: const Text(
+                      'Cancel',
+                      style: TextStyle(fontSize: 20, color: greyPrimary),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'OK'),
+                    child: const Text(
+                      'Log out',
+                      style: TextStyle(fontSize: 20, color: redPrimary),
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
       );
 
   @override
