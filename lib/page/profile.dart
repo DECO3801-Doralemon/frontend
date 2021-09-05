@@ -4,6 +4,7 @@ import 'package:pantry_saver_fe/bloc/login_bloc.dart';
 import 'package:pantry_saver_fe/bloc/user_bloc.dart';
 import 'package:pantry_saver_fe/component/appbar_widget.dart';
 import 'package:pantry_saver_fe/config/styles.dart';
+import 'package:pantry_saver_fe/page/Login/login.dart';
 import 'package:pantry_saver_fe/page/edit_profile.dart';
 import 'package:pantry_saver_fe/utils/button_border_widget.dart';
 import 'package:pantry_saver_fe/utils/button_widget.dart';
@@ -19,15 +20,15 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  late LoginBloc _bloc;
+  late UserBloc _bloc;
   late UserModel user;
 
   @override
   void initState() {
     super.initState();
     // print("test");
-    _bloc = LoginBloc();
-    _bloc.loginUser("gibran", "gibran").then((value) => print(value));
+    _bloc = UserBloc();
+    // _bloc.loginUser("gibran", "gibran").then((value) => print(value));
   }
 
   @override
@@ -37,63 +38,36 @@ class _ProfilePageState extends State<ProfilePage> {
 
     return Scaffold(
       appBar: buildAppBar(context),
-      body: ListView(
-        physics: BouncingScrollPhysics(),
-        children: [
-          const SizedBox(height: 45),
-          ProfileWidget(
-            imagePath:
-                'https://static.wikia.nocookie.net/disney/images/f/f0/Profile_-_Jiminy_Cricket.jpeg/revision/latest?cb=20190312063605', //MUST REPLACE WITH user.imagePath
-            onClicked: () async {
-              await Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => EditProfilePage()),
+      body: FutureBuilder(
+          future: _bloc.fetchUser(),
+          builder: (BuildContext context, AsyncSnapshot<UserModel?> snapshot) {
+            if (snapshot.hasData) {
+              user = snapshot.data!;
+              print(user);
+              return _createProfilePage();
+            }
+            // if (snapshot.hasError) {
+            //   print('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+            //   Navigator.of(context).pushReplacement(
+            //     MaterialPageRoute(builder: (context) => Login()),
+            //   );}
+            else if (!snapshot.hasData) {
+              print('elseifelseifelsiefsleldhlasldasld');
+              return Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(greenPrimary),
+                ),
               );
-              setState(() {});
-            },
-          ),
-          const SizedBox(height: 24),
-          // buildName(user),
-
-          // buildAbout(user),
-          const SizedBox(height: 24),
-          Container(
-            alignment: Alignment.center,
-            margin: EdgeInsets.symmetric(horizontal: 30),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                editProfileButton(),
-                changePasswordButton(),
-              ],
-            ),
-          ),
-          const SizedBox(height: 38),
-
-          //THIS BUTTON HAS NOT YET BEEN ADDED ANY SHADOWS
-          Container(
-            alignment: Alignment.center,
-            margin: EdgeInsets.symmetric(horizontal: 50),
-            child: Row(
-              children: [
-                Expanded(child: logoutButton()),
-              ],
-            ),
-          ),
-          const SizedBox(height: 24),
-
-          // Text(
-          //   "FONT TEST",
-          //   style: TextStyle(fontFamily: 'BalsamiqSans', fontSize: 50),
-          // ),
-        ],
-      ),
+            }
+            return Container();
+          }),
     );
   }
 
-  Widget buildName(User user) => Column(
+  Widget buildName(UserModel user) => Column(
         children: [
           Text(
-            "user.name", //MUST REMOVE KUTIP
+            user.username, //MUST REMOVE KUTIP
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 30,
@@ -141,7 +115,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ],
       );
 
-  Widget buildAbout(User user) => Container(
+  Widget buildAbout(UserModel user) => Container(
         padding: EdgeInsets.symmetric(horizontal: 48),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -152,7 +126,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const SizedBox(height: 16),
             Text(
-              "user.about", //MUST REMOVE KUTIP
+              user.bio ?? " ", //MUST REMOVE KUTIP
               style: TextStyle(fontSize: 16, height: 1.4, color: greyPrimary),
             ),
             const SizedBox(height: 16),
@@ -162,7 +136,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const SizedBox(height: 16),
             Text(
-              "user.email", //MUST REMOVE KUTIP
+              user.email, //MUST REMOVE KUTIP
               style: TextStyle(fontSize: 16, height: 1.4, color: greyPrimary),
             ),
             const SizedBox(height: 16),
@@ -219,6 +193,57 @@ class _ProfilePageState extends State<ProfilePage> {
             ],
           ),
         ),
+      );
+
+  Widget _createProfilePage() => ListView(
+        physics: BouncingScrollPhysics(),
+        children: [
+          const SizedBox(height: 45),
+          ProfileWidget(
+            imagePath:
+                'https://static.wikia.nocookie.net/disney/images/f/f0/Profile_-_Jiminy_Cricket.jpeg/revision/latest?cb=20190312063605', //MUST REPLACE WITH user.imagePath
+            onClicked: () async {
+              await Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => EditProfilePage()),
+              );
+              setState(() {});
+            },
+          ),
+          const SizedBox(height: 24),
+          buildName(user),
+
+          buildAbout(user),
+          const SizedBox(height: 24),
+          Container(
+            alignment: Alignment.center,
+            margin: EdgeInsets.symmetric(horizontal: 30),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                editProfileButton(),
+                changePasswordButton(),
+              ],
+            ),
+          ),
+          const SizedBox(height: 38),
+
+//THIS BUTTON HAS NOT YET BEEN ADDED ANY SHADOWS
+          Container(
+            alignment: Alignment.center,
+            margin: EdgeInsets.symmetric(horizontal: 50),
+            child: Row(
+              children: [
+                Expanded(child: logoutButton()),
+              ],
+            ),
+          ),
+          const SizedBox(height: 24),
+
+// Text(
+//   "FONT TEST",
+//   style: TextStyle(fontFamily: 'BalsamiqSans', fontSize: 50),
+// ),
+        ],
       );
 
   @override

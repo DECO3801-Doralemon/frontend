@@ -43,6 +43,7 @@ class NetworkInterface {
     var responseJson;
     try {
       final sharedPreferences = await SharedPreferences.getInstance();
+
       dio.options.headers['Authorization'] =
           'Token ${sharedPreferences.getString('token')}';
       final response = await dio.put(
@@ -66,6 +67,12 @@ class NetworkInterface {
     var responseJson;
     try {
       dio.options.headers['content-type'] = 'application/json';
+
+      final sharedPreferences = await SharedPreferences.getInstance();
+      print('*********************************************');
+      print(sharedPreferences.getString('token'));
+      dio.options.headers['Authorization'] =
+          'Bearer ${sharedPreferences.getString('token')}';
       final response = await dio.get(
         '${ApiFlavor.getBaseUrl()}$url',
       );
@@ -73,6 +80,7 @@ class NetworkInterface {
     } on SocketException {
       throw FetchDataException('No Internet Connection');
     } catch (e) {
+      // throw Exception(responseJson);
       print('get here');
       print(e.toString());
     }

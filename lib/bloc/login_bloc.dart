@@ -34,7 +34,8 @@ class LoginBloc {
       var loginResponse = await _loginRepository.loginUser(username, password);
       loginSink.add(NetworkModel.completed(loginResponse));
       print(loginResponse); //for testing
-      SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+      SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
       sharedPreferences.setString('token', loginResponse.login[0].access);
       sharedPreferences.setString('refresh', loginResponse.login[0].refresh);
       print(sharedPreferences.get('token'));
@@ -43,8 +44,12 @@ class LoginBloc {
     } catch (e) {
       if (!_loginController.isClosed) {
         loginSink.add(NetworkModel.error(e.toString()));
+        print(e.toString());
+
         return null;
       }
+      print(
+          "###############################################################################");
     }
   }
 }

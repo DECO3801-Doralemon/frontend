@@ -23,22 +23,23 @@ class UserBloc {
     //fetchUserDetail(email);
   }
 
-  Future<void> fetchUserDetail(String email) async {
+  Future<void> fetchUserDetail() async {
     userSink.add(NetworkModel.loading('Getting user'));
     try {
-      var userResponse = await _userRepository.fetchUserDetail(email);
+      var userResponse = await _userRepository.fetchUserDetail();
       userFromApi = List.from(userResponse.user);
       userSink.add(NetworkModel.completed(userResponse));
     } catch (e) {
+      // throw Exception(e.toString());
       if (!_userController.isClosed) {
         userSink.add(NetworkModel.error(e.toString()));
       }
     }
   }
 
-  Future<UserModel?> fetchUser(String email) async {
+  Future<UserModel?> fetchUser() async {
     try {
-      await fetchUserDetail(email);
+      await fetchUserDetail();
       return userFromApi!.first;
     } catch (e) {
       return null;

@@ -9,10 +9,10 @@ import 'package:pantry_saver_fe/config/styles.dart';
 import 'package:pantry_saver_fe/home_widget.dart';
 import 'package:pantry_saver_fe/model/new_user.dart';
 import 'package:pantry_saver_fe/page/Signup/signup.dart';
+import 'package:pantry_saver_fe/page/profile.dart';
 import 'package:pantry_saver_fe/utils/button_widget.dart';
 import 'package:pantry_saver_fe/utils/customTextField.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 class Login extends StatefulWidget {
   @override
@@ -100,7 +100,6 @@ class LoginState extends State<Login> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-
   void _validateLoginInput() async {
     //final form = _formKey.currentState;
     /*if (_formKey.currentState!.validate()) {
@@ -113,9 +112,11 @@ class LoginState extends State<Login> {
     print('login...');
     _bloc.loginUser(email, password).then((value) {
       print(value);
-      _navigateToHome(context);
+      // _navigateToHome(context);
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => ProfilePage()),
+      );
     }).catchError((onError) => print(onError));
-
   }
 
   void successDialog(BuildContext context) {
@@ -153,5 +154,4 @@ class LoginState extends State<Login> {
     _bloc.dispose();
     super.dispose();
   }
-
 }
