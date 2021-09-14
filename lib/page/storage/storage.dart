@@ -46,10 +46,36 @@ class _StoragePageState extends State<StoragePage> {
                 // padding: EdgeInsets.symmetric(horizontal: 13),
                 physics: BouncingScrollPhysics(),
                 children: [
-                  const SizedBox(height: 45),
                   Stack(
                     children: [
+                      Stack(
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                child: FittedBox(
+                                  child:
+                                      Image.asset('assets/images/kulkas_2.jpg'),
+                                  fit: BoxFit.fill,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Center(
+                            child: Container(
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 55, horizontal: 65),
+                              child: Text(
+                                "Description about the Storage Page, what info does it show, etc.",
+                                style: TextStyle(
+                                    fontSize: 21, color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                       Container(
+                        margin: EdgeInsets.only(top: 214),
                         padding: EdgeInsets.symmetric(horizontal: 13),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
@@ -66,24 +92,7 @@ class _StoragePageState extends State<StoragePage> {
                           // setState(() {});
                         ),
                       ),
-                      Positioned(
-                        top: -100,
-                        left: 0,
-                        child: Container(
-                          height: 142,
-                          width: 295,
-                          child: Card(
-                            color: Colors.red,
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                    "Description about the Storage Page, what info does it show, etc.")
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+                      // const SizedBox(height: ),
                     ],
                   ),
                 ],
