@@ -27,14 +27,18 @@ class StorageItemWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 30),
         Container(
           margin: EdgeInsets.all(25.0),
           child: Column(
             children: [
-              Text(
-                "My Fridge",
-                style: TextStyle(fontSize: 29, color: Colors.white),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    "My Fridge",
+                    style: TextStyle(fontSize: 29, color: Colors.white),
+                  ),
+                ],
               ),
               const SizedBox(height: 10),
               Text(

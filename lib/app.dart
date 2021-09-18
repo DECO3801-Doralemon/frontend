@@ -26,7 +26,7 @@ class PantrySaver extends StatelessWidget {
           dividerColor: Colors.black,
           fontFamily: 'BalsamiqSans'),
       title: 'PantrySaver',
-      home: StoragePage(),
+      home: MyFridgePage(),
     );
   }
 }

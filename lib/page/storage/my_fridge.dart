@@ -44,21 +44,74 @@ class _FridgePageState extends State<MyFridgePage> {
             // padding: EdgeInsets.symmetric(horizontal: 13),
             physics: BouncingScrollPhysics(),
             children: [
-              const SizedBox(height: 45),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(
+                        left: doubleSpace, right: 0, top: doubleSpace),
+                    child: CircleAvatar(
+                      radius: 20.0,
+                      backgroundImage: NetworkImage(
+                          'https://static.wikia.nocookie.net/disney/images/f/f0/Profile_-_Jiminy_Cricket.jpeg/revision/latest?cb=20190312063605'),
+                      backgroundColor: Colors.transparent,
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      height: 33,
+                      width: 301,
+                      margin: EdgeInsets.only(
+                          left: doubleSpace,
+                          right: doubleSpace,
+                          top: doubleSpace),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: greenPrimary),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                      ),
+                      child: TextFormField(
+                        enabled: false,
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.search,
+                            color: greenPrimary,
+                            size: 25,
+                          ),
+                          border: InputBorder.none,
+                          fillColor: Colors.white,
+                          labelText: 'Chicken, Rice, Lettuce',
+                          labelStyle: TextStyle(
+                            color: orangePrimary,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 26),
               Container(
+                height: MediaQuery.of(context).size.height,
                 padding: EdgeInsets.symmetric(horizontal: 13),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(50.0),
-                      topLeft: Radius.circular(50.0)),
-                  color: orangeCard,
-                ),
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(50.0),
+                        topLeft: Radius.circular(50.0)),
+                    color: orangeCard,
+                    boxShadow: [
+                      BoxShadow(
+                        color: blackboxShadow,
+                        blurRadius: 5.0,
+                        spreadRadius: 1.0,
+                      )
+                    ]),
                 child: Column(
                   children: [
                     StorageItemWidget(
                       text: "",
-                      imagePath:
-                          'https://static.wikia.nocookie.net/disney/images/f/f0/Profile_-_Jiminy_Cricket.jpeg/revision/latest?cb=20190312063605',
+                      imagePath: '',
                       onChanged: (name) => {},
                       onClicked: () {},
                       // setState(() {});
