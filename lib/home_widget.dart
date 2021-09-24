@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:pantry_saver_fe/component/fab_bottom_app_bar.dart';
+// import 'package:pantry_saver_fe/page/shopping/shopping.dart';
+import 'package:pantry_saver_fe/page/storage/storage.dart';
 
 import 'config/styles.dart';
 
 class Home extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() {
     return _HomeState();
@@ -13,10 +14,11 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   String _lastSelected = 'TAB: 0';
+  int _indSelected = 0;
 
-    void _selectedTab(int index) {
+  void _selectedTab(int index) {
     setState(() {
-      _lastSelected = 'TAB: $index';
+      _indSelected = index;
     });
   }
 
@@ -30,9 +32,6 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      appBar: AppBar(title: Text ('Home Page (Temp)'),
-        backgroundColor: kPrimaryColor,
-      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
@@ -54,45 +53,16 @@ class _HomeState extends State<Home> {
           FABBottomAppBarItem(iconData: Icons.people_alt, text: 'Community'),
         ],
       ),
+      body: IndexedStack(
+        children: <Widget>[
+          //List of Navbar Page, place it orderly based on Navbar
+          StoragePage(),
+          StoragePage(),
+          StoragePage(),
+          StoragePage(),
+        ],
+        index: _indSelected,
+      ),
     );
   }
-
-
-  /*BottomNavigationBarItem _bottomNavigationBarItem(
-      IconData icon, String label) {
-    return BottomNavigationBarItem(
-      activeIcon: _navItemIcon(icon, label, Colors.red, Colors.white),
-      icon: _navItemIcon(icon, label, Color(0xff3b3c58), Colors.grey),
-      title: Padding(padding: EdgeInsets.all(0)),
-    );
-  }*/
-
-  /*Row _navItemIcon(IconData icon, String label, Color? backgroundColor,
-      Color? foregroundColor) {
-    return Row(
-      children: [
-        Expanded(
-          child: Container(
-            color: backgroundColor,
-            child: Padding(
-              padding: const EdgeInsets.all(6.0),
-              child: Column(
-                children: [
-                  Icon(
-                    icon,
-                    color: foregroundColor,
-                  ),
-                  Text(
-                    label,
-                    style: TextStyle(color: foregroundColor),
-                  )
-                ],
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }*/
-
 }

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:pantry_saver_fe/bloc/freezer_bloc.dart';
 //import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:pantry_saver_fe/bloc/login_bloc.dart';
 import 'package:pantry_saver_fe/bloc/user_bloc.dart';
 import 'package:pantry_saver_fe/component/appbar_widget.dart';
 import 'package:pantry_saver_fe/config/styles.dart';
+import 'package:pantry_saver_fe/model/items.dart';
 import 'package:pantry_saver_fe/page/Login/login.dart';
 import 'package:pantry_saver_fe/page/edit_profile.dart';
 import 'package:pantry_saver_fe/utils/button_border_widget.dart';
@@ -25,13 +27,13 @@ class MyFridgePage extends StatefulWidget {
 }
 
 class _FridgePageState extends State<MyFridgePage> {
-  late UserBloc _bloc;
-  late UserModel user;
+  late FreezerBloc _bloc;
+  late ItemModel items;
 
   @override
   void initState() {
     super.initState();
-    _bloc = UserBloc();
+    _bloc = FreezerBloc();
   }
 
   @override
@@ -44,6 +46,37 @@ class _FridgePageState extends State<MyFridgePage> {
             // padding: EdgeInsets.symmetric(horizontal: 13),
             physics: BouncingScrollPhysics(),
             children: [
+              FutureBuilder(
+                  future: _bloc.fetchItem(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<ItemModel>?> snapshot) {
+                    if (snapshot.hasData) {
+                      List<ItemModel> items = snapshot.data!;
+                      print("masyuk");
+                      return ListView.builder(
+                        itemCount: items.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: Text(items[index].name),
+                          );
+                        },
+                      );
+                    } else if (!snapshot.hasData) {
+                      print('ElseIF');
+                      return Center(
+                        child: CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(greenPrimary),
+                        ),
+                      );
+                    }
+                    return Container();
+                  }),
+              ElevatedButton(
+                  onPressed: () {
+                    _bloc.fetchItemDetail();
+                  },
+                  child: Text('Tst')),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
