@@ -10,15 +10,18 @@ class Items {
 @JsonSerializable()
 class ItemModel {
   int id;
+  String gtin;
   String name;
-  int weight;
-  DateTime expiry_date;
+  int expiry_countdown_in_days;
+  double kg;
 
-  ItemModel(
-      {required this.id,
-      required this.name,
-      required this.weight,
-      required this.expiry_date});
+  ItemModel({
+    required this.id,
+    required this.gtin,
+    required this.name,
+    required this.expiry_countdown_in_days,
+    required this.kg,
+  });
 
   factory ItemModel.fromJson(Map<String, dynamic> json) =>
       _$ItemModelFromJson(json);

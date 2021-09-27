@@ -201,6 +201,7 @@ class StorageItemWidget extends StatelessWidget {
     );
   }
 
+  Widget makeIngredientsWidget(List<ItemM>)
   Widget buildImage() {
     final image = NetworkImage(imagePath);
 

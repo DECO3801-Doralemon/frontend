@@ -21,15 +21,17 @@ Map<String, dynamic> _$ItemsToJson(Items instance) => <String, dynamic>{
 ItemModel _$ItemModelFromJson(Map<String, dynamic> json) {
   return ItemModel(
     id: json['id'] as int,
+    gtin: json['gtin'] as String,
     name: json['name'] as String,
-    weight: json['weight'] as int,
-    expiry_date: DateTime.parse(json['expiry_date'] as String),
+    expiry_countdown_in_days: json['expiry_countdown_in_days'] as int,
+    kg: (json['kg'] as num).toDouble(),
   );
 }
 
 Map<String, dynamic> _$ItemModelToJson(ItemModel instance) => <String, dynamic>{
       'id': instance.id,
+      'gtin': instance.gtin,
       'name': instance.name,
-      'weight': instance.weight,
-      'expiry_date': instance.expiry_date.toIso8601String(),
+      'expiry_countdown_in_days': instance.expiry_countdown_in_days,
+      'kg': instance.kg,
     };

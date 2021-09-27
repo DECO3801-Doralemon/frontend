@@ -21,15 +21,21 @@ class FreezerRepository implements BaseFreezerRepository {
     final response = await _network.get(
       url: '/api/v1/storage/freezer',
     ); //...,isLogin: true
-    final data = [response];
-    print(data[0]["stored_ingredients"]);
+    final data = response.values.toList();
+    print(data);
     print("############################");
-    print(Items(data[0]["stored_ingredients"]
+
+    print("&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+
+    print("****************************");
+
+    print(Items(data.first
         .map<ItemModel>((item) => ItemModel.fromJson(item))
         .toList()));
-    return Items(data[0]["stored_ingredients"]
-        .map<ItemModel>((item) => ItemModel.fromJson(item))
-        .toList());
+
+    print("@@@@@@@@@@@@@@@@@@@@");
+    return Items(
+        data.first.map<ItemModel>((item) => ItemModel.fromJson(item)).toList());
   }
 
   // @override

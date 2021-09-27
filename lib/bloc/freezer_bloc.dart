@@ -30,6 +30,8 @@ class FreezerBloc {
     try {
       var freezerResponse = await _freezerRepository.fetchItemDetail();
       freezerFromApi = List.from(freezerResponse.item);
+      print(freezerResponse);
+      print(";;;;;;;;;;;;bloc");
       freezerSink.add(NetworkModel.completed(freezerResponse));
     } catch (e) {
       // throw Exception(e.toString());

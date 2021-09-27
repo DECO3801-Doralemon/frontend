@@ -54,6 +54,7 @@ class _FridgePageState extends State<MyFridgePage> {
                       List<ItemModel> items = snapshot.data!;
                       print("masyuk");
                       return ListView.builder(
+                        shrinkWrap: true,
                         itemCount: items.length,
                         itemBuilder: (context, index) {
                           return ListTile(
