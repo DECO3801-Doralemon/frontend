@@ -36,6 +36,11 @@ class _FridgePageState extends State<MyFridgePage> {
     _bloc = FreezerBloc();
   }
 
+  void _updateKg(int id, double kg) async {
+    final response = await _bloc.updateKgReturnModel(id, kg);
+    print(response);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,6 +83,40 @@ class _FridgePageState extends State<MyFridgePage> {
                     _bloc.fetchItemDetail();
                   },
                   child: Text('Tst')),
+              ElevatedButton(
+                  onPressed: () {
+                    _updateKg(1, 10.0);
+                  },
+                  child: Text('Update Kg')
+              ),
+              // FutureBuilder(
+              //     future: _bloc.updateKgReturnModel(id,  kg),
+              //     builder: (BuildContext context,
+              //         AsyncSnapshot<List<ItemModel>?> snapshot) {
+              //       if (snapshot.hasData) {
+              //         print(snapshot.data);
+              //        // List<ItemModel> items = snapshot.data!;
+              //         //print("masyuk");
+              //         return Container();
+              //           //shrinkWrap: true,
+              //           //itemCount: items.length,
+              //           //itemBuilder: (context, index) {
+              //         //     return ListTile(
+              //         //       title: Text(items[index].name),
+              //         //     );
+              //         //   },
+              //         // );
+              //       } else if (!snapshot.hasData) {
+              //         print('ElseIF');
+              //         return Center(
+              //           child: CircularProgressIndicator(
+              //             valueColor:
+              //             AlwaysStoppedAnimation<Color>(greenPrimary),
+              //           ),
+              //         );
+              //       }
+              //       return Container();
+              //     }),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
