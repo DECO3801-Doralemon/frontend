@@ -38,6 +38,21 @@ class FreezerRepository implements BaseFreezerRepository {
         data.first.map<ItemModel>((item) => ItemModel.fromJson(item)).toList());
   }
 
+  // Future<dynamic> UpdateKg(int id, double kg) async {
+  //   final body = {
+  //     'id': id,
+  //     'kg': kg,
+  //   };
+  //   final response = await _network.put(
+  //     url: '/api/v1/storage/freezer',
+  //     bodyParams: body,
+  //   );
+  //   final data = [response];
+  //   print(",,,,,,,");
+  //   print(response);
+  //   return response;
+  // }
+
   // @override
   // Future<Response> createUser(NewUser newUser) async {
   //   final response = await _network.post(

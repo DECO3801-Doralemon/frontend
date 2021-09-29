@@ -16,6 +16,7 @@ import 'package:pantry_saver_fe/utils/profile_widget.dart';
 import 'package:pantry_saver_fe/home_widget.dart';
 import 'package:pantry_saver_fe/model/user.dart';
 import 'package:pantry_saver_fe/utils/storage_items_widget.dart';
+import 'package:pantry_saver_fe/utils/textfield_item_widget.dart';
 import 'package:pantry_saver_fe/utils/textfield_widget.dart';
 import 'package:pantry_saver_fe/utils/user_preferences.dart';
 
@@ -46,38 +47,6 @@ class _FridgePageState extends State<MyFridgePage> {
             // padding: EdgeInsets.symmetric(horizontal: 13),
             physics: BouncingScrollPhysics(),
             children: [
-              FutureBuilder(
-                  future: _bloc.fetchItem(),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<List<ItemModel>?> snapshot) {
-                    if (snapshot.hasData) {
-                      List<ItemModel> items = snapshot.data!;
-                      print("masyuk");
-                      return ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: items.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Text(items[index].name),
-                          );
-                        },
-                      );
-                    } else if (!snapshot.hasData) {
-                      print('ElseIF');
-                      return Center(
-                        child: CircularProgressIndicator(
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(greenPrimary),
-                        ),
-                      );
-                    }
-                    return Container();
-                  }),
-              ElevatedButton(
-                  onPressed: () {
-                    _bloc.fetchItemDetail();
-                  },
-                  child: Text('Tst')),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -127,6 +96,7 @@ class _FridgePageState extends State<MyFridgePage> {
               ),
               const SizedBox(height: 26),
               Container(
+                //Orange Cardddd
                 height: MediaQuery.of(context).size.height,
                 padding: EdgeInsets.symmetric(horizontal: 13),
                 decoration: BoxDecoration(
@@ -143,13 +113,125 @@ class _FridgePageState extends State<MyFridgePage> {
                     ]),
                 child: Column(
                   children: [
-                    StorageItemWidget(
-                      text: "",
-                      imagePath: '',
-                      onChanged: (name) => {},
-                      onClicked: () {},
-                      // setState(() {});
+                    Container(
+                      margin: EdgeInsets.all(25.0),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                "My Fridge",
+                                style: TextStyle(
+                                    fontSize: 29, color: Colors.white),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            "Here, we can give a brief description of what the Fridge page is, as well as the parameters of the items",
+                            style: TextStyle(fontSize: 16, color: Colors.white),
+                          ),
+                        ],
+                      ),
                     ),
+                    FutureBuilder(
+                        future: _bloc.fetchItem(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<List<ItemModel>?> snapshot) {
+                          if (snapshot.hasData) {
+                            List<ItemModel> items = snapshot.data!;
+                            print("masyuk");
+                            return ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: items.length,
+                              itemBuilder: (context, index) {
+                                return Card(
+                                  color: Colors.white,
+                                  elevation: 4.0,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(25.0))),
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 5),
+                                    child: Column(
+                                      children: <Widget>[
+                                        ListBody(
+                                          children: <Widget>[
+                                            Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Expanded(
+                                                    child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 16.0,
+                                                          top: 8,
+                                                          bottom: 8),
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        items[index].name,
+                                                        style: TextStyle(
+                                                            color: greenPrimary,
+                                                            fontSize: 22),
+                                                      ),
+                                                      Text(
+                                                          "Expires in ${items[index].expiry_countdown_in_days} day(s)",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  greyPrimary,
+                                                              fontSize: 13))
+                                                    ],
+                                                  ),
+                                                )),
+                                                Container(
+                                                  padding: EdgeInsets.only(
+                                                      right: 32),
+                                                  child: Align(
+                                                    alignment:
+                                                        Alignment.centerRight,
+                                                    child: ItemFieldWidget(
+                                                        text: "",
+                                                        onChanged: (item) =>
+                                                            () {}),
+                                                  ),
+                                                )
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          } else if (!snapshot.hasData) {
+                            print('ElseIF');
+                            return Center(
+                              child: CircularProgressIndicator(
+                                valueColor:
+                                    AlwaysStoppedAnimation<Color>(greenPrimary),
+                              ),
+                            );
+                          }
+                          return Container();
+                        }),
+                    ElevatedButton(
+                        onPressed: () {
+                          _bloc.fetchItemDetail();
+                        },
+                        child: Text('Tst')),
+                    // StorageItemWidget(
+                    //     text: "", onChanged: (name) => {}, onClicked: () {}),
                     const SizedBox(height: 45),
                     Container(
                         margin: EdgeInsets.only(left: 20, right: 20),
@@ -160,7 +242,7 @@ class _FridgePageState extends State<MyFridgePage> {
                         ))
                   ],
                 ),
-              ),
+              ), //Orange Card
             ],
           ),
         ),
@@ -210,52 +292,6 @@ class _FridgePageState extends State<MyFridgePage> {
             text: 'text',
             onChanged: (String value) {}),
       ]);
-
-// Widget editProfileButton() => ButtonWidget(
-//       text: 'Edit Profile',
-//       onClicked: () {
-//         Navigator.of(context).push(
-//           MaterialPageRoute(builder: (context) => EditProfilePage()),
-//         );
-//       },
-//     );
-
-// Widget logoutButton() => ButtonBorderWidget(
-//       text: 'Log out',
-//       onClicked: () => showDialog<String>(
-//         context: context,
-//         builder: (BuildContext context) => AlertDialog(
-//           shape: RoundedRectangleBorder(
-//               borderRadius: BorderRadius.all(Radius.circular(32.0))),
-//           content: const Text(
-//             'Are you sure you want to Log out ?',
-//             style: TextStyle(fontSize: 24, color: blackPrimary),
-//             textAlign: TextAlign.center,
-//           ),
-//           actions: <Widget>[
-//             Row(
-//               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//               children: [
-//                 TextButton(
-//                   onPressed: () => Navigator.pop(context, 'Cancel'),
-//                   child: const Text(
-//                     'Cancel',
-//                     style: TextStyle(fontSize: 20, color: greyPrimary),
-//                   ),
-//                 ),
-//                 TextButton(
-//                   onPressed: () => Navigator.pop(context, 'OK'),
-//                   child: const Text(
-//                     'Log out',
-//                     style: TextStyle(fontSize: 20, color: redPrimary),
-//                   ),
-//                 )
-//               ],
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
 
   Widget editButton() => ButtonWidget(
         text: 'Edit',
