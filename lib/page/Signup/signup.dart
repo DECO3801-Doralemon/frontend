@@ -144,20 +144,22 @@ class SignUpScreenState extends State<SignUpScreen> {
     if (_formKey.currentState!.validate()) {
       form!.save();
       _newUser = NewUser(
-          username: usernameController.toString(),
-          first_name: firstnameController.toString(),
-          last_name: lastnameController.toString(),
-          password: passwordController.toString(),
-          email: emailController.text.toString());
-
+          username: usernameController.text.toString(),
+          first_name: firstnameController.text.toString(),
+          last_name: lastnameController.text.toString(),
+          password: passwordController.text.toString(),
+          email: emailController.text.toString()
+      );
+      print(_newUser.username);
       _createUser(_newUser);
     }
   }
 
   void _createUser(NewUser newUser) async {
     print('register...');
-    _newUserBloc = NewUserBloc();
+    /*_newUserBloc = NewUserBloc();
     final response = await _newUserBloc.registerNewUser(newUser);
+    //print(response);
     if (response.statusCode == 201) {
       successDialog(context);
       Timer(Duration(seconds: 2), () {
@@ -165,19 +167,21 @@ class SignUpScreenState extends State<SignUpScreen> {
       });
     } else {
       failedDialog(context);
-    }
+    }*/
+
+    _newUserBloc.registerNewUser(newUser).then((value) {
+      // _navigateToHome(context);
+      successDialog(context);
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => Home()),
+      );
+    }).catchError((onError) {
+      failedDialog(context);
+      print(onError);
+    });
+
     _newUserBloc.dispose();
-    /*print('register...');
-    _newUser = NewUser(username: username,
-        first_name: fname,
-        last_name: lname,
-        email: email,
-        password: password);
-    _newUserBloc.registerNewUser(_newUser).then((value) {
-      print(value);
-      _navigateToHome(context);
-    }).catchError((onError) => print(onError)); failedDialog(context);
-    _newUserBloc.dispose();*/
+
   }
 
   void _navigateToHome(BuildContext context) {

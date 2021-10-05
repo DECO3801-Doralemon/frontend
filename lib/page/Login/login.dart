@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -107,12 +110,22 @@ class LoginState extends State<Login> {
   void login(String email, String password) async {
     print('login...');
     _bloc.loginUser(email, password).then((value) {
-      print(value);
+      inspect(value);
       // _navigateToHome(context);
       Navigator.of(context).push(
         MaterialPageRoute(builder: (context) => Home()),
       );
     }).catchError((onError) => print(onError));
+    /*
+    final response = await _bloc.loginUser(email, password);
+    if(response!.login.isNotEmpty){
+      successDialog(context);
+      Timer(Duration(seconds: 2), () {
+        _navigateToHome(context);
+      });
+    } else {
+      failedDialog(context);
+    }*/
   }
 
   void successDialog(BuildContext context) {

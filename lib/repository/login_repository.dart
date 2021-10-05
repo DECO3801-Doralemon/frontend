@@ -25,7 +25,7 @@ class LoginRepository implements BaseLoginUserRepository {
       bodyParams: body,
     ); //...,isLogin: true
     final data = [response];
-    print(response);
+    //print(data);
     return Login(
         data.map<LoginModel>((login) => LoginModel.fromJson(login)).toList());
   }

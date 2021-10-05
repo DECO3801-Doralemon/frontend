@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pantry_saver_fe/component/fab_bottom_app_bar.dart';
+import 'package:pantry_saver_fe/page/dummyPage.dart';
 import 'package:pantry_saver_fe/page/shopping/shopping.dart';
 import 'package:pantry_saver_fe/page/storage/storage.dart';
 
@@ -56,10 +57,10 @@ class _HomeState extends State<Home> {
       body: IndexedStack(
         children: <Widget>[
           //List of Navbar Page, place it orderly based on Navbar
-          Shopping(),
-          Shopping(),
-          Shopping(),
-          Shopping(),
+          Dummy(),
+          Dummy(),
+          Dummy(),
+          Dummy(),
         ],
         index: _indSelected,
       ),

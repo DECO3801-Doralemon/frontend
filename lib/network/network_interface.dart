@@ -33,7 +33,8 @@ class NetworkInterface {
     } on SocketException {
       throw FetchDataException('No Internet Connection');
     } catch (e) {
-      // print(e.response.toString());
+      //print(e.response.toString());
+      print('error3');
       print(e.toString());
     }
     return responseJson;

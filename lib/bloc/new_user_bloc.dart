@@ -18,7 +18,7 @@ class NewUserBloc {
 
   Future<Response> registerNewUser(NewUser newUser) async {
     try {
-      print('error1');
+      //print('error1');
       return await _userRepository.createUser(newUser);
     } catch (_) {
       return Response('Failed to register user', 400);
