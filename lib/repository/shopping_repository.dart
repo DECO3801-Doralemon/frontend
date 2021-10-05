@@ -7,12 +7,14 @@ class ShoppingRepository {
   final NetworkInterface _network = NetworkInterface();
 
 
-  Future<Shopping> fetchShoppingList() async {
+  Future<ShoppingList> fetchShoppingList() async {
     final response = await _network.get(
       url: "/api/v1/shopping",
     );
-    return Shopping(
-        response.map<ShoppingModel>((shopping) => ShoppingModel.fromJson(shopping)).toList()
+    print(response);
+    print(response['needed_ingredients']);
+    return ShoppingList(
+        response['needed_ingredients'].map<ShoppingModel>((shopping) => ShoppingModel.fromJson(shopping)).toList()
     );
 
   }

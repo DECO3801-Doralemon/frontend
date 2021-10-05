@@ -3,9 +3,9 @@ part 'shopping_model.g.dart';
 
 
 @JsonSerializable()
-class Shopping {
-  final List<ShoppingModel> shop;
-  Shopping(this.shop);
+class ShoppingList {
+  List<ShoppingModel> allShop;
+  ShoppingList(this.allShop);
 }
 
 @JsonSerializable()
@@ -13,13 +13,13 @@ class ShoppingModel {
   int id;
   String gtin;
   String name;
-  int neededKg;
+  double needed_kg;
 
   ShoppingModel(
       {required this.id,
         required this.gtin,
         required this.name,
-        required this.neededKg});
+        required this.needed_kg});
 
   factory ShoppingModel.fromJson(Map<String, dynamic> json) =>
       _$ShoppingModelFromJson(json);

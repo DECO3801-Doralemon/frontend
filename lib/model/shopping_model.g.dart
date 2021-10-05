@@ -6,16 +6,17 @@ part of 'shopping_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Shopping _$ShoppingFromJson(Map<String, dynamic> json) {
-  return Shopping(
-    (json['shop'] as List<dynamic>)
+ShoppingList _$ShoppingListFromJson(Map<String, dynamic> json) {
+  return ShoppingList(
+    (json['allShop'] as List<dynamic>)
         .map((e) => ShoppingModel.fromJson(e as Map<String, dynamic>))
         .toList(),
   );
 }
 
-Map<String, dynamic> _$ShoppingToJson(Shopping instance) => <String, dynamic>{
-      'shop': instance.shop,
+Map<String, dynamic> _$ShoppingListToJson(ShoppingList instance) =>
+    <String, dynamic>{
+      'allShop': instance.allShop,
     };
 
 ShoppingModel _$ShoppingModelFromJson(Map<String, dynamic> json) {
@@ -23,7 +24,7 @@ ShoppingModel _$ShoppingModelFromJson(Map<String, dynamic> json) {
     id: json['id'] as int,
     gtin: json['gtin'] as String,
     name: json['name'] as String,
-    neededKg: json['neededKg'] as int,
+    needed_kg: (json['needed_kg'] as num).toDouble(),
   );
 }
 
@@ -32,5 +33,5 @@ Map<String, dynamic> _$ShoppingModelToJson(ShoppingModel instance) =>
       'id': instance.id,
       'gtin': instance.gtin,
       'name': instance.name,
-      'neededKg': instance.neededKg,
+      'needed_kg': instance.needed_kg,
     };

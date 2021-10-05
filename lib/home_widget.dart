@@ -58,7 +58,7 @@ class _HomeState extends State<Home> {
         children: <Widget>[
           //List of Navbar Page, place it orderly based on Navbar
           Dummy(),
-          Dummy(),
+          Shopping(),
           Dummy(),
           Dummy(),
         ],

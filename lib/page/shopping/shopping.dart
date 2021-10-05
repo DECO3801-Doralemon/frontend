@@ -13,6 +13,7 @@ class Shopping extends StatefulWidget {
 class ShoppingState extends State<Shopping> {
   bool closeTopContainer = false;
 
+  List<ShoppingModel> shopping = [];
   ShoppingBloc bloc = ShoppingBloc();
 
   @override
@@ -76,29 +77,42 @@ class ShoppingState extends State<Shopping> {
                 Container(
                   margin: EdgeInsets.only(top: 214),
                   padding: EdgeInsets.symmetric(horizontal: 13),
+                  height: 100,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topRight: Radius.circular(50.0),
                         topLeft: Radius.circular(50.0)),
                     color: Colors.white,
                   ),
-                  child: FutureBuilder(
-                    future: bloc.fetchShopping(),
-                    builder: (BuildContext context,
-                      AsyncSnapshot<List<ShoppingModel>?> snapshot) {
-                      if(snapshot.hasData) {
-                        List<ShoppingModel> shopping = snapshot.data!;
-                        print('if');
-                        return ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: shopping.length,
-                            itemBuilder: (context, index) => buildCard(context, index, shopping)
-                        );
-                      } else if (!snapshot.hasData) {
-                        print('ElseIF');
+                  child:StreamBuilder<NetworkModel<ShoppingList>>(
+                    stream: bloc.shoppingStream,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        switch (snapshot.data!.status) {
+                          case Status.LOADING:
+                            return Center(
+                              child: CircularProgressIndicator(
+                                valueColor:
+                                AlwaysStoppedAnimation<Color>(greenPrimary),
+                              ),
+                            );
+                            break;
+                          case Status.COMPLETED:
+                            shopping = snapshot.data!.data!.allShop;
+                            return ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: shopping.length,
+                                itemBuilder: (BuildContext context, int index) =>
+                                    buildCard(context, index));
+                            break;
+                          case Status.ERROR:
+
+                            break;
+                        }
                       }
                       return Container();
-                    }),
+                    },
+                  ),
                 ),
               ],
             ),
@@ -138,8 +152,7 @@ class ShoppingState extends State<Shopping> {
     );
   }
 
-  Widget buildCard(BuildContext context, int index, List<ShoppingModel> shopping) {
-    //final ingredient = shopList[index];
+  Widget buildCard(BuildContext context, int index) {
     Size size = MediaQuery.of(context).size;
     return Card(
         shape: RoundedRectangleBorder(
@@ -167,7 +180,7 @@ class ShoppingState extends State<Shopping> {
                     ),
                     Spacer(),
                     Text(
-                      "Qty: ${shopping[index].neededKg.toString()} kg(s)",
+                      "Qty: ${shopping[index].needed_kg.toString()} kg(s)",
                       //"Qty: test kg(s)",
                       style: TextStyle(
                         fontSize: 18,
