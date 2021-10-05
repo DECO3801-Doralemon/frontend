@@ -1,8 +1,4 @@
 import 'dart:async';
-
-// import 'package:bisaGo/model/new_user.dart';
-// import 'package:bisaGo/network/data/network_model.dart';
-// import 'package:bisaGo/repository/user_repository.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
 import 'package:pantry_saver_fe/model/new_user.dart';
@@ -22,6 +18,7 @@ class NewUserBloc {
 
   Future<Response> registerNewUser(NewUser newUser) async {
     try {
+      print('error1');
       return await _userRepository.createUser(newUser);
     } catch (_) {
       return Response('Failed to register user', 400);

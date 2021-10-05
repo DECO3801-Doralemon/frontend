@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:intl/date_symbol_data_local.dart';
-import 'package:intl/intl.dart';
 import 'package:pantry_saver_fe/config/styles.dart';
-import 'package:pantry_saver_fe/page/Login//login.dart';
-import 'package:pantry_saver_fe/page/edit_profile.dart';
 import 'package:pantry_saver_fe/page/profile.dart';
+import 'package:pantry_saver_fe/page/profile.dart';
+import 'package:pantry_saver_fe/page/storage/my_fridge.dart';
+import 'package:pantry_saver_fe/page/storage/storage.dart';
 import 'package:pantry_saver_fe/utils/user_preferences.dart';
+import 'package:pantry_saver_fe/page/Login/login.dart';
 
-import 'flavor/flavor.dart';
-import 'get_it.dart';
-import 'globalnetwork.dart';
 
 class PantrySaver extends StatelessWidget {
   // static final String title = 'User Profile';

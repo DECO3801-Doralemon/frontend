@@ -38,9 +38,9 @@ class FieldValidator {
     var pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     var regex = RegExp(pattern);
-    if (value.isEmpty) return '*Wajib diisi';
+    if (value.isEmpty) return '*This field cannot be empty';
     if (!regex.hasMatch(value)) {
-      return '*Masukkan email yang valid';
+      return '*Enter a valid email';
     } else {
       return null;
     }
@@ -49,8 +49,8 @@ class FieldValidator {
   static String? validatePassword(String value) {
     if (value.isEmpty) return '*Wajib diisi';
 
-    if (value.length < 7) {
-      return '*Password harus lebih dari 6 karakter';
+    if (value.length < 8) {
+      return '*Must have a least 8 characters';
     } else {
       return null;
     }
@@ -67,9 +67,9 @@ class FieldValidator {
     return null;
   }
 
-  static String validateName(String value) {
+  static String? validateName(String value) {
     if (value.isEmpty) {
-      return '*Wajib diisi';
+      return '*This field cannot be empty';
     } else {
       return 'Error';
     }

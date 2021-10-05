@@ -16,7 +16,8 @@ const Color orangePrimary = Color(0xFFFF8D07);
 const Color blackPrimary = Color(0xFF5A5A5A);
 const kPrimaryColor = Color(0xC918AC00);
 const kPrimaryLightColor = Color(0xFFFF8D07);
-
+const Color orangeCard = Color(0xFFFFA841);
+const Color blackboxShadow = Color(0x8D000000);
 
 const double superSmallSpace = 2.0;
 const double smallSpace = 4.0;

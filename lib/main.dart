@@ -3,10 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
-import 'package:pantry_saver_fe/config/styles.dart';
-import 'package:pantry_saver_fe/page/edit_profile.dart';
-import 'package:pantry_saver_fe/page/profile.dart';
-import 'package:pantry_saver_fe/utils/user_preferences.dart';
 
 import 'app.dart';
 import 'flavor/flavor.dart';

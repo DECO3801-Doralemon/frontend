@@ -1,8 +1,4 @@
 import 'dart:async';
-
-// import 'package:bisaGo/network/data/network_model.dart';
-// import 'package:bisaGo/repository/user_repository.dart';
-// import 'package:bisaGo/model/user.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
 import 'package:pantry_saver_fe/model/new_user.dart';
@@ -23,22 +19,23 @@ class UserBloc {
     //fetchUserDetail(email);
   }
 
-  Future<void> fetchUserDetail(String email) async {
+  Future<void> fetchUserDetail() async {
     userSink.add(NetworkModel.loading('Getting user'));
     try {
-      var userResponse = await _userRepository.fetchUserDetail(email);
+      var userResponse = await _userRepository.fetchUserDetail();
       userFromApi = List.from(userResponse.user);
       userSink.add(NetworkModel.completed(userResponse));
     } catch (e) {
+      // throw Exception(e.toString());
       if (!_userController.isClosed) {
         userSink.add(NetworkModel.error(e.toString()));
       }
     }
   }
 
-  Future<UserModel?> fetchUser(String email) async {
+  Future<UserModel?> fetchUser() async {
     try {
-      await fetchUserDetail(email);
+      await fetchUserDetail();
       return userFromApi!.first;
     } catch (e) {
       return null;

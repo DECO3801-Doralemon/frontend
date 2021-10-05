@@ -25,7 +25,7 @@ class UserModel {
       required this.first_name,
       required this.last_name,
       required this.email,
-        required this.password,
+      required this.password,
       this.bio,
       this.photo,
       this.token});
