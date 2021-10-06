@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:pantry_saver_fe/bloc/freezer_bloc.dart';
-import 'package:pantry_saver_fe/bloc/user_bloc.dart';
 import 'package:pantry_saver_fe/component/appbar_widget.dart';
 import 'package:pantry_saver_fe/config/styles.dart';
 import 'package:pantry_saver_fe/model/items.dart';
 import 'package:pantry_saver_fe/utils/button_widget.dart';
 import 'package:pantry_saver_fe/utils/item_type_widget.dart';
-import 'package:pantry_saver_fe/model/user.dart';
-import 'package:pantry_saver_fe/utils/storage_items_widget.dart';
 import 'package:pantry_saver_fe/utils/textfield_item_widget.dart';
+
 
 class MyFridgePage extends StatefulWidget {
   @override
@@ -18,11 +16,31 @@ class MyFridgePage extends StatefulWidget {
 class _FridgePageState extends State<MyFridgePage> {
   late FreezerBloc _bloc;
   late ItemModel items;
+  late List<ItemModel> listItemModel;
 
   @override
   void initState() {
     super.initState();
     _bloc = FreezerBloc();
+  }
+
+  void _updateKg() async {
+    for (var item in listItemModel) {
+      var id = item.id;
+      var kg = item.kg;
+      final response = await _bloc.updateKgReturnModel(id, kg);
+      print(response);
+    }
+
+    final r = await _bloc.fetchItem();
+    print("''''''''''''''''''");
+    print(r?[1].kg);
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => MyFridgePage()),
+      (Route<dynamic> route) => false,
+    );
+    ;
   }
 
   @override
@@ -35,6 +53,45 @@ class _FridgePageState extends State<MyFridgePage> {
             // padding: EdgeInsets.symmetric(horizontal: 13),
             physics: BouncingScrollPhysics(),
             children: [
+              FutureBuilder(
+                  future: _bloc.fetchItem(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<ItemModel>?> snapshot) {
+                    if (snapshot.hasData) {
+                      List<ItemModel> items = snapshot.data!;
+                      listItemModel = snapshot.data!;
+                      print("masyuk");
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: items.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: Text(items[index].name),
+                          );
+                        },
+                      );
+                    } else if (!snapshot.hasData) {
+                      print('ElseIF');
+                      return Center(
+                        child: CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(greenPrimary),
+                        ),
+                      );
+                    }
+                    return Container();
+                  }),
+              ElevatedButton(
+                  onPressed: () {
+                    _bloc.fetchItemDetail();
+                  },
+                  child: Text('Tst')),
+
+              ElevatedButton(
+                  onPressed: () {
+                    _updateKg();
+                  },
+                  child: Text('Update Kg')),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -176,7 +233,9 @@ class _FridgePageState extends State<MyFridgePage> {
                                                           style: TextStyle(
                                                               color:
                                                                   greyPrimary,
-                                                              fontSize: 13))
+                                                              fontSize: 13)),
+                                                      Text(
+                                                          "weight ${items[index].kg}")
                                                     ],
                                                   ),
                                                 )),
@@ -187,9 +246,14 @@ class _FridgePageState extends State<MyFridgePage> {
                                                     alignment:
                                                         Alignment.centerRight,
                                                     child: ItemFieldWidget(
-                                                        text: "",
-                                                        onChanged: (item) =>
-                                                            () {}),
+                                                        text:
+                                                            "${items[index].kg}",
+                                                        onChanged: (item) {
+                                                          listItemModel[index]
+                                                                  .kg =
+                                                              double.parse(
+                                                                  item);
+                                                        }),
                                                   ),
                                                 )
                                               ],
@@ -283,7 +347,13 @@ class _FridgePageState extends State<MyFridgePage> {
 
   Widget editButton() => ButtonWidget(
         text: 'Edit',
-        onClicked: () {},
+        onClicked: () {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => MyFridgePage()),
+            (Route<dynamic> route) => false,
+          );
+        },
       );
 
 // @override
