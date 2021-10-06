@@ -1,10 +1,4 @@
-import 'dart:io';
-
-import 'package:http/http.dart';
-import 'package:pantry_saver_fe/flavor/flavor.dart';
 import 'package:pantry_saver_fe/model/login_model.dart';
-import 'package:pantry_saver_fe/model/new_user.dart';
-import 'package:pantry_saver_fe/model/user.dart';
 import 'package:pantry_saver_fe/network/network_interface.dart';
 
 abstract class BaseLoginUserRepository {

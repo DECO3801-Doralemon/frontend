@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:http/http.dart';
 import 'package:pantry_saver_fe/flavor/flavor.dart';
 import 'package:pantry_saver_fe/model/new_user.dart';

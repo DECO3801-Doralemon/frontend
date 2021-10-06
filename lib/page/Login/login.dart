@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pantry_saver_fe/bloc/login_bloc.dart';
-import 'package:pantry_saver_fe/components/already_have_an_account_acheck.dart';
+import 'package:pantry_saver_fe/component/already_have_an_account_acheck.dart';
 import 'package:pantry_saver_fe/config/styles.dart';
 import 'package:pantry_saver_fe/home_widget.dart';
 import 'package:pantry_saver_fe/page/Signup/signup.dart';

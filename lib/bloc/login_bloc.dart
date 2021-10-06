@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pantry_saver_fe/model/login_model.dart';
 import 'package:pantry_saver_fe/network/data/network_model.dart';
