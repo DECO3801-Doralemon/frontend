@@ -18,6 +18,7 @@ class FreezerRepository implements BaseFreezerRepository {
 
   @override
   Future<Items> fetchItemDetail() async {
+    print("testingupdatefetchitemdetailmasukga");
     final response = await _network.get(
       url: '/api/v1/storage/freezer',
     ); //...,isLogin: true
@@ -44,12 +45,18 @@ class FreezerRepository implements BaseFreezerRepository {
       'id': id,
       'kg': kg,
     };
-    final response = await _network.put(
-        url : '/api/v1/storage/freezer'
-    );
+    final response =
+        await _network.put(url: '/api/v1/storage/freezer', bodyParams: body);
     final data = [response];
     print(response);
     var kontol = response.map<ItemModel>((item) => ItemModel.fromJson(item));
+    final response2 = await _network.get(
+      url: '/api/v1/storage/freezer',
+    ); //...,isLogin: true
+    final data2 = response2.values.toList();
+    print("[[[[[[[[[[[[[[[[[[[[[[[[");
+    print(data2);
+
     return kontol;
   }
 

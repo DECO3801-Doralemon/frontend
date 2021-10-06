@@ -30,6 +30,7 @@ class MyFridgePage extends StatefulWidget {
 class _FridgePageState extends State<MyFridgePage> {
   late FreezerBloc _bloc;
   late ItemModel items;
+  late List<ItemModel> listItemModel;
 
   @override
   void initState() {
@@ -37,9 +38,23 @@ class _FridgePageState extends State<MyFridgePage> {
     _bloc = FreezerBloc();
   }
 
-  void _updateKg(int id, double kg) async {
-    final response = await _bloc.updateKgReturnModel(id, kg);
-    print(response);
+  void _updateKg() async {
+    for (var item in listItemModel) {
+      var id = item.id;
+      var kg = item.kg;
+      final response = await _bloc.updateKgReturnModel(id, kg);
+      print(response);
+    }
+
+    final r = await _bloc.fetchItem();
+    print("''''''''''''''''''");
+    print(r?[1].kg);
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => MyFridgePage()),
+      (Route<dynamic> route) => false,
+    );
+    ;
   }
 
   @override
@@ -58,6 +73,7 @@ class _FridgePageState extends State<MyFridgePage> {
                       AsyncSnapshot<List<ItemModel>?> snapshot) {
                     if (snapshot.hasData) {
                       List<ItemModel> items = snapshot.data!;
+                      listItemModel = snapshot.data!;
                       print("masyuk");
                       return ListView.builder(
                         shrinkWrap: true,
@@ -84,46 +100,13 @@ class _FridgePageState extends State<MyFridgePage> {
                     _bloc.fetchItemDetail();
                   },
                   child: Text('Tst')),
+
               ElevatedButton(
                   onPressed: () {
-                    _updateKg(1, 10.0);
+                    _updateKg();
                   },
-                  child: Text('Update Kg')
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    _updateKg(1, 10.0);
-                  },
-                  child: Text('Update Kg')
-              ),
-              // FutureBuilder(
-              //     future: _bloc.updateKgReturnModel(id,  kg),
-              //     builder: (BuildContext context,
-              //         AsyncSnapshot<List<ItemModel>?> snapshot) {
-              //       if (snapshot.hasData) {
-              //         print(snapshot.data);
-              //        // List<ItemModel> items = snapshot.data!;
-              //         //print("masyuk");
-              //         return Container();
-              //           //shrinkWrap: true,
-              //           //itemCount: items.length,
-              //           //itemBuilder: (context, index) {
-              //         //     return ListTile(
-              //         //       title: Text(items[index].name),
-              //         //     );
-              //         //   },
-              //         // );
-              //       } else if (!snapshot.hasData) {
-              //         print('ElseIF');
-              //         return Center(
-              //           child: CircularProgressIndicator(
-              //             valueColor:
-              //             AlwaysStoppedAnimation<Color>(greenPrimary),
-              //           ),
-              //         );
-              //       }
-              //       return Container();
-              //     }),
+                  child: Text('Update Kg')),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -265,7 +248,9 @@ class _FridgePageState extends State<MyFridgePage> {
                                                           style: TextStyle(
                                                               color:
                                                                   greyPrimary,
-                                                              fontSize: 13))
+                                                              fontSize: 13)),
+                                                      Text(
+                                                          "weight ${items[index].kg}")
                                                     ],
                                                   ),
                                                 )),
@@ -276,9 +261,14 @@ class _FridgePageState extends State<MyFridgePage> {
                                                     alignment:
                                                         Alignment.centerRight,
                                                     child: ItemFieldWidget(
-                                                        text: "",
-                                                        onChanged: (item) =>
-                                                            () {}),
+                                                        text:
+                                                            "${items[index].kg}",
+                                                        onChanged: (item) {
+                                                          listItemModel[index]
+                                                                  .kg =
+                                                              double.parse(
+                                                                  item);
+                                                        }),
                                                   ),
                                                 )
                                               ],
@@ -372,7 +362,13 @@ class _FridgePageState extends State<MyFridgePage> {
 
   Widget editButton() => ButtonWidget(
         text: 'Edit',
-        onClicked: () {},
+        onClicked: () {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => MyFridgePage()),
+            (Route<dynamic> route) => false,
+          );
+        },
       );
 
 // @override

@@ -20,7 +20,7 @@ class NetworkInterface {
       final sharedPreferences = await SharedPreferences.getInstance();
       if (!isLogin) {
         dio.options.headers['Authorization'] =
-            'Token ${sharedPreferences.getString('token')}';
+            'Bearer ${sharedPreferences.getString('token')}';
       }
       dio.options.headers['content-type'] = 'application/json';
       print('${ApiFlavor.getBaseUrl()}$url');
@@ -39,15 +39,23 @@ class NetworkInterface {
     return responseJson;
   }
 
-  Future<dynamic> put({required String url}) async {
+  Future<dynamic> put({
+    required String url,
+    Map<String, dynamic>? bodyParams,
+    bool formData = true,
+  }) async {
     var responseJson;
     try {
       final sharedPreferences = await SharedPreferences.getInstance();
 
       dio.options.headers['Authorization'] =
-          'Token ${sharedPreferences.getString('token')}';
+          'Bearer ${sharedPreferences.getString('token')}';
+      dio.options.headers['content-type'] = 'application/json';
+      print("KKKKKKK masuk dio.put KKKKKKKKKK");
       final response = await dio.put(
         '${ApiFlavor.getBaseUrl()}$url',
+        data:
+            formData ? FormData.fromMap(bodyParams!) : json.encode(bodyParams),
       );
       responseJson = response.data;
     } on SocketException {
