@@ -77,7 +77,11 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
             SizedBox(height: widget.iconSize),
             Text(
               widget.centerItemText ?? '',
-              style: TextStyle(color: widget.color),
+              style: TextStyle(
+                  fontSize: 12,
+                  fontFamily: 'BalsamiqSans',
+                  color: widget.color,
+                  fontWeight: FontWeight.w400),
             ),
           ],
         ),
@@ -105,7 +109,11 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
                 Icon(item!.iconData, color: color, size: widget.iconSize),
                 Text(
                   item.text.toString(),
-                  style: TextStyle(color: color),
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontFamily: 'BalsamiqSans',
+                      color: color,
+                      fontWeight: FontWeight.w400),
                 )
               ],
             ),

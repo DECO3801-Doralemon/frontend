@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pantry_saver_fe/component/fab_bottom_app_bar.dart';
 import 'package:pantry_saver_fe/page/dummyPage.dart';
+import 'package:pantry_saver_fe/page/mealplanner/mealplanner.dart';
 import 'package:pantry_saver_fe/page/shopping/shopping.dart';
 import 'package:pantry_saver_fe/page/storage/storage.dart';
 
@@ -50,7 +51,7 @@ class _HomeState extends State<Home> {
         items: [
           FABBottomAppBarItem(iconData: Icons.storage, text: 'Storage'),
           FABBottomAppBarItem(iconData: Icons.shopping_cart, text: 'Shopping'),
-          FABBottomAppBarItem(iconData: Icons.fastfood, text: 'Recipe'),
+          FABBottomAppBarItem(iconData: Icons.fastfood, text: 'Meal Planner'),
           FABBottomAppBarItem(iconData: Icons.people_alt, text: 'Community'),
         ],
       ),
@@ -59,7 +60,7 @@ class _HomeState extends State<Home> {
           //List of Navbar Page, place it orderly based on Navbar
           Dummy(),
           Shopping(),
-          Dummy(),
+          MealPlanner(),
           Dummy(),
         ],
         index: _indSelected,
