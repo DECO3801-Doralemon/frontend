@@ -14,7 +14,6 @@ import 'package:pantry_saver_fe/repository/user_repository.dart';
 import 'package:pantry_saver_fe/network/network_interface.dart';
 
 class FreezerBloc {
-
   late FreezerRepository _freezerRepository;
   final _freezerController = StreamController<NetworkModel<Items>>();
   final NetworkInterface _network = NetworkInterface();
@@ -23,8 +22,10 @@ class FreezerBloc {
 
   StreamSink<NetworkModel<Items>> get freezerSink => _freezerController.sink;
   Stream<NetworkModel<Items>> get freezerStream => _freezerController.stream;
-  StreamSink<NetworkModel<ItemModel>> get UpdateKgSink => _updateKgController.sink;
-  Stream<NetworkModel<ItemModel>> get UpdateKgStream => _updateKgController.stream;
+  StreamSink<NetworkModel<ItemModel>> get UpdateKgSink =>
+      _updateKgController.sink;
+  Stream<NetworkModel<ItemModel>> get UpdateKgStream =>
+      _updateKgController.stream;
 
   FreezerBloc() {
     _freezerRepository = GetIt.instance.get<FreezerRepository>();
@@ -46,7 +47,6 @@ class FreezerBloc {
       }
     }
   }
-
 
   Future<List<ItemModel>?> fetchItem() async {
     try {
@@ -82,13 +82,14 @@ class FreezerBloc {
     }
   }
 
-  // Future<ItemModel?> Updatekg(int id, double kg) async {
-  //   try {
-  //     return await _freezerRepository.UpdateKg(id, kg);
-  //   } catch (e) {
-  //     return null;
-  //   }
-  // }
+  Future<List<ItemModel>?> deleteItem(int id, double kg) async {
+    try {
+      await UpdateKg(id, kg);
+      return freezerFromApi;
+    } catch (e) {
+      return null;
+    }
+  }
 
   void dispose() {
     _freezerController.close();

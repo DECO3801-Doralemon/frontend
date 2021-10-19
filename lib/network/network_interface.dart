@@ -95,6 +95,34 @@ class NetworkInterface {
     return responseJson;
   }
 
+  Future<dynamic> delete({
+    required String url,
+    Map<String, dynamic>? bodyParams,
+    bool formData = true,
+  }) async {
+    var responseJson;
+    try {
+      final sharedPreferences = await SharedPreferences.getInstance();
+      print("''''''delete ganggg''''''");
+      dio.options.headers['Authorization'] =
+          'Bearer ${sharedPreferences.getString('token')}';
+      dio.options.headers['content-type'] = 'application/json';
+      final response = await dio.delete(
+        '${ApiFlavor.getBaseUrl()}$url',
+        data:
+            formData ? FormData.fromMap(bodyParams!) : json.encode(bodyParams),
+      );
+      responseJson = response.data;
+    } on SocketException {
+      throw FetchDataException('No Internet Connection');
+    } on DioError catch (e) {
+      if (e.response!.statusCode == 406) {
+        return e.response!.data;
+      }
+    }
+    return responseJson;
+  }
+
   dynamic _response(Response response) {
     switch (response.statusCode) {
       case 200:

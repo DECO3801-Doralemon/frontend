@@ -6,6 +6,7 @@ import 'package:pantry_saver_fe/model/items.dart';
 import 'package:pantry_saver_fe/model/new_user.dart';
 import 'package:pantry_saver_fe/model/user.dart';
 import 'package:pantry_saver_fe/network/network_interface.dart';
+import 'package:http/http.dart';
 
 abstract class BaseFreezerRepository {
   Future<Items> fetchItemDetail();
@@ -60,22 +61,42 @@ class FreezerRepository implements BaseFreezerRepository {
     return kontol;
   }
 
-  // @override
-  // Future<Response> createUser(NewUser newUser) async {
-  //   final response = await _network.post(
-  //       //'${ApiFlavor.getBaseUrl()}/api/register/',
-  //       //body: newUser.toJson(),
-  //       url: '/api/v1/auth/register',
-  //       bodyParams: newUser.toJson());
-  //   return response;
-  // }
+  // Future<ItemModel> deleteItem(int id, double kg) async {
+  //   final body = {
+  //     'id': id,
+  //     'kg': kg,
+  //   };
+  //   final response =
+  //       await _network.delete(url: '/api/v1/storage/freezer', bodyParams: body);
+  //   final data = [response];
+  //   print(response);
+  //   var kontol = response.map<ItemModel>((item) => ItemModel.fromJson(item));
+  //   final response2 = await _network.get(
+  //     url: '/api/v1/storage/freezer',
+  //   ); //...,isLogin: true
+  //   final data2 = response2.values.toList();
+  //   print("[[[[[[[[[[[[[[[[[[[[[[[[");
+  //   print(data2);
   //
-  // @override
-  // Future<Response> updateUser(NewUser newUser) async {
-  //   final response = await _network.post(
-  //     url: '${ApiFlavor.getBaseUrl()}/api/update-user/',
-  //     bodyParams: newUser.toJson(),
-  //   );
-  //   return response;
+  //   return kontol;
   // }
+
+  Future<ItemModel?> deleteItem(int id) async {
+    final body = {
+      'id': id,
+    };
+    final response =
+        await _network.delete(url: '/api/v1/storage/freezer', bodyParams: body);
+    final data = [response];
+    print(response);
+    var kontol = response.map<ItemModel>((item) => ItemModel.fromJson(item));
+    final response2 = await _network.get(
+      url: '/api/v1/storage/freezer',
+    ); //...,isLogin: true
+    final data2 = response2.values.toList();
+    print("[[[[[[[[[[[[[[[[[[[[[[[[");
+    print(data2);
+
+    return null;
+  }
 }

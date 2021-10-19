@@ -62,6 +62,7 @@ class _FridgePageState extends State<MyFridgePage> {
     return Scaffold(
       body: Builder(
         builder: (context) => Scaffold(
+          resizeToAvoidBottomInset: false,
           appBar: buildAppBar(context),
           body: ListView(
             // padding: EdgeInsets.symmetric(horizontal: 13),
@@ -75,15 +76,15 @@ class _FridgePageState extends State<MyFridgePage> {
                       List<ItemModel> items = snapshot.data!;
                       listItemModel = snapshot.data!;
                       print("masyuk");
-                      return ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: items.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Text(items[index].name),
-                          );
-                        },
-                      );
+                      // return ListView.builder(
+                      //   shrinkWrap: true,
+                      //   itemCount: items.length,
+                      //   itemBuilder: (context, index) {
+                      //     return ListTile(
+                      //       title: Text(items[index].name),
+                      //     );
+                      //   },
+                      // ); //THE LIST ON TOP FOR TESTING
                     } else if (!snapshot.hasData) {
                       print('ElseIF');
                       return Center(
@@ -173,26 +174,31 @@ class _FridgePageState extends State<MyFridgePage> {
                     ]),
                 child: Column(
                   children: [
-                    Container(
-                      margin: EdgeInsets.all(25.0),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                    Expanded(
+                      child: Container(
+                        margin: EdgeInsets.all(25.0),
+                        child: SingleChildScrollView(
+                          child: Column(
                             children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "My Fridge",
+                                    style: TextStyle(
+                                        fontSize: 29, color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 10),
                               Text(
-                                "My Fridge",
+                                "Here, we can give a brief description of what the Fridge page is, as well as the parameters of the items",
                                 style: TextStyle(
-                                    fontSize: 29, color: Colors.white),
+                                    fontSize: 16, color: Colors.white),
                               ),
                             ],
                           ),
-                          const SizedBox(height: 10),
-                          Text(
-                            "Here, we can give a brief description of what the Fridge page is, as well as the parameters of the items",
-                            style: TextStyle(fontSize: 16, color: Colors.white),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                     FutureBuilder(
@@ -206,76 +212,89 @@ class _FridgePageState extends State<MyFridgePage> {
                               shrinkWrap: true,
                               itemCount: items.length,
                               itemBuilder: (context, index) {
-                                return Card(
-                                  color: Colors.white,
-                                  elevation: 4.0,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(25.0))),
-                                  child: Padding(
-                                    padding: EdgeInsets.only(left: 5),
-                                    child: Column(
-                                      children: <Widget>[
-                                        ListBody(
-                                          children: <Widget>[
-                                            Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Expanded(
-                                                    child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 16.0,
-                                                          top: 8,
-                                                          bottom: 8),
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        items[index].name,
-                                                        style: TextStyle(
-                                                            color: greenPrimary,
-                                                            fontSize: 22),
-                                                      ),
-                                                      Text(
-                                                          "Expires in ${items[index].expiry_countdown_in_days} day(s)",
+                                return Dismissible(
+                                  key: Key(items.toString()),
+                                  background: Container(color: Colors.red),
+                                  direction: DismissDirection.endToStart,
+                                  onDismissed: (direction) {
+                                    setState(() {
+                                      items.removeAt(index);
+                                    });
+                                    Scaffold.of(context).showSnackBar(SnackBar(
+                                        content: Text("$items dismissed")));
+                                  },
+                                  child: Card(
+                                    color: Colors.white,
+                                    elevation: 4.0,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(25.0))),
+                                    child: Padding(
+                                      padding: EdgeInsets.only(left: 5),
+                                      child: Column(
+                                        children: <Widget>[
+                                          ListBody(
+                                            children: <Widget>[
+                                              Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Expanded(
+                                                      child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 16.0,
+                                                            top: 8,
+                                                            bottom: 8),
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          items[index].name,
                                                           style: TextStyle(
                                                               color:
-                                                                  greyPrimary,
-                                                              fontSize: 13)),
-                                                      Text(
-                                                          "weight ${items[index].kg}")
-                                                    ],
-                                                  ),
-                                                )),
-                                                Container(
-                                                  padding: EdgeInsets.only(
-                                                      right: 32),
-                                                  child: Align(
-                                                    alignment:
-                                                        Alignment.centerRight,
-                                                    child: ItemFieldWidget(
-                                                        text:
-                                                            "${items[index].kg}",
-                                                        onChanged: (item) {
-                                                          listItemModel[index]
-                                                                  .kg =
-                                                              double.parse(
-                                                                  item);
-                                                        }),
-                                                  ),
-                                                )
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ],
+                                                                  greenPrimary,
+                                                              fontSize: 22),
+                                                        ),
+                                                        Text(
+                                                            "Expires in ${items[index].expiry_countdown_in_days} day(s)",
+                                                            style: TextStyle(
+                                                                color:
+                                                                    greyPrimary,
+                                                                fontSize: 13)),
+                                                        Text(
+                                                            "weight ${items[index].kg}")
+                                                      ],
+                                                    ),
+                                                  )),
+                                                  Container(
+                                                    padding: EdgeInsets.only(
+                                                        right: 32),
+                                                    child: Align(
+                                                      alignment:
+                                                          Alignment.centerRight,
+                                                      child: ItemFieldWidget(
+                                                          text:
+                                                              "${items[index].kg}",
+                                                          onChanged: (item) {
+                                                            listItemModel[index]
+                                                                    .kg =
+                                                                double.parse(
+                                                                    item);
+                                                          }),
+                                                    ),
+                                                  )
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 );
