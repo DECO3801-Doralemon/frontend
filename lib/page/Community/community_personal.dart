@@ -24,7 +24,7 @@ class _CommunityPageState extends State<CommunityPage> {
     return Scaffold(
       appBar: buildAppBar(context),
       body: FutureBuilder(
-          future: _bloc.fetchFeed(),
+          future: _bloc.fetchPersonal(),
           builder: (BuildContext context, AsyncSnapshot<List<CommunityRecipeModel>?> snapshot) {
             if (snapshot.hasData) {
               listCommunityRecipe = snapshot.data!;

@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:pantry_saver_fe/repository/community_repository.dart';
 import 'package:pantry_saver_fe/repository/freezer_repository.dart';
 import 'package:pantry_saver_fe/repository/login_repository.dart';
 import 'package:pantry_saver_fe/repository/user_repository.dart';
@@ -10,5 +11,6 @@ class AppGetIt {
     _getIt.registerLazySingleton<UserRepository>(() => UserRepository());
     _getIt.registerLazySingleton<LoginRepository>(() => LoginRepository());
     _getIt.registerLazySingleton<FreezerRepository>(() => FreezerRepository());
+    _getIt.registerLazySingleton<CommunityRepository>(() => CommunityRepository());
   }
 }
