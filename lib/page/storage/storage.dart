@@ -104,32 +104,6 @@ class _StoragePageState extends State<StoragePage> {
     );
   }
 
-// @override
-// Widget build(BuildContext context) {
-//   //  final user = UserPreferences.getUser();
-//   //COMMENTS TO REMOVE OR EDIT
-//
-//   return Scaffold(
-//     appBar: buildAppBar(context),
-//     body: FutureBuilder(
-//         future: _bloc.fetchUser(),
-//         builder: (BuildContext context, AsyncSnapshot<UserModel?> snapshot) {
-//           if (snapshot.hasData) {
-//             user = snapshot.data!;
-//             print(user);
-//             return _createStoragePage();
-//           } else if (!snapshot.hasData) {
-//             return Center(
-//               child: CircularProgressIndicator(
-//                 valueColor: AlwaysStoppedAnimation<Color>(greenPrimary),
-//               ),
-//             );
-//           }
-//           return Container();
-//         }),
-//   );
-// }
-
   Widget _createStoragePage() =>
       ListView(physics: BouncingScrollPhysics(), children: [
         ItemTypeWidget(

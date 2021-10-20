@@ -18,6 +18,7 @@ class FreezerBloc {
   final _freezerController = StreamController<NetworkModel<Items>>();
   final NetworkInterface _network = NetworkInterface();
   final _updateKgController = StreamController<NetworkModel<ItemModel>>();
+  final _deleteController = StreamController<NetworkModel<dynamic>>();
   List<ItemModel>? freezerFromApi;
 
   StreamSink<NetworkModel<Items>> get freezerSink => _freezerController.sink;
@@ -26,6 +27,8 @@ class FreezerBloc {
       _updateKgController.sink;
   Stream<NetworkModel<ItemModel>> get UpdateKgStream =>
       _updateKgController.stream;
+  StreamSink<NetworkModel<dynamic>> get deleteSink => _deleteController.sink;
+  Stream<NetworkModel<dynamic>> get deleteStream => _deleteController.stream;
 
   FreezerBloc() {
     _freezerRepository = GetIt.instance.get<FreezerRepository>();
@@ -82,17 +85,30 @@ class FreezerBloc {
     }
   }
 
-  Future<List<ItemModel>?> deleteItem(int id, double kg) async {
+  Future<void> delete(int id) async {
+    deleteSink.add(NetworkModel.loading('Delete item model'));
     try {
-      await UpdateKg(id, kg);
-      return freezerFromApi;
+      await _freezerRepository.deleteItem(id);
+      deleteSink.add(NetworkModel.completed('Successfully delete item model'));
     } catch (e) {
-      return null;
+      if (!_deleteController.isClosed) {
+        deleteSink.add(NetworkModel.error(e.toString()));
+      }
+    }
+  }
+
+  Future<String?> deleteItem(int id) async {
+    try {
+      await delete(id);
+      return 'Successfully delete item model';
+    } catch (e) {
+      return 'Failed to delete item model';
     }
   }
 
   void dispose() {
     _freezerController.close();
     _updateKgController.close();
+    _deleteController.close();
   }
 }

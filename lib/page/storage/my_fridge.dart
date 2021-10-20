@@ -75,16 +75,6 @@ class _FridgePageState extends State<MyFridgePage> {
                     if (snapshot.hasData) {
                       List<ItemModel> items = snapshot.data!;
                       listItemModel = snapshot.data!;
-                      print("masyuk");
-                      // return ListView.builder(
-                      //   shrinkWrap: true,
-                      //   itemCount: items.length,
-                      //   itemBuilder: (context, index) {
-                      //     return ListTile(
-                      //       title: Text(items[index].name),
-                      //     );
-                      //   },
-                      // ); //THE LIST ON TOP FOR TESTING
                     } else if (!snapshot.hasData) {
                       print('ElseIF');
                       return Center(
@@ -218,6 +208,7 @@ class _FridgePageState extends State<MyFridgePage> {
                                   direction: DismissDirection.endToStart,
                                   onDismissed: (direction) {
                                     setState(() {
+                                      _bloc.deleteItem(items[index].id);
                                       items.removeAt(index);
                                     });
                                     Scaffold.of(context).showSnackBar(SnackBar(

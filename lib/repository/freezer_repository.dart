@@ -82,11 +82,14 @@ class FreezerRepository implements BaseFreezerRepository {
   // }
 
   Future<ItemModel?> deleteItem(int id) async {
+    print("[[[BEFORE FINAL BODY]]]");
     final body = {
       'id': id,
     };
+    print("[[[BEFORE FINAL RESPONSE]]]");
     final response =
         await _network.delete(url: '/api/v1/storage/freezer', bodyParams: body);
+    print("[[[AFTER FINAL RESPONSE]]]");
     final data = [response];
     print(response);
     var kontol = response.map<ItemModel>((item) => ItemModel.fromJson(item));
