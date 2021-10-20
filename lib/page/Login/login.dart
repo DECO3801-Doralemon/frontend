@@ -9,9 +9,11 @@ import 'package:pantry_saver_fe/component/already_have_an_account_acheck.dart';
 import 'package:pantry_saver_fe/config/styles.dart';
 import 'package:pantry_saver_fe/home_widget.dart';
 import 'package:pantry_saver_fe/page/Signup/signup.dart';
+import 'package:pantry_saver_fe/page/profile.dart';
+import 'package:pantry_saver_fe/page/storage/my_fridge.dart';
+import 'package:pantry_saver_fe/page/storage/storage.dart';
 import 'package:pantry_saver_fe/utils/button_widget.dart';
 import 'package:pantry_saver_fe/utils/customTextField.dart';
-
 
 class Login extends StatefulWidget {
   @override

@@ -25,6 +25,7 @@ class LoginBloc {
       var loginResponse = await _loginRepository.loginUser(username, password);
       loginSink.add(NetworkModel.completed(loginResponse));
       //print(loginResponse); //for testing
+
       SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
       sharedPreferences.setString('token', loginResponse.login[0].access);
