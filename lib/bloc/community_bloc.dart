@@ -1,18 +1,10 @@
 import 'dart:async';
-
-// import 'package:bisaGo/network/data/network_model.dart';
-// import 'package:bisaGo/repository/user_repository.dart';
-// import 'package:bisaGo/model/user.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
 import 'package:pantry_saver_fe/model/CommunityRecipe.dart';
 import 'package:pantry_saver_fe/model/items.dart';
-import 'package:pantry_saver_fe/model/new_user.dart';
-import 'package:pantry_saver_fe/model/user.dart';
 import 'package:pantry_saver_fe/network/data/network_model.dart';
 import 'package:pantry_saver_fe/repository/community_repository.dart';
-import 'package:pantry_saver_fe/repository/freezer_repository.dart';
-import 'package:pantry_saver_fe/repository/user_repository.dart';
 import 'package:pantry_saver_fe/network/network_interface.dart';
 
 class CommunityBloc {

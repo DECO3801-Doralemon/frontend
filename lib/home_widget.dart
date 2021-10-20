@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pantry_saver_fe/component/fab_bottom_app_bar.dart';
 import 'package:pantry_saver_fe/page/dummyPage.dart';
 import 'package:pantry_saver_fe/page/mealplanner/mealplanner.dart';
+import 'package:pantry_saver_fe/page/qr_scanner.dart';
 import 'package:pantry_saver_fe/page/shopping/shopping.dart';
 import 'package:pantry_saver_fe/page/storage/storage.dart';
 
@@ -36,7 +37,10 @@ class _HomeState extends State<Home> {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => QRViewExample(),));
+          },
         tooltip: '',
         child: Icon(IconData(0xe4f7, fontFamily: "MaterialIcons")),
         elevation: 2.0,
