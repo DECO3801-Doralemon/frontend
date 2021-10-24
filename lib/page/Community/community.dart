@@ -3,6 +3,8 @@ import 'package:pantry_saver_fe/bloc/community_bloc.dart';
 import 'package:pantry_saver_fe/component/appbar_widget.dart';
 import 'package:pantry_saver_fe/config/styles.dart';
 import 'package:pantry_saver_fe/model/CommunityRecipe.dart';
+import 'package:pantry_saver_fe/utils/button_post_recipe_widget.dart';
+import 'package:pantry_saver_fe/utils/button_widget.dart';
 import 'package:pantry_saver_fe/utils/community_item_widget.dart';
 import 'package:pantry_saver_fe/utils/item_type_widget.dart';
 
@@ -96,12 +98,33 @@ class _CommunityPageState extends State<CommunityPage> {
                               topLeft: Radius.circular(50.0)),
                           color: Colors.white,
                         ),
-                        child: CommunityItemWidget(
-                          text: "",
-                          imagePath: 'assets/images/salmonbenedict2.png',
-                          onChanged: (name) => {},
-                          onClicked: () {},
-                          // setState(() {});
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(right: 20, top: 10),
+                                  child: postButton(),
+                                  decoration: BoxDecoration(boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.4),
+                                      spreadRadius: 1,
+                                      blurRadius: 20,
+                                      offset: Offset(0, 3),
+                                    )
+                                  ]),
+                                ),
+                              ],
+                            ),
+                            CommunityItemWidget(
+                              text: "",
+                              imagePath: 'assets/images/salmonbenedict2.png',
+                              onChanged: (name) => {},
+                              onClicked: () {},
+                              // setState(() {});
+                            ),
+                          ],
                         ),
                       ),
                       // const SizedBox(height: ),
@@ -115,6 +138,11 @@ class _CommunityPageState extends State<CommunityPage> {
       ),
     );
   }
+
+  Widget postButton() => ButtonPostRecipeWidget(
+        text: 'Post Recipe',
+        onClicked: () {},
+      );
 
   @override
   void dispose() {

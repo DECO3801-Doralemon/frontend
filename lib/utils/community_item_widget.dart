@@ -25,7 +25,7 @@ class CommunityItemWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 60),
+        const SizedBox(height: 5),
         Card(
           color: Colors.white,
           elevation: 4.0,
