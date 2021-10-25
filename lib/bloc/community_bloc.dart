@@ -80,6 +80,14 @@ class CommunityBloc {
     }
   }
 
+  Future<Response> PostRecipe(String recipe_id) async {
+    try {
+      return await _communityRepository.postRecipetoCommunity(recipe_id);
+    } catch (_) {
+      return Response('Failed to post recipe', 400);
+    }
+  }
+
   void dispose() {
     _CommunityRecipeForFeedController.close();
     _CommunityRecipeController.close();
