@@ -35,6 +35,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     //  final user = UserPreferences.getUser();
     //COMMENTS TO REMOVE OR EDIT
+    // url for profile pic: https://painrehabproducts.com/wp-content/uploads/2014/10/facebook-default-no-profile-pic.jpg
 
     return Scaffold(
       appBar: buildAppBar(context),

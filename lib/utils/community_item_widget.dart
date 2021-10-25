@@ -18,9 +18,35 @@ class CommunityItemWidget extends StatelessWidget {
     required this.onClicked,
   }) : super(key: key);
 
+//   @override
+//   _CommunityItemWidgetState createState() => _CommunityItemWidgetState();
+// }
+//
+// class _CommunityItemWidgetState extends State<CommunityItemWidget > {
+//   late final CommunityItemWidget controller;
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//
+//     controller = CommunityItemWidget(
+//       text: widget.text,
+//       onClicked: () {},
+//       imagePath: '',
+//       onChanged: (String value) {},
+//     );
+//   }
+//
+//   @override
+//   void dispose() {
+//     controller.dispose();
+//
+//     super.dispose();
+//   }
+
   @override
   Widget build(BuildContext context) {
-    final color = Theme.of(context).colorScheme.primary;
+    // final color = Theme.of(context).colorScheme.primary;
     // final image = NetworkImage(imagePath);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,7 +85,7 @@ class CommunityItemWidget extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "Alex Somad",
+                          "",
                           style: TextStyle(color: greyPrimary, fontSize: 18),
                         ),
                       ],
@@ -67,7 +93,7 @@ class CommunityItemWidget extends StatelessWidget {
                   ),
                   Container(
                     margin: EdgeInsets.only(top: 5, left: 25.0, right: 25.0),
-                    child: Text("Egg Benedict",
+                    child: Text("",
                         style: TextStyle(color: orangePrimary, fontSize: 24)),
                   ),
                 ],

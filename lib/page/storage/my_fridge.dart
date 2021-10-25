@@ -1,26 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:pantry_saver_fe/bloc/freezer_bloc.dart';
+import 'package:pantry_saver_fe/bloc/fridge_bloc.dart';
 //import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:pantry_saver_fe/bloc/login_bloc.dart';
 import 'package:pantry_saver_fe/bloc/user_bloc.dart';
 import 'package:pantry_saver_fe/component/appbar_widget.dart';
 import 'package:pantry_saver_fe/config/styles.dart';
 import 'package:pantry_saver_fe/model/items.dart';
-import 'package:pantry_saver_fe/page/Login/login.dart';
-import 'package:pantry_saver_fe/page/edit_profile.dart';
-import 'package:pantry_saver_fe/utils/button_border_widget.dart';
 import 'package:pantry_saver_fe/utils/button_widget.dart';
 import 'package:pantry_saver_fe/utils/item_type_widget.dart';
-import 'package:pantry_saver_fe/utils/numbers_widget.dart';
-import 'package:pantry_saver_fe/utils/profile_widget.dart';
-import 'package:pantry_saver_fe/home_widget.dart';
-import 'package:pantry_saver_fe/model/user.dart';
-import 'package:pantry_saver_fe/utils/storage_items_widget.dart';
+import 'package:pantry_saver_fe/utils/storage_button_widget.dart';
 import 'package:pantry_saver_fe/utils/textfield_item_widget.dart';
-import 'package:pantry_saver_fe/utils/textfield_widget.dart';
-import 'package:pantry_saver_fe/utils/user_preferences.dart';
-
-import '../profile.dart';
 
 class MyFridgePage extends StatefulWidget {
   @override
@@ -28,14 +18,14 @@ class MyFridgePage extends StatefulWidget {
 }
 
 class _FridgePageState extends State<MyFridgePage> {
-  late FreezerBloc _bloc;
+  late FridgeBloc _bloc;
   late ItemModel items;
   late List<ItemModel> listItemModel;
 
   @override
   void initState() {
     super.initState();
-    _bloc = FreezerBloc();
+    _bloc = FridgeBloc();
   }
 
   void _updateKg() async {
@@ -86,65 +76,12 @@ class _FridgePageState extends State<MyFridgePage> {
                     }
                     return Container();
                   }),
-              ElevatedButton(
-                  onPressed: () {
-                    _bloc.fetchItemDetail();
-                  },
-                  child: Text('Tst')),
+              // ElevatedButton(
+              //     onPressed: () {
+              //       _bloc.fetchItemDetail();
+              //     },
+              //     child: Text('Tst')),
 
-              ElevatedButton(
-                  onPressed: () {
-                    _updateKg();
-                  },
-                  child: Text('Update Kg')),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(
-                        left: doubleSpace, right: 0, top: doubleSpace),
-                    child: CircleAvatar(
-                      radius: 20.0,
-                      backgroundImage: NetworkImage(
-                          'https://static.wikia.nocookie.net/disney/images/f/f0/Profile_-_Jiminy_Cricket.jpeg/revision/latest?cb=20190312063605'),
-                      backgroundColor: Colors.transparent,
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      height: 33,
-                      width: 301,
-                      margin: EdgeInsets.only(
-                          left: doubleSpace,
-                          right: doubleSpace,
-                          top: doubleSpace),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: greenPrimary),
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                      ),
-                      child: TextFormField(
-                        enabled: false,
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(
-                            Icons.search,
-                            color: greenPrimary,
-                            size: 25,
-                          ),
-                          border: InputBorder.none,
-                          fillColor: Colors.white,
-                          labelText: 'Chicken, Rice, Lettuce',
-                          labelStyle: TextStyle(
-                            color: orangePrimary,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
               const SizedBox(height: 26),
               Container(
                 //Orange Cardddd
@@ -258,28 +195,37 @@ class _FridgePageState extends State<MyFridgePage> {
                                                                 color:
                                                                     greyPrimary,
                                                                 fontSize: 13)),
-                                                        Text(
-                                                            "weight ${items[index].kg}")
                                                       ],
                                                     ),
                                                   )),
                                                   Container(
                                                     padding: EdgeInsets.only(
-                                                        right: 32),
+                                                        right: 10),
                                                     child: Align(
                                                       alignment:
                                                           Alignment.centerRight,
-                                                      child: ItemFieldWidget(
-                                                          text:
-                                                              "${items[index].kg}",
-                                                          onChanged: (item) {
-                                                            listItemModel[index]
-                                                                    .kg =
-                                                                double.parse(
-                                                                    item);
-                                                          }),
+                                                      child: Row(
+                                                        children: [
+                                                          ItemFieldWidget(
+                                                              text:
+                                                                  "${items[index].kg}",
+                                                              onChanged:
+                                                                  (item) {
+                                                                listItemModel[
+                                                                            index]
+                                                                        .kg =
+                                                                    double.parse(
+                                                                        item);
+                                                              }),
+                                                          Text(" kg(s)",
+                                                              style: TextStyle(
+                                                                  fontSize: 14,
+                                                                  color:
+                                                                      orangePrimary))
+                                                        ],
+                                                      ),
                                                     ),
-                                                  )
+                                                  ),
                                                 ],
                                               )
                                             ],
@@ -302,21 +248,25 @@ class _FridgePageState extends State<MyFridgePage> {
                           }
                           return Container();
                         }),
-                    ElevatedButton(
-                        onPressed: () {
-                          _bloc.fetchItemDetail();
-                        },
-                        child: Text('Tst')),
+                    // ElevatedButton(
+                    //     onPressed: () {
+                    //       _bloc.fetchItemDetail();
+                    //     },
+                    //     child: Text('Tst')),
                     // StorageItemWidget(
                     //     text: "", onChanged: (name) => {}, onClicked: () {}),
+                    const SizedBox(height: 10),
+                    Text("Tip: Swipe left to remove item",
+                        style: TextStyle(color: Colors.white)),
                     const SizedBox(height: 45),
                     Container(
                         margin: EdgeInsets.only(left: 20, right: 20),
                         child: Row(
                           children: [
-                            Expanded(child: editButton()),
+                            Expanded(child: saveButton()),
                           ],
-                        ))
+                        )),
+                    const SizedBox(height: 45),
                   ],
                 ),
               ), //Orange Card
@@ -327,63 +277,21 @@ class _FridgePageState extends State<MyFridgePage> {
     );
   }
 
-// @override
-// Widget build(BuildContext context) {
-//   //  final user = UserPreferences.getUser();
-//   //COMMENTS TO REMOVE OR EDIT
-//
-//   return Scaffold(
-//     appBar: buildAppBar(context),
-//     body: FutureBuilder(
-//         future: _bloc.fetchUser(),
-//         builder: (BuildContext context, AsyncSnapshot<UserModel?> snapshot) {
-//           if (snapshot.hasData) {
-//             user = snapshot.data!;
-//             print(user);
-//             return _createStoragePage();
-//           } else if (!snapshot.hasData) {
-//             return Center(
-//               child: CircularProgressIndicator(
-//                 valueColor: AlwaysStoppedAnimation<Color>(greenPrimary),
-//               ),
-//             );
-//           }
-//           return Container();
-//         }),
-//   );
-// }
-
-  Widget _createFridgePage() =>
-      ListView(physics: BouncingScrollPhysics(), children: [
-        ItemTypeWidget(
-            imagePath:
-                'https://static.wikia.nocookie.net/disney/images/f/f0/Profile_-_Jiminy_Cricket.jpeg/revision/latest?cb=20190312063605',
-            //MUST REPLACE WITH user.imagePath
-            // onClicked: () async {
-            //   await Navigator.of(context).push(
-            //     MaterialPageRoute(builder: (context) => EditProfilePage()),
-            //   );
-            //   setState(() {});
-            // },
-            onClicked: () {},
-            text: 'text',
-            onChanged: (String value) {}),
-      ]);
-
-  Widget editButton() => ButtonWidget(
-        text: 'Edit',
+  Widget saveButton() => StorageButtonWidget(
+        text: 'Update Amount',
         onClicked: () {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => MyFridgePage()),
-            (Route<dynamic> route) => false,
-          );
+          _updateKg();
+          // Navigator.pushAndRemoveUntil(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => MyFreezerPage()),
+          //   (Route<dynamic> route) => false,
+          // );
         },
       );
 
-// @override
-// void dispose() {
-//   _bloc.dispose();
-//   super.dispose();
-// }
+  @override
+  void dispose() {
+    _bloc.dispose();
+    super.dispose();
+  }
 }
