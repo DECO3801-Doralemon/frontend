@@ -4,6 +4,7 @@ import 'package:pantry_saver_fe/component/appbar_widget.dart';
 import 'package:pantry_saver_fe/config/styles.dart';
 import 'package:pantry_saver_fe/model/CommunityRecipe.dart';
 import 'package:pantry_saver_fe/utils/build_image_widget.dart';
+import 'package:pantry_saver_fe/utils/tags_widget.dart';
 
 class CommunityPersonalPage extends StatefulWidget {
   @override
@@ -49,6 +50,19 @@ class _CommunityPersonalPageState extends State<CommunityPersonalPage> {
                 imagePath: 'assets/images/salmonbenedict2.png',
                 onClicked: () {}),
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.white,
+                      onPrimary: greyPrimary,
+                      shape: CircleBorder(),
+                      padding: EdgeInsets.all(5)),
+                  child: Icon(Icons.add),
+                  onPressed: () {}),
+            ],
+          ),
           // const SizedBox(height: 50),
           Container(
             padding: EdgeInsets.only(top: 150, right: 15, left: 15),
@@ -79,7 +93,10 @@ class _CommunityPersonalPageState extends State<CommunityPersonalPage> {
                             Text("Egg Benedict",
                                 style: TextStyle(
                                     color: orangePrimary, fontSize: 24)),
-                            Text("by Alex Somad")
+                            Text(
+                              "by Alex Somad",
+                              style: TextStyle(color: greyPrimary),
+                            )
                           ],
                         ),
                       ),
@@ -103,6 +120,55 @@ class _CommunityPersonalPageState extends State<CommunityPersonalPage> {
             ),
           ),
         ]),
+        const SizedBox(height: 24),
+        Container(
+          padding: EdgeInsets.only(right: 15, left: 15),
+          child: Card(
+            color: greenLight,
+            elevation: 1.0,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(15.0))),
+            child: Stack(
+              children: <Widget>[
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Container(
+                    //     decoration: BoxDecoration(
+                    //         color: orangePrimary,
+                    //         borderRadius: BorderRadius.only(
+                    //             topRight: Radius.circular(30.0),
+                    //             bottomRight: Radius.circular(30.0))),
+                    //     child: buildImage()),
+                    Container(
+                        // height: 60,
+                        padding: EdgeInsets.only(
+                            top: 10, right: 15, left: 15, bottom: 10),
+                        child: TagsWidget(text: "Egg", onClicked: () {})),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: 26),
+        Container(
+            padding: EdgeInsets.only(right: 30, left: 30),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Ingredients: "),
+                Text("100gr eggs, 400gr bread, 50gr lemon, 5gr oregano"),
+                const SizedBox(height: 24),
+                Text("Steps :"),
+                Text(
+                    '''1. Poach the egg, ensure the water is not at a boil, but hot enough that putting your hand over the pot is uncomfortable.
+2. Toast the bread slices
+3. Whisk or blend an egg yolk with lemon, salt, pepper and oregano. Whisk oil in slowly until around 140 grams have been drizzled in. This is the hollandaise, but it's not hollandaise because it uses oil instead of butter so it's mayonnaise.
+4. Assemble the egg benedict, egg first, then bread, then hollandaise/mayo.''')
+              ],
+            )),
+        const SizedBox(height: 40),
       ]),
     );
   }

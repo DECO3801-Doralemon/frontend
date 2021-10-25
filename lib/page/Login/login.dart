@@ -10,6 +10,7 @@ import 'package:pantry_saver_fe/home_widget.dart';
 import 'package:pantry_saver_fe/model/new_user.dart';
 import 'package:pantry_saver_fe/page/Community/community.dart';
 import 'package:pantry_saver_fe/page/Community/community_personal.dart';
+import 'package:pantry_saver_fe/page/Community/community_post.dart';
 import 'package:pantry_saver_fe/page/Signup/signup.dart';
 import 'package:pantry_saver_fe/page/profile.dart';
 import 'package:pantry_saver_fe/page/storage/my_fridge.dart';
@@ -118,7 +119,7 @@ class LoginState extends State<Login> {
       print(value);
       // _navigateToHome(context);
       Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => CommunityPersonalPage()),
+        MaterialPageRoute(builder: (context) => CommunityPostPage()),
       );
     }).catchError((onError) => print(onError));
   }
