@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pantry_saver_fe/bloc/shopping_bloc.dart';
 import 'package:pantry_saver_fe/component/fab_bottom_app_bar.dart';
+import 'package:pantry_saver_fe/page/Community/community.dart';
 import 'package:pantry_saver_fe/page/dummyPage.dart';
 import 'package:pantry_saver_fe/page/mealplanner/mealplanner.dart';
 import 'package:pantry_saver_fe/page/qr_scanner.dart';
@@ -19,6 +21,14 @@ class _HomeState extends State<Home> {
   String _lastSelected = 'TAB: 0';
   int _indSelected = 0;
 
+  //List of Navbar Page, place it orderly based on Navbar
+  List<Widget> _children = [
+    Dummy(),
+    Shopping(),
+    MealPlanner(),
+    CommunityPage(),
+  ];
+
   void _selectedTab(int index) {
     setState(() {
       _indSelected = index;
@@ -29,6 +39,11 @@ class _HomeState extends State<Home> {
     setState(() {
       _lastSelected = 'FAB: $index';
     });
+  }
+
+  @override
+  void iniState(){
+    super.initState();
   }
 
   @override
@@ -59,16 +74,17 @@ class _HomeState extends State<Home> {
           FABBottomAppBarItem(iconData: Icons.people_alt, text: 'Community'),
         ],
       ),
-      body: IndexedStack(
+      body: /*IndexedStack(
         children: <Widget>[
           //List of Navbar Page, place it orderly based on Navbar
           Dummy(),
           Shopping(),
           MealPlanner(),
-          Dummy(),
+          CommunityPage(),
         ],
         index: _indSelected,
-      ),
+      ),*/
+      _children[_indSelected],
     );
   }
 }

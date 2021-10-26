@@ -5,17 +5,12 @@ import 'package:pantry_saver_fe/repository/shopping_repository.dart';
 
 class ShoppingBloc {
   late ShoppingRepository _shoppingRepository;
-  final _shoppingController = StreamController<NetworkModel<ShoppingList>>();
+  final _shoppingController = StreamController<NetworkModel<ShoppingList>>.broadcast();
   StreamSink<NetworkModel<ShoppingList>> get shoppingSink => _shoppingController.sink;
   Stream<NetworkModel<ShoppingList>> get shoppingStream => _shoppingController.stream;
 
-  //late StreamController _shoppingController;
   List<ShoppingModel>? allShoppingFromApi;
 
-  /*StreamSink<NetworkModel<Shopping>>? get shoppingSink =>
-      _shoppingController.sink;
-  Stream<NetworkModel<Shopping>> get shoppingStream =>
-      _shoppingController.stream;*/
   ShoppingBloc() {
     _shoppingRepository = ShoppingRepository();
     fetchShoppingList();
@@ -42,6 +37,9 @@ class ShoppingBloc {
       return null;
     }
   }*/
+  void resetShoppingList() {
+    shoppingSink.add(NetworkModel.completed(ShoppingList(allShoppingFromApi!)));
+  }
 
   void dispose() {
     _shoppingController.close();

@@ -71,57 +71,55 @@ class MealPlannerState extends State<MealPlanner> {
                     ),
                   ],
                 ),
-                /*Expanded(
-                  child: Container(
-                    margin: EdgeInsets.only(top: 214),
-                    padding: EdgeInsets.symmetric(horizontal: 13),
-                    height: 100,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(50.0),
-                          topLeft: Radius.circular(50.0)),
-                      color: Colors.white,
-                    ),
-                    child: ListView(
-                      shrinkWrap: true,
-                      children: [
-                      ],
-                    ),
+                Container(
+                  margin: EdgeInsets.only(top: 214),
+                  padding: EdgeInsets.symmetric(horizontal: 13),
+                  height: 500,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(50.0),
+                        topLeft: Radius.circular(50.0)),
+                    color: Colors.white,
                   ),
-                ),*/
-              ],
-            ),
-            TableCalendar(
-              firstDay: DateTime.utc(2010),
-              lastDay: DateTime.utc(2040),
-              focusedDay: _focusedDay,
-              calendarFormat: _calendarFormat,
-              selectedDayPredicate: (day) {
-                // Use `selectedDayPredicate` to determine which day is currently selected.
-                // If this returns true, then `day` will be marked as selected.
+                  child: ListView(
+                    shrinkWrap: true,
+                    children: [
+                      TableCalendar(
+                        firstDay: DateTime.utc(2010),
+                        lastDay: DateTime.utc(2040),
+                        focusedDay: _focusedDay,
+                        calendarFormat: _calendarFormat,
+                        selectedDayPredicate: (day) {
+                          // Use `selectedDayPredicate` to determine which day is currently selected.
+                          // If this returns true, then `day` will be marked as selected.
 
-                // Using `isSameDay` is recommended to disregard
-                // the time-part of compared DateTime objects.
-                return isSameDay(_selectedDay, day);
-              },
-              onDaySelected: (selectedDay, focusedDay) {
-                if (!isSameDay(_selectedDay, selectedDay)) {
-                  // Call `setState()` when updating the selected day
-                  setState(() {
-                    _selectedDay = selectedDay;
-                    _focusedDay = focusedDay;
-                  });
-                }
-              },
-              onFormatChanged: (format) {
-                setState(() {
-                  _calendarFormat = CalendarFormat.month;
-                });
-              },
-              onPageChanged: (focusedDay) {
-                // No need to call `setState()` here
-                _focusedDay = focusedDay;
-              },
+                          // Using `isSameDay` is recommended to disregard
+                          // the time-part of compared DateTime objects.
+                          return isSameDay(_selectedDay, day);
+                        },
+                        onDaySelected: (selectedDay, focusedDay) {
+                          if (!isSameDay(_selectedDay, selectedDay)) {
+                            // Call `setState()` when updating the selected day
+                            setState(() {
+                              _selectedDay = selectedDay;
+                              _focusedDay = focusedDay;
+                            });
+                          }
+                        },
+                        onFormatChanged: (format) {
+                          setState(() {
+                            _calendarFormat = CalendarFormat.month;
+                          });
+                        },
+                        onPageChanged: (focusedDay) {
+                          // No need to call `setState()` here
+                          _focusedDay = focusedDay;
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ],
         ),

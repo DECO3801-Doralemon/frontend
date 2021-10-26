@@ -16,6 +16,7 @@ class ShoppingState extends State<Shopping> {
   List<ShoppingModel> shopping = [];
   ShoppingBloc bloc = ShoppingBloc();
 
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -77,7 +78,7 @@ class ShoppingState extends State<Shopping> {
                 Container(
                   margin: EdgeInsets.only(top: 214),
                   padding: EdgeInsets.symmetric(horizontal: 13),
-                  height: 100,
+                  height: 500,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
                         topRight: Radius.circular(50.0),
@@ -161,6 +162,7 @@ class ShoppingState extends State<Shopping> {
         color: kPrimaryLightColor,
         child: InkWell(
           onTap: (){
+            bloc.resetShoppingList();
           },
           child: Padding(
             padding: const EdgeInsets.all(20.0),

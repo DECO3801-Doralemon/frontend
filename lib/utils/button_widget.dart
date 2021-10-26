@@ -14,7 +14,7 @@ class ButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ElevatedButton(
         style: ElevatedButton.styleFrom(
-          fixedSize: Size(152,
+          fixedSize: Size(200,
               50), // COULD BE CHANGED TO USE CONTAINERS THAT WRAP EACH BUTTON IN PROFILE PAGE
           shape: StadiumBorder(),
           primary: orangePrimary,
