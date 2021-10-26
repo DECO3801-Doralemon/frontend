@@ -8,6 +8,7 @@ import 'package:pantry_saver_fe/model/user.dart';
 import 'package:pantry_saver_fe/network/network_interface.dart';
 
 import 'package:http/http.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 abstract class BaseFreezerRepository {
   Future<Items> fetchItemDetail();
@@ -62,6 +63,8 @@ class FreezerRepository implements BaseFreezerRepository {
     return kontol;
   }
 
+
+
   // Future<ItemModel> deleteItem(int id, double kg) async {
   //   final body = {
   //     'id': id,
@@ -102,5 +105,13 @@ class FreezerRepository implements BaseFreezerRepository {
     print(data2);
 
     return null;
+  }
+
+  Future<void> addToFreezer(String result) async{
+    final body = {
+      'data_matrix': result,
+    };
+    print(body);
+    final response = await _network.post(url: '/api/v1/storage/freezer', bodyParams: body);
   }
 }

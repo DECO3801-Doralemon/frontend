@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pantry_saver_fe/model/items.dart';
 import 'package:pantry_saver_fe/network/data/network_model.dart';
 import 'package:pantry_saver_fe/repository/freezer_repository.dart';
 import 'package:pantry_saver_fe/network/network_interface.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class FreezerBloc {
 
@@ -12,6 +14,7 @@ class FreezerBloc {
   final NetworkInterface _network = NetworkInterface();
   final _updateKgController = StreamController<NetworkModel<ItemModel>>();
   final _deleteController = StreamController<NetworkModel<dynamic>>();
+  final _addController = StreamController<NetworkModel<dynamic>>();
   List<ItemModel>? freezerFromApi;
 
   StreamSink<NetworkModel<Items>> get freezerSink => _freezerController.sink;
@@ -22,6 +25,9 @@ class FreezerBloc {
       _updateKgController.stream;
   StreamSink<NetworkModel<dynamic>> get deleteSink => _deleteController.sink;
   Stream<NetworkModel<dynamic>> get deleteStream => _deleteController.stream;
+
+  StreamSink<NetworkModel<dynamic>> get addSink => _addController.sink;
+  Stream<NetworkModel<dynamic>> get addStream => _addController.stream;
 
   FreezerBloc() {
     _freezerRepository = GetIt.instance.get<FreezerRepository>();
@@ -96,6 +102,17 @@ class FreezerBloc {
       return 'Successfully delete item model';
     } catch (e) {
       return 'Failed to delete item model';
+    }
+  }
+
+  Future<void> addItem(String gtin) async {
+    addSink.add(NetworkModel.loading("Adding Ingredient to Freezer..."));
+    try {
+      await _freezerRepository.addToFreezer(gtin);
+      addSink.add(NetworkModel.completed("Added..."));
+    } catch (e) {
+      addSink.add(NetworkModel.error(e.toString()));
+      print('$e');
     }
   }
 

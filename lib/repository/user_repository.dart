@@ -30,6 +30,7 @@ class UserRepository implements BaseUserRepository {
         url: '/api/v1/auth/register',
         bodyParams: newUser.toJson());
     print('error2');
+    print(response);
     return response;
   }
 
