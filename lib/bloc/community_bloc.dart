@@ -17,13 +17,17 @@ import 'package:pantry_saver_fe/network/network_interface.dart';
 
 class CommunityBloc {
   late CommunityRepository _communityRepository;
-  final _CommunityRecipeForFeedController = StreamController<NetworkModel<CommunityRecipe>>();
+  final _CommunityRecipeForFeedController =
+      StreamController<NetworkModel<CommunityRecipe>>();
   final NetworkInterface _network = NetworkInterface();
-  final _CommunityRecipeController = StreamController<NetworkModel<CommunityRecipe>>();
+  final _CommunityRecipeController =
+      StreamController<NetworkModel<CommunityRecipe>>();
   List<CommunityRecipeModel>? CommunityRecipefromApi;
 
-  StreamSink<NetworkModel<CommunityRecipe>> get CommunityRecipeforFeedSink => _CommunityRecipeForFeedController.sink;
-  Stream<NetworkModel<CommunityRecipe>> get CommunityRecipeforFeedStreamm => _CommunityRecipeForFeedController.stream;
+  StreamSink<NetworkModel<CommunityRecipe>> get CommunityRecipeforFeedSink =>
+      _CommunityRecipeForFeedController.sink;
+  Stream<NetworkModel<CommunityRecipe>> get CommunityRecipeforFeedStreamm =>
+      _CommunityRecipeForFeedController.stream;
   StreamSink<NetworkModel<CommunityRecipe>> get CommunityRecipeSink =>
       _CommunityRecipeController.sink;
   Stream<NetworkModel<CommunityRecipe>> get CommunityRecipeStream =>
@@ -38,11 +42,17 @@ class CommunityBloc {
     CommunityRecipeforFeedSink.add(NetworkModel.loading('Getting user'));
     try {
       var response = await _communityRepository.fetchCommunityRecipeForFeed();
-      CommunityRecipefromApi = List.from(response.communityRecipes);
+      print("1111");
+      CommunityRecipefromApi = List.from(response!.communityRecipes);
+      print("2222");
       CommunityRecipeforFeedSink.add(NetworkModel.completed(response));
+      print("3333");
     } catch (e) {
       if (!_CommunityRecipeForFeedController.isClosed) {
+        print("444");
         CommunityRecipeforFeedSink.add(NetworkModel.error(e.toString()));
+        print(e);
+        print("555");
       }
     }
   }

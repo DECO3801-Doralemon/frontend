@@ -44,7 +44,10 @@ class _ProfilePageState extends State<ProfilePage> {
           builder: (BuildContext context, AsyncSnapshot<UserModel?> snapshot) {
             if (snapshot.hasData) {
               user = snapshot.data!;
+              print("*****");
               print(user);
+              print("#####");
+              print(user.bio);
               return _createProfilePage();
             }
             // if (snapshot.hasError) {
@@ -79,37 +82,37 @@ class _ProfilePageState extends State<ProfilePage> {
             margin: new EdgeInsets.symmetric(vertical: 20.0),
             child: Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      "420", //MUST BE REPLACED WITH ${user.followers} followers
-                      style: TextStyle(color: greyPrimary, fontSize: 15),
-                    ),
-                    Text(
-                      "69", //${user.likes} likes
-                      style: TextStyle(color: greyPrimary, fontSize: 15),
-                    )
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("32", //"${user.waste_percentage} %",
-                          style: TextStyle(
-                              color: orangePrimary,
-                              fontSize: 26,
-                              fontWeight: FontWeight
-                                  .bold)), //MUST BE REPLACED WITH user.waste_percentage
-                      Text(
-                        "waste",
-                        style: TextStyle(color: greyPrimary, fontSize: 15),
-                      )
-                    ],
-                  ),
-                )
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //   children: [
+                //     Text(
+                //       "${user.follo} followers", //MUST BE REPLACED WITH ${user.followers} followers
+                //       style: TextStyle(color: greyPrimary, fontSize: 15),
+                //     ),
+                //     Text(
+                //       "69", //${user.likes} likes
+                //       style: TextStyle(color: greyPrimary, fontSize: 15),
+                //     )
+                //   ],
+                // ),
+                // Padding(
+                //   padding: const EdgeInsets.all(20.0),
+                //   child: Column(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     children: [
+                //       Text("32", //"${user.waste_percentage} %",
+                //           style: TextStyle(
+                //               color: orangePrimary,
+                //               fontSize: 26,
+                //               fontWeight: FontWeight
+                //                   .bold)), //MUST BE REPLACED WITH user.waste_percentage
+                //       Text(
+                //         "waste",
+                //         style: TextStyle(color: greyPrimary, fontSize: 15),
+                //       )
+                //     ],
+                //   ),
+                // )
               ],
             ),
           )
@@ -127,7 +130,8 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             const SizedBox(height: 16),
             Text(
-              user.bio ?? " ", //MUST REMOVE KUTIP
+              user.bio ??
+                  "I like to eat all sorts of food, but I can't handle spicy food well.", //MUST REMOVE KUTIP
               style: TextStyle(fontSize: 16, height: 1.4, color: greyPrimary),
             ),
             const SizedBox(height: 16),
@@ -202,7 +206,7 @@ class _ProfilePageState extends State<ProfilePage> {
           const SizedBox(height: 45),
           ProfileWidget(
             imagePath:
-                'https://static.wikia.nocookie.net/disney/images/f/f0/Profile_-_Jiminy_Cricket.jpeg/revision/latest?cb=20190312063605', //MUST REPLACE WITH user.imagePath
+                'https://doralemon-backend.herokuapp.com${user.photo_url}', //MUST REPLACE WITH user.imagePath
             onClicked: () async {
               await Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => EditProfilePage()),

@@ -14,7 +14,7 @@ class BuildImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final image = AssetImage(imagePath);
+    final image = NetworkImage(imagePath);
     return ClipRRect(
       borderRadius: BorderRadius.only(
           topRight: Radius.circular(30.0), topLeft: Radius.circular(30.0)),

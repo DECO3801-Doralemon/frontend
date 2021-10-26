@@ -11,14 +11,14 @@ class CommunityRecipe {
 class CommunityRecipeModel {
   int id;
   String name;
-  String photo_url;
   List<String> needed_ingredients;
+  String photo_url;
 
   CommunityRecipeModel({
     required this.id,
     required this.name,
+    required this.needed_ingredients,
     required this.photo_url,
-    required this.needed_ingredients
   });
 
   factory CommunityRecipeModel.fromJson(Map<String, dynamic> json) =>

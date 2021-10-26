@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 //import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:pantry_saver_fe/bloc/login_bloc.dart';
 import 'package:pantry_saver_fe/bloc/user_bloc.dart';
+import 'package:pantry_saver_fe/component/appbar_storage_green.dart';
 import 'package:pantry_saver_fe/component/appbar_widget.dart';
 import 'package:pantry_saver_fe/config/styles.dart';
 import 'package:pantry_saver_fe/page/Login/login.dart';
@@ -41,7 +42,7 @@ class _StoragePageState extends State<StoragePage> {
     return Scaffold(
       body: Builder(
         builder: (context) => Scaffold(
-          appBar: buildAppBar(context),
+          appBar: storageGreenAppBar(context),
           body: SizedBox.expand(
             child: Container(
               color: orangeCard,
@@ -58,11 +59,40 @@ class _StoragePageState extends State<StoragePage> {
                               Expanded(
                                 child: FittedBox(
                                   child:
-                                      Image.asset('assets/images/kulkas_2.jpg'),
+                                      Image.asset('assets/images/storage1.png'),
                                   fit: BoxFit.fill,
                                 ),
                               ),
                             ],
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) => ProfilePage()),
+                              );
+                            },
+                            child: Container(
+                              margin: EdgeInsets.all(15),
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 10.0),
+                                    child: CircleAvatar(
+                                      radius: 15.0,
+                                      backgroundImage: AssetImage(
+                                          'assets/images/facebook-default-no-profile-pic.jpg'),
+                                      backgroundColor: Colors.transparent,
+                                    ),
+                                  ),
+                                  Text(
+                                    "My Profile",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 20),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                           Center(
                             child: Container(

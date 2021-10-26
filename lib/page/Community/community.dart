@@ -5,6 +5,7 @@ import 'package:pantry_saver_fe/component/appbar_widget.dart';
 import 'package:pantry_saver_fe/config/styles.dart';
 import 'package:pantry_saver_fe/model/CommunityRecipe.dart';
 import 'package:pantry_saver_fe/model/user.dart';
+import 'package:pantry_saver_fe/page/Community/community_personal.dart';
 import 'package:pantry_saver_fe/utils/button_post_recipe_widget.dart';
 import 'package:pantry_saver_fe/utils/button_widget.dart';
 import 'package:pantry_saver_fe/utils/community_item_widget.dart';
@@ -22,16 +23,12 @@ class CommunityPage extends StatefulWidget {
 }
 
 class _CommunityPageState extends State<CommunityPage> {
-  late UserBloc _userBloc;
-  late UserModel user;
-
   late CommunityBloc _bloc;
   late List<CommunityRecipeModel> listCommunityRecipe;
 
   @override
   void initState() {
     super.initState();
-    _userBloc = UserBloc();
     _bloc = CommunityBloc();
   }
 
@@ -67,46 +64,29 @@ class _CommunityPageState extends State<CommunityPage> {
                               ),
                             ],
                           ),
-                          // FutureBuilder(
-                          //     future: _userBloc.fetchUser(),
-                          //     builder: (BuildContext context,
-                          //         AsyncSnapshot<UserModel?> snapshot) {
-                          //       if (snapshot.hasData) {
-                          //         user = snapshot.data!;
-                          //         print(user);
-                          //         return Container(
-                          //           margin: EdgeInsets.all(15),
-                          //           child: Row(
-                          //             children: [
-                          //               Padding(
-                          //                 padding: EdgeInsets.only(right: 10.0),
-                          //                 child: CircleAvatar(
-                          //                   radius: 20.0,
-                          //                   backgroundImage: AssetImage(
-                          //                       'https://static.wikia.nocookie.net/disney/images/f/f0/Profile_-_Jiminy_Cricket.jpeg/revision/latest?cb=20190312063605'),
-                          //                   backgroundColor: Colors.transparent,
-                          //                 ),
-                          //               ),
-                          //               Text(
-                          //                 "${user.first_name} ${user.last_name}",
-                          //                 style: TextStyle(
-                          //                     color: Colors.white,
-                          //                     fontSize: 20),
-                          //               ),
-                          //             ],
-                          //           ),
-                          //         );
-                          //       } else if (!snapshot.hasData) {
-                          //         print('elseifelseifelsiefsleldhlasldasld');
-                          //         return Center(
-                          //           child: CircularProgressIndicator(
-                          //             valueColor: AlwaysStoppedAnimation<Color>(
-                          //                 greenPrimary),
-                          //           ),
-                          //         );
-                          //       }
-                          //       return Container();
-                          //     }), //INI FUTURE BUILDER BUAT NAMA DI ATAS
+                          ////////////////
+                          //INI FUTURE BUILDER BUAT NAMA DI ATAS
+                          FutureBuilder(
+                              future: _bloc.fetchFeed(),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<List<CommunityRecipeModel>?>
+                                      snapshot) {
+                                if (snapshot.hasData) {
+                                  List<CommunityRecipeModel> recipe =
+                                      snapshot.data!;
+                                  listCommunityRecipe = snapshot.data!;
+                                } else if (!snapshot.hasData) {
+                                  print('ElseIF');
+                                  return Center(
+                                    child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                          greenPrimary),
+                                    ),
+                                  );
+                                }
+                                return Container();
+                              }),
+                          ///////////////////////////
                           Center(
                             child: Container(
                               margin: EdgeInsets.only(
@@ -167,7 +147,13 @@ class _CommunityPageState extends State<CommunityPage> {
                                           children: [
                                             const SizedBox(height: 5),
                                             InkWell(
-                                              onTap: () {},
+                                              onTap: () {
+                                                Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          CommunityPersonalPage()),
+                                                );
+                                              },
                                               child: Card(
                                                 color: Colors.white,
                                                 elevation: 4.0,
@@ -192,7 +178,7 @@ class _CommunityPageState extends State<CommunityPage> {
                                                         //     child: buildImage()),
                                                         buildImage(
                                                             imagePath:
-                                                                "${listCommunityRecipe[index].photo_url}"),
+                                                                "https://doralemon-backend.herokuapp.com${listCommunityRecipe[index].photo_url}"),
                                                         Container(
                                                           margin:
                                                               EdgeInsets.only(
@@ -281,7 +267,7 @@ class _CommunityPageState extends State<CommunityPage> {
 
   Widget buildImage({required String imagePath}) {
     // final image = NetworkImage(imagePath);
-    final image = AssetImage(imagePath);
+    final image = NetworkImage(imagePath);
     return ClipRRect(
       borderRadius: BorderRadius.only(
           topRight: Radius.circular(30.0), topLeft: Radius.circular(30.0)),
@@ -304,7 +290,6 @@ class _CommunityPageState extends State<CommunityPage> {
 
   @override
   void dispose() {
-    _userBloc.dispose();
     _bloc.dispose();
     super.dispose();
   }

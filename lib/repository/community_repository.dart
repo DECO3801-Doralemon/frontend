@@ -11,7 +11,7 @@ import 'package:http/http.dart';
 
 abstract class BaseCommunityRepository {
   Future<CommunityRecipe> fetchCommunityRecipe();
-  Future<CommunityRecipe> fetchCommunityRecipeForFeed();
+  Future<CommunityRecipe?> fetchCommunityRecipeForFeed();
   Future<Response> postRecipetoCommunity(String recipe_id);
 // Future<Response> createUser(NewUser newUser);
 // Future<Response> updateUser(NewUser newUser);
@@ -22,13 +22,9 @@ class CommunityRepository implements BaseCommunityRepository {
 
   @override
   Future<Response> postRecipetoCommunity(String recipe_id) async {
-    final body = {
-      'recipe_id': recipe_id
-    };
-    final response = await _network.post(
-      url : '/api/v1/recipe',
-      bodyParams: body
-    );
+    final body = {'recipe_id': recipe_id};
+    final response =
+        await _network.post(url: '/api/v1/recipe', bodyParams: body);
     return response;
   }
 
@@ -39,22 +35,30 @@ class CommunityRepository implements BaseCommunityRepository {
       url: '/api/v1/recipes/all',
     ); //...,isLogin: true
     final data = response.values.toList();
-    return CommunityRecipe(
-        data.map<CommunityRecipeModel>((item) => CommunityRecipeModel.fromJson(item)).toList());
+
+    return CommunityRecipe(data[0]
+        .map<CommunityRecipeModel>(
+            (item) => CommunityRecipeModel.fromJson(item))
+        .toList());
   }
 
   @override
-  Future<CommunityRecipe> fetchCommunityRecipeForFeed() async {
-    print("testingupdatefetchitemdetailmasukga");
+  Future<CommunityRecipe?> fetchCommunityRecipeForFeed() async {
+    print("testingupdatefetchitemdetailmasukgaforfeed");
     final response = await _network.get(
       url: '/api/v1/community',
     ); //...,isLogin: true
     final data = response.values.toList();
-    return CommunityRecipe(
-        data.map<CommunityRecipeModel>((item) => CommunityRecipeModel.fromJson(item)).toList());
+    print("*****");
+    print(data);
+    print(";;;;;");
+
+    final testing = CommunityRecipe(data[0]
+        .map<CommunityRecipeModel>(
+            (item) => CommunityRecipeModel.fromJson(item))
+        .toList());
+    print(testing);
+
+    return testing;
   }
-
-
-
-
 }

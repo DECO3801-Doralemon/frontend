@@ -22,7 +22,7 @@ class ButtonWidget extends StatelessWidget {
           textStyle: TextStyle(fontSize: 20, fontFamily: "BalsamiqSans"),
           padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
         ),
-        child: Text(text),
+        child: Text(text, textAlign: TextAlign.center),
         onPressed: onClicked,
       );
 }
