@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pantry_saver_fe/config/styles.dart';
 
-AppBar communityPostWhiteAppBar(BuildContext context) {
+AppBar communityPersonalWhiteAppBar(BuildContext context) {
   return AppBar(
     //AppBar with NO SHADOW
     // centerTitle: true,
@@ -19,7 +19,7 @@ AppBar communityPostWhiteAppBar(BuildContext context) {
       // onPressed: () => Navigator.of(context).pop(),
     ),
     title: Text(
-      "Post Recipe",
+      "Details",
       style: TextStyle(color: greenPrimary, fontFamily: 'BalsamiqSans'),
     ),
     centerTitle: true,

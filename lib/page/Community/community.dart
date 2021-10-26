@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:pantry_saver_fe/bloc/community_bloc.dart';
 import 'package:pantry_saver_fe/bloc/user_bloc.dart';
+import 'package:pantry_saver_fe/component/appbar_community_feed_green.dart';
 import 'package:pantry_saver_fe/component/appbar_widget.dart';
 import 'package:pantry_saver_fe/config/styles.dart';
 import 'package:pantry_saver_fe/model/CommunityRecipe.dart';
 import 'package:pantry_saver_fe/model/user.dart';
 import 'package:pantry_saver_fe/page/Community/community_personal.dart';
+import 'package:pantry_saver_fe/page/Community/community_post.dart';
 import 'package:pantry_saver_fe/utils/button_post_recipe_widget.dart';
 import 'package:pantry_saver_fe/utils/button_widget.dart';
 import 'package:pantry_saver_fe/utils/community_item_widget.dart';
@@ -37,7 +39,7 @@ class _CommunityPageState extends State<CommunityPage> {
     return Scaffold(
       body: Builder(
         builder: (context) => Scaffold(
-          appBar: buildAppBar(context),
+          appBar: communityGreenAppBar(context),
           body: SizedBox.expand(
             child: Container(
               color: orangeCard,
@@ -66,26 +68,7 @@ class _CommunityPageState extends State<CommunityPage> {
                           ),
                           ////////////////
                           //INI FUTURE BUILDER BUAT NAMA DI ATAS
-                          FutureBuilder(
-                              future: _bloc.fetchFeed(),
-                              builder: (BuildContext context,
-                                  AsyncSnapshot<List<CommunityRecipeModel>?>
-                                      snapshot) {
-                                if (snapshot.hasData) {
-                                  List<CommunityRecipeModel> recipe =
-                                      snapshot.data!;
-                                  listCommunityRecipe = snapshot.data!;
-                                } else if (!snapshot.hasData) {
-                                  print('ElseIF');
-                                  return Center(
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                          greenPrimary),
-                                    ),
-                                  );
-                                }
-                                return Container();
-                              }),
+
                           ///////////////////////////
                           Center(
                             child: Container(
@@ -151,7 +134,12 @@ class _CommunityPageState extends State<CommunityPage> {
                                                 Navigator.of(context).push(
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          CommunityPersonalPage()),
+                                                          CommunityPersonalPage(
+                                                              recipe_id:
+                                                                  listCommunityRecipe[
+                                                                          index]
+                                                                      .id
+                                                                      .toString())),
                                                 );
                                               },
                                               child: Card(
@@ -197,14 +185,14 @@ class _CommunityPageState extends State<CommunityPage> {
                                                                   radius: 15.0,
                                                                   backgroundImage:
                                                                       NetworkImage(
-                                                                          'https://static.wikia.nocookie.net/disney/images/f/f0/Profile_-_Jiminy_Cricket.jpeg/revision/latest?cb=20190312063605'),
+                                                                          'https://painrehabproducts.com/wp-content/uploads/2014/10/facebook-default-no-profile-pic.jpg'),
                                                                   backgroundColor:
                                                                       Colors
                                                                           .transparent,
                                                                 ),
                                                               ),
                                                               Text(
-                                                                "Alex Somad",
+                                                                "${listCommunityRecipe[index].name}",
                                                                 style: TextStyle(
                                                                     color:
                                                                         greyPrimary,
@@ -221,7 +209,7 @@ class _CommunityPageState extends State<CommunityPage> {
                                                                   left: 25.0,
                                                                   right: 25.0),
                                                           child: Text(
-                                                              "${listCommunityRecipe[index].name}",
+                                                              "${listCommunityRecipe[index].recipe_name}",
                                                               style: TextStyle(
                                                                   color:
                                                                       orangePrimary,
@@ -285,7 +273,14 @@ class _CommunityPageState extends State<CommunityPage> {
 
   Widget postButton() => ButtonPostRecipeWidget(
         text: 'Post Recipe',
-        onClicked: () {},
+        onClicked: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+                builder: (context) => CommunityPostPage(
+                      recipe_id: '',
+                    )),
+          );
+        },
       );
 
   @override

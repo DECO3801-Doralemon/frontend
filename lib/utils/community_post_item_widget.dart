@@ -48,7 +48,7 @@ class CommunityPostItemWidget extends StatelessWidget {
                     margin: EdgeInsets.only(top: 5, left: 25.0, right: 25.0),
                     child: Align(
                       alignment: Alignment.center,
-                      child: Text("Egg Benedict",
+                      child: Text(text,
                           style: TextStyle(color: Colors.white, fontSize: 24)),
                     ),
                   ),
@@ -64,7 +64,7 @@ class CommunityPostItemWidget extends StatelessWidget {
 
   Widget buildImage() {
     // final image = NetworkImage(imagePath);
-    final image = AssetImage(imagePath);
+    final image = NetworkImage(imagePath);
     return ClipRRect(
       borderRadius: BorderRadius.only(
           topRight: Radius.circular(30.0), topLeft: Radius.circular(30.0)),

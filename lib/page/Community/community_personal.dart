@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:pantry_saver_fe/bloc/community_bloc.dart';
+import 'package:pantry_saver_fe/component/appbar_community_personal_white.dart';
 import 'package:pantry_saver_fe/component/appbar_widget.dart';
 import 'package:pantry_saver_fe/config/styles.dart';
 import 'package:pantry_saver_fe/model/CommunityRecipe.dart';
@@ -7,13 +9,20 @@ import 'package:pantry_saver_fe/utils/build_image_widget.dart';
 import 'package:pantry_saver_fe/utils/tags_widget.dart';
 
 class CommunityPersonalPage extends StatefulWidget {
+  final String recipe_id;
+  CommunityPersonalPage({required this.recipe_id});
+
   @override
-  _CommunityPersonalPageState createState() => _CommunityPersonalPageState();
+  _CommunityPersonalPageState createState() =>
+      _CommunityPersonalPageState(this.recipe_id);
 }
 
 class _CommunityPersonalPageState extends State<CommunityPersonalPage> {
   late CommunityBloc _bloc;
   late CommunityRecipeModel listCommunityRecipe;
+
+  String recipe_id;
+  _CommunityPersonalPageState(this.recipe_id);
 
   @override
   void initState() {
@@ -24,17 +33,15 @@ class _CommunityPersonalPageState extends State<CommunityPersonalPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(context),
+      appBar: communityPersonalWhiteAppBar(context),
       body: ListView(children: [
-        // MUNGKIN BISA DIPAKE NTAR IDK HUEHUEHUE
-
         Stack(children: <Widget>[
           FutureBuilder(
-              future: _bloc.fetchPersonal(),
+              future: _bloc.FetchRecipeDetail(recipe_id),
               builder: (BuildContext context,
-                  AsyncSnapshot<List<CommunityRecipeModel>?> snapshot) {
+                  AsyncSnapshot<CommunityRecipeModel?> snapshot) {
                 if (snapshot.hasData) {
-                  listCommunityRecipe = snapshot.data![0];
+                  listCommunityRecipe = snapshot.data!;
                   print(listCommunityRecipe);
                   return Container(
                     child: BuildImageWidget(
@@ -67,11 +74,11 @@ class _CommunityPersonalPageState extends State<CommunityPersonalPage> {
           ),
           // const SizedBox(height: 50),
           FutureBuilder(
-              future: _bloc.fetchPersonal(),
+              future: _bloc.FetchRecipeDetail(recipe_id),
               builder: (BuildContext context,
-                  AsyncSnapshot<List<CommunityRecipeModel>?> snapshot) {
+                  AsyncSnapshot<CommunityRecipeModel?> snapshot) {
                 if (snapshot.hasData) {
-                  listCommunityRecipe = snapshot.data![0];
+                  listCommunityRecipe = snapshot.data!;
                   print(listCommunityRecipe);
                   return Container(
                     padding: EdgeInsets.only(top: 150, right: 15, left: 15),
@@ -93,30 +100,30 @@ class _CommunityPersonalPageState extends State<CommunityPersonalPage> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text("${listCommunityRecipe.name}",
+                                    Text("${listCommunityRecipe.recipe_name}",
                                         style: TextStyle(
                                             color: orangePrimary,
                                             fontSize: 24)),
-                                    // Text(
-                                    //   "by Alex Somad",
-                                    //   style: TextStyle(color: greyPrimary),
-                                    // )
+                                    Text(
+                                      "by ${listCommunityRecipe.name}",
+                                      style: TextStyle(color: greyPrimary),
+                                    )
                                   ],
                                 ),
                               ),
-                              // Container(
-                              //   margin: EdgeInsets.only(
-                              //       top: 10.0, bottom: 10.0, left: 25.0),
-                              //   child: Row(
-                              //     children: [
-                              //       Text(
-                              //         "Jul 10 2020",
-                              //         style: TextStyle(
-                              //             color: Colors.black, fontSize: 15),
-                              //       ),
-                              //     ],
-                              //   ),
-                              // ),
+                              Container(
+                                margin: EdgeInsets.only(
+                                    top: 10.0, bottom: 10.0, left: 25.0),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      "${listCommunityRecipe.date_time_created}",
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 15),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
                         ],
@@ -135,11 +142,11 @@ class _CommunityPersonalPageState extends State<CommunityPersonalPage> {
         ]),
         const SizedBox(height: 24),
         FutureBuilder(
-            future: _bloc.fetchPersonal(),
+            future: _bloc.FetchRecipeDetail(recipe_id),
             builder: (BuildContext context,
-                AsyncSnapshot<List<CommunityRecipeModel>?> snapshot) {
+                AsyncSnapshot<CommunityRecipeModel?> snapshot) {
               if (snapshot.hasData) {
-                listCommunityRecipe = snapshot.data![0];
+                listCommunityRecipe = snapshot.data!;
                 print(listCommunityRecipe);
                 return Container(
                   padding: EdgeInsets.only(right: 15, left: 15),
@@ -174,33 +181,34 @@ class _CommunityPersonalPageState extends State<CommunityPersonalPage> {
               }
               return Container();
             }),
-
         const SizedBox(height: 26),
         FutureBuilder(
-            future: _bloc.fetchPersonal(),
+            future: _bloc.FetchRecipeDetail(recipe_id),
             builder: (BuildContext context,
-                AsyncSnapshot<List<CommunityRecipeModel>?> snapshot) {
+                AsyncSnapshot<CommunityRecipeModel?> snapshot) {
               if (snapshot.hasData) {
-                listCommunityRecipe = snapshot.data![0];
+                listCommunityRecipe = snapshot.data!;
                 return Container(
                     padding: EdgeInsets.only(right: 30, left: 30),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text("Ingredients: "),
-                        ListView.builder(shrinkWrap: true,
-                            itemCount: listCommunityRecipe.length,
-                            itemBuilder: (context, index){return Text(listCommunityRecipe.needed_ingredients)})
+                        ListView.builder(
+                          shrinkWrap: true,
+                          itemCount:
+                              listCommunityRecipe.needed_ingredients.length,
+                          itemBuilder: (context, index) {
+                            return Text(
+                                "${listCommunityRecipe.needed_ingredients[index]}");
+                          },
+                        ),
 
                         // Text(
                         //     "100gr eggs, 400gr bread, 50gr lemon, 5gr oregano"),
                         const SizedBox(height: 24),
                         Text("Steps :"),
-                        Text(
-                            '''1. Poach the egg, ensure the water is not at a boil, but hot enough that putting your hand over the pot is uncomfortable.
-2. Toast the bread slices
-3. Whisk or blend an egg yolk with lemon, salt, pepper and oregano. Whisk oil in slowly until around 140 grams have been drizzled in. This is the hollandaise, but it's not hollandaise because it uses oil instead of butter so it's mayonnaise.
-4. Assemble the egg benedict, egg first, then bread, then hollandaise/mayo.''')
+                        Text("${listCommunityRecipe.steps}")
                       ],
                     ));
               } else if (!snapshot.hasData) {
@@ -212,7 +220,6 @@ class _CommunityPersonalPageState extends State<CommunityPersonalPage> {
               }
               return Container();
             }),
-
         const SizedBox(height: 40),
       ]),
     );

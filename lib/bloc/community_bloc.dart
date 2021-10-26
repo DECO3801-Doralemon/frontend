@@ -72,6 +72,8 @@ class CommunityBloc {
     try {
       var response = await _communityRepository.fetchCommunityRecipe();
       CommunityRecipefromApi = List.from(response.communityRecipes);
+      print(";;;;;;;;;;;;;;;;;;;;;;");
+      print(response.communityRecipes);
       CommunityRecipeSink.add(NetworkModel.completed(response));
     } catch (e) {
       if (!_CommunityRecipeController.isClosed) {
@@ -83,6 +85,7 @@ class CommunityBloc {
   Future<List<CommunityRecipeModel>?> fetchPersonal() async {
     try {
       await fetchCommunityRecipe();
+      print("MASUK FETCHPERSONAL");
       print(CommunityRecipefromApi);
       return CommunityRecipefromApi!;
     } catch (e) {
@@ -95,6 +98,15 @@ class CommunityBloc {
       return await _communityRepository.postRecipetoCommunity(recipe_id);
     } catch (_) {
       return Response('Failed to post recipe', 400);
+    }
+  }
+
+  Future<CommunityRecipeModel?> FetchRecipeDetail(String recipe_id) async {
+    try {
+      return await _communityRepository.fetchCommunityRecipeDetail(recipe_id);
+    } catch (_) {
+      // return Response('Failed to get recipe detail', 400);
+      return null;
     }
   }
 

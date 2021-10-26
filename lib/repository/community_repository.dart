@@ -12,6 +12,7 @@ import 'package:http/http.dart';
 abstract class BaseCommunityRepository {
   Future<CommunityRecipe> fetchCommunityRecipe();
   Future<CommunityRecipe?> fetchCommunityRecipeForFeed();
+  Future<CommunityRecipeModel> fetchCommunityRecipeDetail(String recipe_id);
   Future<Response> postRecipetoCommunity(String recipe_id);
 // Future<Response> createUser(NewUser newUser);
 // Future<Response> updateUser(NewUser newUser);
@@ -60,5 +61,25 @@ class CommunityRepository implements BaseCommunityRepository {
     print(testing);
 
     return testing;
+  }
+
+  @override
+  Future<CommunityRecipeModel> fetchCommunityRecipeDetail(
+      String recipe_id) async {
+    final response = await _network.get(
+      url: '/api/v1/community/recipe/' + recipe_id,
+    ); //...,isLogin: true
+    final data = [response];
+    // return response;
+
+    try {
+      print("000000");
+      print(response.values);
+      print(CommunityRecipeModel.fromJson(response));
+      print("10101010");
+    } catch (e) {
+      print(e);
+    }
+    return CommunityRecipeModel.fromJson(response);
   }
 }
