@@ -8,6 +8,7 @@ import 'package:pantry_saver_fe/model/CommunityRecipe.dart';
 import 'package:pantry_saver_fe/model/user.dart';
 import 'package:pantry_saver_fe/page/Community/community_personal.dart';
 import 'package:pantry_saver_fe/page/Community/community_post.dart';
+import 'package:pantry_saver_fe/page/profile.dart';
 import 'package:pantry_saver_fe/utils/button_post_recipe_widget.dart';
 import 'package:pantry_saver_fe/utils/button_widget.dart';
 import 'package:pantry_saver_fe/utils/community_item_widget.dart';
@@ -68,7 +69,35 @@ class _CommunityPageState extends State<CommunityPage> {
                           ),
                           ////////////////
                           //INI FUTURE BUILDER BUAT NAMA DI ATAS
-
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) => ProfilePage()),
+                              );
+                            },
+                            child: Container(
+                              margin: EdgeInsets.all(15),
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 10.0),
+                                    child: CircleAvatar(
+                                      radius: 15.0,
+                                      backgroundImage: AssetImage(
+                                          'assets/images/facebook-default-no-profile-pic.jpg'),
+                                      backgroundColor: Colors.transparent,
+                                    ),
+                                  ),
+                                  Text(
+                                    "My Profile",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 20),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                           ///////////////////////////
                           Center(
                             child: Container(

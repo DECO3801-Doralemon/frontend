@@ -99,7 +99,7 @@ class _StoragePageState extends State<StoragePage> {
                               margin: EdgeInsets.symmetric(
                                   vertical: 55, horizontal: 65),
                               child: Text(
-                                "Description about the Storage Page, what info does it show, etc.",
+                                "Welcome to Storage!. Here, you can place all your items or foods in : Freezer, Fridge and Pantry. ",
                                 style: TextStyle(
                                     fontSize: 21, color: Colors.white),
                               ),

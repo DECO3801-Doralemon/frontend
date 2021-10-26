@@ -113,9 +113,9 @@ class _FreezerPageState extends State<MyFreezerPage> {
                             ),
                             const SizedBox(height: 10),
                             Text(
-                              "Here, we can give a brief description of what the Freezer page is, as well as the parameters of the items",
+                              "These are the items in your freezer, a freezing box between the temperature of below 0 degrees Celsius. Extremely perishable goods like meat and go here.",
                               style:
-                                  TextStyle(fontSize: 16, color: Colors.white),
+                                  TextStyle(fontSize: 13, color: Colors.white),
                             ),
                           ],
                         ),

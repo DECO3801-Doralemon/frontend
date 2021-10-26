@@ -119,7 +119,7 @@ class LoginState extends State<Login> {
       print(value);
       // _navigateToHome(context);
       Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => CommunityPage()),
+        MaterialPageRoute(builder: (context) => StoragePage()),
       );
     }).catchError((onError) => print(onError));
   }

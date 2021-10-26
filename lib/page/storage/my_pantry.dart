@@ -115,9 +115,9 @@ class _PantryPageState extends State<MyPantryPage> {
                             ),
                             const SizedBox(height: 10),
                             Text(
-                              "Here, we can give a brief description of what the Pantry page is, as well as the parameters of the items",
+                              "These are the items in your pantry, an area at room temperature. Items that are less prone to perishing like fresh spices or are intended for immediate consumption like bananas are placed here.",
                               style:
-                                  TextStyle(fontSize: 16, color: Colors.white),
+                                  TextStyle(fontSize: 13, color: Colors.white),
                             ),
                           ],
                         ),

@@ -114,9 +114,9 @@ class _FridgePageState extends State<MyFridgePage> {
                             ),
                             const SizedBox(height: 10),
                             Text(
-                              "Here, we can give a brief description of what the Fridge page is, as well as the parameters of the items",
+                              "These are the items in your fridge, a cool box between the temperature of 0-4 degress Celsius. Perishables like fruit and vegetables go here.",
                               style:
-                                  TextStyle(fontSize: 16, color: Colors.white),
+                                  TextStyle(fontSize: 15, color: Colors.white),
                             ),
                           ],
                         ),

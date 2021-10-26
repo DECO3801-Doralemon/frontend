@@ -50,7 +50,7 @@ class _CommunityPostPageState extends State<CommunityPostPage> {
     return Scaffold(
       body: Builder(
           builder: (context) => Scaffold(
-              appBar: buildAppBar(context),
+              appBar: communityPostWhiteAppBar(context),
               body: SizedBox.expand(
                   child: FutureBuilder(
                       future: _bloc.fetchPersonal(),
@@ -62,6 +62,7 @@ class _CommunityPostPageState extends State<CommunityPostPage> {
                           print(listCommunityRecipe);
                           print("888888888888");
                           return PageView.builder(
+                            scrollDirection: Axis.horizontal,
                             itemCount: listCommunityRecipe.length,
                             itemBuilder: (context, index) {
                               return ListView(children: [
@@ -131,7 +132,7 @@ class _CommunityPostPageState extends State<CommunityPostPage> {
                                         Text("Ingredients: ",
                                             style: TextStyle(fontSize: 19)),
                                         Text(
-                                            "100gr eggs, 400gr bread, 50gr lemon, 5gr oregano",
+                                            "${listCommunityRecipe[index].needed_ingredients}",
                                             style: TextStyle(
                                                 fontSize: 17,
                                                 color: greyPrimary)),
@@ -141,10 +142,7 @@ class _CommunityPostPageState extends State<CommunityPostPage> {
                                           style: TextStyle(fontSize: 19),
                                         ),
                                         Text(
-                                            '''1. Poach the egg, ensure the water is not at a boil, but hot enough that putting your hand over the pot is uncomfortable.
-2. Toast the bread slices
-3. Whisk or blend an egg yolk with lemon, salt, pepper and oregano. Whisk oil in slowly until around 140 grams have been drizzled in. This is the hollandaise, but it's not hollandaise because it uses oil instead of butter so it's mayonnaise.
-4. Assemble the egg benedict, egg first, then bread, then hollandaise/mayo.''',
+                                            "${listCommunityRecipe[index].steps}",
                                             style: TextStyle(
                                                 fontSize: 17,
                                                 color: greyPrimary))
@@ -156,7 +154,9 @@ class _CommunityPostPageState extends State<CommunityPostPage> {
                                         EdgeInsets.only(left: 20, right: 20),
                                     child: Row(
                                       children: [
-                                        // Expanded(child: postButton()),
+                                        Expanded(
+                                            child: postButton(
+                                                listCommunityRecipe[index].id)),
                                       ],
                                     )),
                                 const SizedBox(height: 40),
