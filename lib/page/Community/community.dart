@@ -172,7 +172,8 @@ class _CommunityPageState extends State<CommunityPage> {
                                                 );
                                               },
                                               child: Card(
-                                                color: Colors.white,
+                                                color: Colors
+                                                    .white, //TO CHANGE THE COLOR OF THE CARDS
                                                 elevation: 4.0,
                                                 shape: RoundedRectangleBorder(
                                                     borderRadius:
@@ -211,7 +212,7 @@ class _CommunityPageState extends State<CommunityPage> {
                                                                             10.0),
                                                                 child:
                                                                     CircleAvatar(
-                                                                  radius: 15.0,
+                                                                  radius: 13.0,
                                                                   backgroundImage:
                                                                       NetworkImage(
                                                                           'https://painrehabproducts.com/wp-content/uploads/2014/10/facebook-default-no-profile-pic.jpg'),
@@ -226,7 +227,7 @@ class _CommunityPageState extends State<CommunityPage> {
                                                                     color:
                                                                         greyPrimary,
                                                                     fontSize:
-                                                                        18),
+                                                                        15),
                                                               ),
                                                             ],
                                                           ),
@@ -236,14 +237,20 @@ class _CommunityPageState extends State<CommunityPage> {
                                                               EdgeInsets.only(
                                                                   top: 5,
                                                                   left: 25.0,
-                                                                  right: 25.0),
-                                                          child: Text(
-                                                              "${listCommunityRecipe[index].recipe_name}",
-                                                              style: TextStyle(
-                                                                  color:
-                                                                      orangePrimary,
-                                                                  fontSize:
-                                                                      24)),
+                                                                  right: 25.0,
+                                                                  bottom: 10),
+                                                          child: Center(
+                                                            child: Text(
+                                                                "${listCommunityRecipe[index].recipe_name}",
+                                                                style: TextStyle(
+                                                                    color:
+                                                                        orangePrimary,
+                                                                    fontSize:
+                                                                        24),
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center),
+                                                          ),
                                                         ),
                                                       ],
                                                     ),

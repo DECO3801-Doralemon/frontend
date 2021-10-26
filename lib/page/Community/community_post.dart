@@ -83,6 +83,11 @@ class _CommunityPostPageState extends State<CommunityPostPage> {
                                           "https://doralemon-backend.herokuapp.com${listCommunityRecipe[index].photo_url}",
                                       onClicked: () {}),
                                 ),
+                                Center(
+                                  child: Text(
+                                      "Tip: Swipe left/right to change recipes",
+                                      style: TextStyle(color: orangePrimary)),
+                                ),
                                 const SizedBox(height: 24),
                                 Container(
                                   margin: EdgeInsets.only(right: 15, left: 15),
