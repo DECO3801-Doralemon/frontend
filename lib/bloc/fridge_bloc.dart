@@ -19,6 +19,7 @@ class FridgeBloc {
   final NetworkInterface _network = NetworkInterface();
   final _updateKgController = StreamController<NetworkModel<ItemModel>>();
   final _deleteController = StreamController<NetworkModel<dynamic>>();
+  final _addController = StreamController<NetworkModel<dynamic>>();
   List<ItemModel>? fridgeFromApi;
 
   StreamSink<NetworkModel<Items>> get fridgeSink => _fridgeController.sink;
@@ -29,6 +30,8 @@ class FridgeBloc {
       _updateKgController.stream;
   StreamSink<NetworkModel<dynamic>> get deleteSink => _deleteController.sink;
   Stream<NetworkModel<dynamic>> get deleteStream => _deleteController.stream;
+  StreamSink<NetworkModel<dynamic>> get addSink => _addController.sink;
+  Stream<NetworkModel<dynamic>> get addStream => _addController.stream;
 
   FridgeBloc() {
     _fridgeRepository = GetIt.instance.get<FridgeRepository>();
@@ -106,9 +109,21 @@ class FridgeBloc {
     }
   }
 
+  Future<void> addItem(String gtin) async {
+    addSink.add(NetworkModel.loading("Adding Ingredient to Fridge..."));
+    try {
+      await _fridgeRepository.addToFridge(gtin);
+      addSink.add(NetworkModel.completed("Added..."));
+    } catch (e) {
+      addSink.add(NetworkModel.error(e.toString()));
+      print('$e');
+    }
+  }
+
   void dispose() {
     _fridgeController.close();
     _updateKgController.close();
     _deleteController.close();
+    _addController.close();
   }
 }

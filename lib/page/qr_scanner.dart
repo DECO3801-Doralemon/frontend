@@ -5,6 +5,8 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pantry_saver_fe/bloc/freezer_bloc.dart';
+import 'package:pantry_saver_fe/bloc/fridge_bloc.dart';
+import 'package:pantry_saver_fe/bloc/pantry_bloc.dart';
 import 'package:pantry_saver_fe/config/styles.dart';
 import 'package:pantry_saver_fe/home_widget.dart';
 import 'package:pantry_saver_fe/utils/button_widget.dart';
@@ -22,10 +24,14 @@ class _QRViewExampleState extends State<QRViewExample> {
   QRViewController? controller;
 
   late FreezerBloc _freezerBloc;
+  late FridgeBloc _fridgeBloc;
+  late PantryBloc _pantryBloc;
 
   @override
   void initState() {
     _freezerBloc = FreezerBloc();
+    _fridgeBloc = FridgeBloc();
+    _pantryBloc = PantryBloc();
   }
 
 
@@ -129,7 +135,12 @@ class _QRViewExampleState extends State<QRViewExample> {
             onClicked: () {
               if(index==1){
                 _addToFreezer(result);
-              }else {
+              }else if(index==2){
+                _addToFridge(result);
+              }else if(index==3){
+                _addToPantry(result);
+              }
+              else {
                 failedDialog(context);
               }
             },
@@ -145,73 +156,33 @@ class _QRViewExampleState extends State<QRViewExample> {
       setState(() {
         result = scanData;
     });
-      String data = result!.code.substring(1);
+      String data = result!.code;
       Navigator.push(context, MaterialPageRoute(builder: (context) => _storeData(data)));
       //showModalBottomSheet(context: context, builder: (context) => _buildModal(data));
     });
   }
 
-  Widget _buildModal(String result){
-    Size size = MediaQuery.of(context).size;
-    return Column(
-      children: [
-        SizedBox(height: size.height * 0.09),
-        Center(
-          child: Text(
-            "Where to Store?",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontFamily: 'BalsamiqSans',
-              fontSize: 23,
-              color: kPrimaryColor,
-            ),
-          ),
-        ),
-        SizedBox(height: size.height * 0.06),
-        ButtonWidget(
-          text: "My Freezer",
-          onClicked: () {
-            setState(() {
-              index = 1;
-            });
-          },
-        ),
-        SizedBox(height: size.height * 0.03),
-        ButtonWidget(
-          text: "My Fridge",
-          onClicked: () {
-            setState(() {
-              index = 2;
-            });
-          },
-        ),
-        SizedBox(height: size.height * 0.03),
-        ButtonWidget(
-          text: "My Pantry",
-          onClicked: () {
-            setState(() {
-              index = 3;
-            });
-          },
-        ),
-        SizedBox(height: size.height * 0.03),
-        ButtonWidget(
-          text: "Confirm",
-          onClicked: () {
-            if(index==1){
-              _addToFreezer(result);
-            }else {
-              failedDialog(context);
-            }
-          },
-        ),
-      ],
-    );
+  void _addToFreezer(String gtin) async {
+    print("adding to freezer...");
+    _freezerBloc.addItem(gtin);
+    Timer(Duration(seconds: 2), () {
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => Home(),));
+    });
   }
 
-  void _addToFreezer(String gtin) async {
-    print("adding...");
-    _freezerBloc.addItem(gtin);
+  void _addToFridge(String gtin) async {
+    print("adding to fridge...");
+    _fridgeBloc.addItem(gtin);
+    Timer(Duration(seconds: 2), () {
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => Home(),));
+    });
+  }
+
+  void _addToPantry(String gtin) async {
+    print("adding to pantry...");
+    _pantryBloc.addItem(gtin);
     Timer(Duration(seconds: 2), () {
       Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => Home(),));

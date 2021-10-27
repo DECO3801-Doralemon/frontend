@@ -67,4 +67,12 @@ class FridgeRepository implements BaseFridgeRepository {
 
     return null;
   }
+
+  Future<void> addToFridge(String result) async{
+    final body = {
+      'data_matrix': result,
+    };
+    print(body);
+    final response = await _network.post(url: '/api/v1/storage/fridge', bodyParams: body);
+  }
 }

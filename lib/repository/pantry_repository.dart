@@ -67,4 +67,12 @@ class PantryRepository implements BasePantryRepository {
 
     return null;
   }
+
+  Future<void> addToPantry(String result) async{
+    final body = {
+      'data_matrix': result,
+    };
+    print(body);
+    final response = await _network.post(url: '/api/v1/storage/pantry', bodyParams: body);
+  }
 }

@@ -22,7 +22,7 @@ class _HomeState extends State<Home> {
 
   //List of Navbar Page, place it orderly based on Navbar
   List<Widget> _children = [
-    Dummy(),
+    StoragePage(),
     Shopping(),
     MealPlanner(),
     CommunityPage(),

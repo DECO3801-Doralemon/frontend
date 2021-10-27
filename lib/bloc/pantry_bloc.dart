@@ -19,6 +19,7 @@ class PantryBloc {
   final NetworkInterface _network = NetworkInterface();
   final _updateKgController = StreamController<NetworkModel<ItemModel>>();
   final _deleteController = StreamController<NetworkModel<dynamic>>();
+  final _addController = StreamController<NetworkModel<dynamic>>();
   List<ItemModel>? pantryFromApi;
 
   StreamSink<NetworkModel<Items>> get pantrySink => _pantryController.sink;
@@ -29,6 +30,8 @@ class PantryBloc {
       _updateKgController.stream;
   StreamSink<NetworkModel<dynamic>> get deleteSink => _deleteController.sink;
   Stream<NetworkModel<dynamic>> get deleteStream => _deleteController.stream;
+  StreamSink<NetworkModel<dynamic>> get addSink => _addController.sink;
+  Stream<NetworkModel<dynamic>> get addStream => _addController.stream;
 
   PantryBloc() {
     _pantryRepository = GetIt.instance.get<PantryRepository>();
@@ -103,6 +106,17 @@ class PantryBloc {
       return 'Successfully delete item model';
     } catch (e) {
       return 'Failed to delete item model';
+    }
+  }
+
+  Future<void> addItem(String gtin) async {
+    addSink.add(NetworkModel.loading("Adding Ingredient to Pantry..."));
+    try {
+      await _pantryRepository.addToPantry(gtin);
+      addSink.add(NetworkModel.completed("Added..."));
+    } catch (e) {
+      addSink.add(NetworkModel.error(e.toString()));
+      print('$e');
     }
   }
 

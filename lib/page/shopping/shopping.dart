@@ -107,7 +107,6 @@ class ShoppingState extends State<Shopping> {
                                     buildCard(context, index));
                             break;
                           case Status.ERROR:
-
                             break;
                         }
                       }
@@ -120,36 +119,6 @@ class ShoppingState extends State<Shopping> {
           ],
         ),
       ),
-      /*body: Column(
-        children: [
-          Stack(
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: ColorFiltered(
-                      colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.5), BlendMode.darken),
-                      child: Image.asset('assets/images/shopping_bg.jpeg'),
-                    ),
-                  ),
-                ],
-              ),
-              Center(
-                child: Container(
-                  margin: EdgeInsets.symmetric(
-                      vertical: 55, horizontal: 65),
-                  child: Text(
-                    "Description about the Shopping Page, what info does it show, etc.",
-                    style: TextStyle(
-                        fontSize: 21, color: Colors.white),
-                  ),
-                ),
-              ),
-            ],
-          ),
-
-        ],
-      )*/
     );
   }
 
