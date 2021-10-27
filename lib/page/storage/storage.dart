@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-//import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:pantry_saver_fe/bloc/login_bloc.dart';
 import 'package:pantry_saver_fe/bloc/user_bloc.dart';
+import 'package:pantry_saver_fe/component/appbar_storage_green.dart';
 import 'package:pantry_saver_fe/component/appbar_widget.dart';
 import 'package:pantry_saver_fe/config/styles.dart';
 import 'package:pantry_saver_fe/page/Login/login.dart';
 import 'package:pantry_saver_fe/page/edit_profile.dart';
+import 'package:pantry_saver_fe/page/storage/my_freezer.dart';
+import 'package:pantry_saver_fe/page/storage/my_fridge.dart';
+import 'package:pantry_saver_fe/page/storage/my_pantry.dart';
 import 'package:pantry_saver_fe/utils/button_border_widget.dart';
 import 'package:pantry_saver_fe/utils/button_widget.dart';
 import 'package:pantry_saver_fe/utils/item_type_widget.dart';
@@ -38,7 +40,7 @@ class _StoragePageState extends State<StoragePage> {
     return Scaffold(
       body: Builder(
         builder: (context) => Scaffold(
-          appBar: buildAppBar(context),
+          appBar: storageGreenAppBar(context),
           body: SizedBox.expand(
             child: Container(
               color: orangeCard,
@@ -55,18 +57,47 @@ class _StoragePageState extends State<StoragePage> {
                               Expanded(
                                 child: FittedBox(
                                   child:
-                                      Image.asset('assets/images/kulkas_2.jpg'),
+                                      Image.asset('assets/images/storage1.png'),
                                   fit: BoxFit.fill,
                                 ),
                               ),
                             ],
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) => ProfilePage()),
+                              );
+                            },
+                            child: Container(
+                              margin: EdgeInsets.all(15),
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 10.0),
+                                    child: CircleAvatar(
+                                      radius: 15.0,
+                                      backgroundImage: AssetImage(
+                                          'assets/images/facebook-default-no-profile-pic.jpg'),
+                                      backgroundColor: Colors.transparent,
+                                    ),
+                                  ),
+                                  Text(
+                                    "My Profile",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 20),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                           Center(
                             child: Container(
                               margin: EdgeInsets.symmetric(
                                   vertical: 55, horizontal: 65),
                               child: Text(
-                                "Description about the Storage Page, what info does it show, etc.",
+                                "Welcome to Storage!. Here, you can place all your items or foods in : Freezer, Fridge and Pantry. ",
                                 style: TextStyle(
                                     fontSize: 21, color: Colors.white),
                               ),
@@ -83,13 +114,235 @@ class _StoragePageState extends State<StoragePage> {
                               topLeft: Radius.circular(50.0)),
                           color: Colors.white,
                         ),
-                        child: ItemTypeWidget(
-                          text: "",
-                          imagePath:
-                              'https://static.wikia.nocookie.net/disney/images/f/f0/Profile_-_Jiminy_Cricket.jpeg/revision/latest?cb=20190312063605',
-                          onChanged: (name) => {},
-                          onClicked: () {},
-                          // setState(() {});
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 60),
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (context) => MyFreezerPage()),
+                                );
+                              },
+                              child: Card(
+                                color: orangeCard,
+                                elevation: 4.0,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(30.0))),
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 5),
+                                  child: Column(
+                                    children: <Widget>[
+                                      ListBody(
+                                        children: <Widget>[
+                                          Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Expanded(
+                                                  child: Column(
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Text(
+                                                      "My Freezer",
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 26),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    margin: EdgeInsets.only(
+                                                        top: 5,
+                                                        left: 10,
+                                                        right: 10),
+                                                    child: Text(
+                                                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.",
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 15)),
+                                                  )
+                                                ],
+                                              )),
+                                              Expanded(
+                                                  child: Container(
+                                                      decoration: BoxDecoration(
+                                                          color: orangePrimary,
+                                                          borderRadius:
+                                                              BorderRadius.only(
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          30.0),
+                                                                  bottomRight:
+                                                                      Radius.circular(
+                                                                          30.0))),
+                                                      child: buildImage(
+                                                          imagePath:
+                                                              'assets/images/frozen_meat.jpg')))
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 13),
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (context) => MyFridgePage()),
+                                );
+                              },
+                              child: Card(
+                                color: orangeCard,
+                                elevation: 4.0,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(30.0))),
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 5),
+                                  child: Column(
+                                    children: <Widget>[
+                                      ListBody(
+                                        children: <Widget>[
+                                          Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Expanded(
+                                                  child: Column(
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Text(
+                                                      "My Fridge",
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 26),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    margin: EdgeInsets.only(
+                                                        top: 5,
+                                                        left: 10,
+                                                        right: 10),
+                                                    child: Text(
+                                                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.",
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 15)),
+                                                  )
+                                                ],
+                                              )),
+                                              Expanded(
+                                                  child: Container(
+                                                      decoration: BoxDecoration(
+                                                          color: orangePrimary,
+                                                          borderRadius:
+                                                              BorderRadius.only(
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          30.0),
+                                                                  bottomRight:
+                                                                      Radius.circular(
+                                                                          30.0))),
+                                                      child: buildImage(
+                                                          imagePath:
+                                                              'assets/images/kulkas_2.jpg')))
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 13),
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (context) => MyPantryPage()),
+                                );
+                              },
+                              child: Card(
+                                color: orangeCard,
+                                elevation: 4.0,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(30.0))),
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 5),
+                                  child: Column(
+                                    children: <Widget>[
+                                      ListBody(
+                                        children: <Widget>[
+                                          Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Expanded(
+                                                  child: Column(
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Text(
+                                                      "My Pantry",
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 26),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    margin: EdgeInsets.only(
+                                                        top: 5,
+                                                        left: 10,
+                                                        right: 10),
+                                                    child: Text(
+                                                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.",
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 15)),
+                                                  )
+                                                ],
+                                              )),
+                                              Expanded(
+                                                  child: Container(
+                                                      decoration: BoxDecoration(
+                                                          color: orangePrimary,
+                                                          borderRadius:
+                                                              BorderRadius.only(
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          30.0),
+                                                                  bottomRight:
+                                                                      Radius.circular(
+                                                                          30.0))),
+                                                      child: buildImage(
+                                                          imagePath:
+                                                              'assets/images/pantry_2.jpg')))
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       // const SizedBox(height: ),
@@ -104,72 +357,32 @@ class _StoragePageState extends State<StoragePage> {
     );
   }
 
-  Widget _createStoragePage() =>
-      ListView(physics: BouncingScrollPhysics(), children: [
-        ItemTypeWidget(
-            imagePath:
-                'https://static.wikia.nocookie.net/disney/images/f/f0/Profile_-_Jiminy_Cricket.jpeg/revision/latest?cb=20190312063605',
-            //MUST REPLACE WITH user.imagePath
-            // onClicked: () async {
-            //   await Navigator.of(context).push(
-            //     MaterialPageRoute(builder: (context) => EditProfilePage()),
-            //   );
-            //   setState(() {});
-            // },
-            onClicked: () {},
-            text: 'text',
-            onChanged: (String value) {}),
-      ]);
+  Widget buildImage({imagePath}) {
+    final image = AssetImage(imagePath);
 
-// Widget editProfileButton() => ButtonWidget(
-//       text: 'Edit Profile',
-//       onClicked: () {
-//         Navigator.of(context).push(
-//           MaterialPageRoute(builder: (context) => EditProfilePage()),
-//         );
-//       },
-//     );
+    return Padding(
+      padding: const EdgeInsets.all(2.0),
+      child: ClipRRect(
+        borderRadius: BorderRadius.only(
+            topRight: Radius.circular(30.0),
+            bottomRight: Radius.circular(30.0)),
+        child: Material(
+          color: Colors.transparent,
+          child: Ink.image(
+            image: image,
+            fit: BoxFit.fill,
+            width: 177,
+            height: 160,
+            // child: InkWell(onTap: onClicked),
+          ),
+        ),
+      ),
+    );
+  }
 
-// Widget logoutButton() => ButtonBorderWidget(
-//       text: 'Log out',
-//       onClicked: () => showDialog<String>(
-//         context: context,
-//         builder: (BuildContext context) => AlertDialog(
-//           shape: RoundedRectangleBorder(
-//               borderRadius: BorderRadius.all(Radius.circular(32.0))),
-//           content: const Text(
-//             'Are you sure you want to Log out ?',
-//             style: TextStyle(fontSize: 24, color: blackPrimary),
-//             textAlign: TextAlign.center,
-//           ),
-//           actions: <Widget>[
-//             Row(
-//               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//               children: [
-//                 TextButton(
-//                   onPressed: () => Navigator.pop(context, 'Cancel'),
-//                   child: const Text(
-//                     'Cancel',
-//                     style: TextStyle(fontSize: 20, color: greyPrimary),
-//                   ),
-//                 ),
-//                 TextButton(
-//                   onPressed: () => Navigator.pop(context, 'OK'),
-//                   child: const Text(
-//                     'Log out',
-//                     style: TextStyle(fontSize: 20, color: redPrimary),
-//                   ),
-//                 )
-//               ],
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-
-// @override
-// void dispose() {
-//   _bloc.dispose();
-//   super.dispose();
-// }
+  @override
+  void dispose() {
+    _bloc.dispose();
+    super.dispose();
+  }
 }

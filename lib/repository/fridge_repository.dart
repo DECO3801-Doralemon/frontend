@@ -8,84 +8,63 @@ import 'package:pantry_saver_fe/model/user.dart';
 import 'package:pantry_saver_fe/network/network_interface.dart';
 import 'package:http/http.dart';
 
-abstract class BaseFreezerRepository {
+abstract class BaseFridgeRepository {
   Future<Items> fetchItemDetail();
 }
 
-class FreezerRepository implements BaseFreezerRepository {
+class FridgeRepository implements BaseFridgeRepository {
   final NetworkInterface _network = NetworkInterface();
 
   @override
   Future<Items> fetchItemDetail() async {
-    print("testingupdatefetchitemdetailmasukga");
     final response = await _network.get(
-      url: '/api/v1/storage/freezer',
+      url: '/api/v1/storage/fridge',
     ); //...,isLogin: true
     final data = response.values.toList();
     print(data);
-    print("############################");
-
-    print("&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-
-    print("****************************");
 
     print(Items(data.first
         .map<ItemModel>((item) => ItemModel.fromJson(item))
         .toList()));
-
-    print("@@@@@@@@@@@@@@@@@@@@");
     return Items(
         data.first.map<ItemModel>((item) => ItemModel.fromJson(item)).toList());
   }
 
   Future<ItemModel> UpdateKg(int id, double kg) async {
-    var uri = Uri.parse('/api/v1/storage/freezer');
+    var uri = Uri.parse('/api/v1/storage/fridge');
     final body = {
       'id': id,
       'kg': kg,
     };
     final response =
-        await _network.put(url: '/api/v1/storage/freezer', bodyParams: body);
+        await _network.put(url: '/api/v1/storage/fridge', bodyParams: body);
     final data = [response];
     print(response);
     var kontol = response.map<ItemModel>((item) => ItemModel.fromJson(item));
     final response2 = await _network.get(
-      url: '/api/v1/storage/freezer',
+      url: '/api/v1/storage/fridge',
     ); //...,isLogin: true
     final data2 = response2.values.toList();
-    print("[[[[[[[[[[[[[[[[[[[[[[[[");
     print(data2);
 
     return kontol;
   }
 
   Future<ItemModel?> deleteItem(int id) async {
-    print("[[[BEFORE FINAL BODY]]]");
     final body = {
       'id': id,
     };
-    print("[[[BEFORE FINAL RESPONSE]]]");
     final response =
-        await _network.delete(url: '/api/v1/storage/freezer', bodyParams: body);
-    print("[[[AFTER FINAL RESPONSE]]]");
+        await _network.delete(url: '/api/v1/storage/fridge', bodyParams: body);
     final data = [response];
     print(response);
     var kontol = response.map<ItemModel>((item) => ItemModel.fromJson(item));
     final response2 = await _network.get(
-      url: '/api/v1/storage/freezer',
+      url: '/api/v1/storage/fridge',
     ); //...,isLogin: true
     final data2 = response2.values.toList();
-    print("[[[[[[[[[[[[[[[[[[[[[[[[");
     print(data2);
 
     return null;
-  }
-
-  Future<void> addToFreezer(String result) async{
-    final body = {
-      'data_matrix': result,
-    };
-    print(body);
-    final response = await _network.post(url: '/api/v1/storage/freezer', bodyParams: body);
   }
 }

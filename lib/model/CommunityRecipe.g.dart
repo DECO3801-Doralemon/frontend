@@ -23,10 +23,13 @@ CommunityRecipeModel _$CommunityRecipeModelFromJson(Map<String, dynamic> json) {
   return CommunityRecipeModel(
     id: json['id'] as int,
     name: json['name'] as String,
-    photo_url: json['photo_url'] as String,
+    recipe_name: json['recipe_name'] as String,
     needed_ingredients: (json['needed_ingredients'] as List<dynamic>)
         .map((e) => e as String)
         .toList(),
+    photo_url: json['photo_url'] as String,
+    date_time_created: json['date_time_created'] as String?,
+    steps: json['steps'] as String?,
   );
 }
 
@@ -35,6 +38,9 @@ Map<String, dynamic> _$CommunityRecipeModelToJson(
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'photo_url': instance.photo_url,
+      'recipe_name': instance.recipe_name,
       'needed_ingredients': instance.needed_ingredients,
+      'photo_url': instance.photo_url,
+      'date_time_created': instance.date_time_created,
+      'steps': instance.steps,
     };

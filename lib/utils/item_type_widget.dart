@@ -183,7 +183,7 @@ class ItemTypeWidget extends StatelessWidget {
   }
 
   Widget buildImage() {
-    final image = NetworkImage(imagePath);
+    final image = AssetImage(imagePath);
 
     return Padding(
       padding: const EdgeInsets.all(2.0),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pantry_saver_fe/bloc/shopping_bloc.dart';
 import 'package:pantry_saver_fe/component/fab_bottom_app_bar.dart';
 import 'package:pantry_saver_fe/page/Community/community.dart';
 import 'package:pantry_saver_fe/page/dummyPage.dart';

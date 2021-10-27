@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:pantry_saver_fe/config/styles.dart';
 
-class ButtonWidget extends StatelessWidget {
+class StorageButtonWidget extends StatelessWidget {
   final String text;
   final VoidCallback onClicked;
 
-  const ButtonWidget({
+  const StorageButtonWidget({
     Key? key,
     required this.text,
     required this.onClicked,
@@ -14,15 +14,15 @@ class ButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ElevatedButton(
         style: ElevatedButton.styleFrom(
-          fixedSize: Size(200,
+          fixedSize: Size(152,
               50), // COULD BE CHANGED TO USE CONTAINERS THAT WRAP EACH BUTTON IN PROFILE PAGE
           shape: StadiumBorder(),
-          primary: orangePrimary,
+          primary: greenPrimary,
           onPrimary: Colors.white,
-          textStyle: TextStyle(fontSize: 20, fontFamily: "BalsamiqSans"),
+          textStyle: TextStyle(fontSize: 23, fontFamily: "BalsamiqSans"),
           padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
         ),
-        child: Text(text, textAlign: TextAlign.center),
+        child: Text(text),
         onPressed: onClicked,
       );
 }

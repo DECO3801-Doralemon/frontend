@@ -64,7 +64,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               const SizedBox(height: 45),
               ProfileWidget(
                 imagePath:
-                    'https://static.wikia.nocookie.net/disney/images/f/f0/Profile_-_Jiminy_Cricket.jpeg/revision/latest?cb=20190312063605',
+                    "https://doralemon-backend.herokuapp.com${user.photo_url}",
                 //MUST REPLACE WITH user.imagePath
                 isEdit: true,
                 onClicked: () async {},
@@ -79,7 +79,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
               const SizedBox(height: 24),
               TextFieldWidget(
                 label: 'About',
-                text: user.bio ?? " ", //MUST REMOVE KUTIP
+                text: user.bio ??
+                    "I like to eat all sorts of food, but I can't handle spicy food well.", //MUST REMOVE KUTIP
                 maxLines: 5,
                 onChanged: (about) => {},
 // onChanged: (about) => user = user.copy(about: about),
