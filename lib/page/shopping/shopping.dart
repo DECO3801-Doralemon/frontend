@@ -174,8 +174,9 @@ class ShoppingState extends State<Shopping> {
                   child: Row(children: <Widget>[
                     Text(
                       shopping[index].name,//ingredient.name,
+                      overflow: TextOverflow.fade,
                       style: TextStyle(
-                        fontSize: 22,
+                        fontSize: 14,
                         fontFamily: 'BalsamiqSans',
                         color: Colors.white,
                       ),
@@ -185,7 +186,7 @@ class ShoppingState extends State<Shopping> {
                       "Qty: ${shopping[index].needed_kg.toString()} kg(s)",
                       //"Qty: test kg(s)",
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 14,
                         fontFamily: 'BalsamiqSans',
                         color: Colors.white,
                       ),
