@@ -191,7 +191,7 @@ class SignUpScreenState extends State<SignUpScreen> {
 
   void successDialog(BuildContext context) {
     var alertDialog = AlertDialog(
-      title: Text('Registrasi berhasil!'),
+      title: Text('Successfully register!'),
       //content: Icon(FontAwesomeIcons.checkCircle),
     );
     showDialog(
@@ -203,7 +203,7 @@ class SignUpScreenState extends State<SignUpScreen> {
 
   void failedDialog(BuildContext context) {
     var alertDialog = AlertDialog(
-      title: Text('Pengguna sudah terdaftar!'),
+      title: Text('User already exists!'),
       //content: Icon(FontAwesomeIcons.exclamationCircle),
     );
     showDialog(

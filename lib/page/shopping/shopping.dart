@@ -20,7 +20,6 @@ class ShoppingState extends State<Shopping> {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(
@@ -117,6 +116,7 @@ class ShoppingState extends State<Shopping> {
                         topLeft: Radius.circular(50.0)),
                     color: Colors.white,
                   ),
+                  // StreamBuilder for Shopping BloC
                   child:StreamBuilder<NetworkModel<ShoppingList>>(
                     stream: bloc.shoppingStream,
                     builder: (context, snapshot) {
@@ -155,7 +155,6 @@ class ShoppingState extends State<Shopping> {
   }
 
   Widget buildCard(BuildContext context, int index) {
-    Size size = MediaQuery.of(context).size;
     return Card(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30)

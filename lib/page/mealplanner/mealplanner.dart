@@ -15,7 +15,6 @@ class MealPlanner extends StatefulWidget {
 
 class MealPlannerState extends State<MealPlanner> {
   //Calender Variable
-  late final ValueNotifier<List<MealPlanModel>> _selectedEvents;
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
@@ -152,7 +151,7 @@ class MealPlannerState extends State<MealPlanner> {
                 borderRadius: BorderRadius.only(
                     topRight: Radius.circular(50.0),
                     topLeft: Radius.circular(50.0)),
-                color: Colors.orangeAccent,
+                color: orangeBackground,
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -167,7 +166,7 @@ class MealPlannerState extends State<MealPlanner> {
                         style: TextStyle(
                           fontSize: 14,
                           fontFamily: 'BalsamiqSans',
-                          color: Colors.green,
+                          color: greenPrimary,
                         ),
                       ),
                       Text(
@@ -176,7 +175,7 @@ class MealPlannerState extends State<MealPlanner> {
                         style: TextStyle(
                           fontSize: 14,
                           fontFamily: 'BalsamiqSans',
-                          color: kPrimaryColor,
+                          color: greenPrimary,
                         ),
                       ),
                     ],
@@ -223,37 +222,28 @@ class MealPlannerState extends State<MealPlanner> {
   }
 
   Widget buildCard(BuildContext context, int index) {
-    Size size = MediaQuery.of(context).size;
     return Card(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30)
       ),
       color: kPrimaryLightColor,
+      margin: EdgeInsets.only(bottom: 20.0),
       child: InkWell(
         onTap: (){},
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                  Text(
-                    mealPlan[index].recipe_name,//recipe name,
-                    overflow: TextOverflow.fade,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontFamily: 'BalsamiqSans',
-                      color: Colors.white,
-                    ),
-                  ),
-                ]),
-              )
-            ],
-          ),
+        child: Padding(padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+            Text(
+              mealPlan[index].recipe_name,//recipe name,
+              overflow: TextOverflow.fade,
+              style: TextStyle(
+                fontSize: 14,
+                fontFamily: 'BalsamiqSans',
+                color: Colors.white,
+              ),
+            ),
+          ]),
         ),
       ),
     );

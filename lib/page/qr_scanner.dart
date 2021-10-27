@@ -85,7 +85,7 @@ class _QRViewExampleState extends State<QRViewExample> {
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontFamily: 'BalsamiqSans',
-                fontSize: 23,
+                fontSize: 14,
                 color: kPrimaryColor,
               ),
             ),
@@ -156,6 +156,7 @@ class _QRViewExampleState extends State<QRViewExample> {
       setState(() {
         result = scanData;
     });
+      // Route to select Storage to store
       String data = result!.code;
       Navigator.push(context, MaterialPageRoute(builder: (context) => _storeData(data)));
       //showModalBottomSheet(context: context, builder: (context) => _buildModal(data));
@@ -191,7 +192,7 @@ class _QRViewExampleState extends State<QRViewExample> {
 
   void failedDialog(BuildContext context) {
     var alertDialog = AlertDialog(
-      title: Text('Anda blm memilih tempat'),
+      title: Text('Storage has not been chose yet!'),
       //content: Icon(FontAwesomeIcons.exclamationCircle),
     );
     showDialog(

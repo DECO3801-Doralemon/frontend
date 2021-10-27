@@ -1,5 +1,3 @@
-
-
 import 'package:pantry_saver_fe/model/shopping_model.dart';
 import 'package:pantry_saver_fe/network/network_interface.dart';
 

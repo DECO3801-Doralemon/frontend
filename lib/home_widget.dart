@@ -16,6 +16,7 @@ class Home extends StatefulWidget {
   }
 }
 
+//Homepage of Pantry Saver
 class _HomeState extends State<Home> {
   String _lastSelected = 'TAB: 0';
   int _indSelected = 0;
@@ -47,7 +48,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
@@ -73,16 +73,7 @@ class _HomeState extends State<Home> {
           FABBottomAppBarItem(iconData: Icons.people_alt, text: 'Community'),
         ],
       ),
-      body: /*IndexedStack(
-        children: <Widget>[
-          //List of Navbar Page, place it orderly based on Navbar
-          Dummy(),
-          Shopping(),
-          MealPlanner(),
-          CommunityPage(),
-        ],
-        index: _indSelected,
-      ),*/
+      body:
       _children[_indSelected],
     );
   }

@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
@@ -9,7 +8,6 @@ import 'package:pantry_saver_fe/component/already_have_an_account_acheck.dart';
 import 'package:pantry_saver_fe/config/styles.dart';
 import 'package:pantry_saver_fe/home_widget.dart';
 import 'package:pantry_saver_fe/page/Signup/signup.dart';
-import 'package:pantry_saver_fe/page/storage/storage.dart';
 import 'package:pantry_saver_fe/utils/button_widget.dart';
 import 'package:pantry_saver_fe/utils/customTextField.dart';
 
@@ -55,12 +53,14 @@ class LoginState extends State<Login> {
                     ),
                   ),
                   SizedBox(height: size.height * 0.03),
+                  // Username Textfield
                   CustomTextField(
                     title: 'Username',
                     key: Key('Text Field Akun'),
                     controller: emailController,
 
                   ),
+                  // Password Textfield
                   CustomTextField(
                     title: 'Password',
                     key: Key('Text Field Password'),
@@ -68,6 +68,7 @@ class LoginState extends State<Login> {
                     obsecure: true,
                   ),
                   SizedBox(height: size.height * 0.03),
+                  // Login Buttton
                   ButtonWidget(
                     text: "Login",
                     onClicked: () {
@@ -75,6 +76,7 @@ class LoginState extends State<Login> {
                     },
                   ),
                   SizedBox(height: size.height * 0.03),
+                  // Route to SignUp
                   AlreadyHaveAnAccountCheck(
                     press: () {
                       Navigator.push(
@@ -100,10 +102,6 @@ class LoginState extends State<Login> {
   TextEditingController passwordController = TextEditingController();
 
   void _validateLoginInput() async {
-    //final form = _formKey.currentState;
-    /*if (_formKey.currentState!.validate()) {
-      form!.save();
-    }*/
     login(emailController.text.toString(), passwordController.text.toString());
   }
 
@@ -116,21 +114,11 @@ class LoginState extends State<Login> {
         MaterialPageRoute(builder: (context) => Home()),
       );
     }).catchError((onError) => print(onError));
-    /*
-    final response = await _bloc.loginUser(email, password);
-    if(response!.login.isNotEmpty){
-      successDialog(context);
-      Timer(Duration(seconds: 2), () {
-        _navigateToHome(context);
-      });
-    } else {
-      failedDialog(context);
-    }*/
   }
 
   void successDialog(BuildContext context) {
     var alertDialog = AlertDialog(
-      title: Text('Login berhasil!'),
+      title: Text('Successfully Login!'),
       //content: Icon(FontAwesomeIcons.checkCircle),
     );
     showDialog(
@@ -142,7 +130,7 @@ class LoginState extends State<Login> {
 
   void failedDialog(BuildContext context) {
     var alertDialog = AlertDialog(
-      title: Text('Password atau kata sandi anda salah'),
+      title: Text('Wrong Password!'),
       //content: Icon(FontAwesomeIcons.exclamationCircle),
     );
     showDialog(
