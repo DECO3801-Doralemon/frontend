@@ -1,22 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:pantry_saver_fe/bloc/user_bloc.dart';
 import 'package:pantry_saver_fe/component/appbar_storage_green.dart';
-import 'package:pantry_saver_fe/component/appbar_widget.dart';
 import 'package:pantry_saver_fe/config/styles.dart';
-import 'package:pantry_saver_fe/page/Login/login.dart';
 import 'package:pantry_saver_fe/page/edit_profile.dart';
 import 'package:pantry_saver_fe/page/storage/my_freezer.dart';
 import 'package:pantry_saver_fe/page/storage/my_fridge.dart';
 import 'package:pantry_saver_fe/page/storage/my_pantry.dart';
-import 'package:pantry_saver_fe/utils/button_border_widget.dart';
-import 'package:pantry_saver_fe/utils/button_widget.dart';
-import 'package:pantry_saver_fe/utils/item_type_widget.dart';
-import 'package:pantry_saver_fe/utils/numbers_widget.dart';
-import 'package:pantry_saver_fe/utils/profile_widget.dart';
-import 'package:pantry_saver_fe/home_widget.dart';
 import 'package:pantry_saver_fe/model/user.dart';
-import 'package:pantry_saver_fe/utils/textfield_widget.dart';
-import 'package:pantry_saver_fe/utils/user_preferences.dart';
 
 import '../profile.dart';
 

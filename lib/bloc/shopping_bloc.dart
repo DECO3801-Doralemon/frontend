@@ -29,14 +29,6 @@ class ShoppingBloc {
     }
   }
 
-  /*Future<List<ShoppingModel>?> fetchShopping() async {
-    try {
-      await fetchShoppingList();
-      return allShoppingFromApi;
-    }catch (e) {
-      return null;
-    }
-  }*/
   void resetShoppingList() {
     shoppingSink.add(NetworkModel.completed(ShoppingList(allShoppingFromApi!)));
   }

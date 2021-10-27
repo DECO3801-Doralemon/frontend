@@ -1,8 +1,11 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pantry_saver_fe/bloc/mealplan_bloc.dart';
 import 'package:pantry_saver_fe/config/styles.dart';
 import 'package:pantry_saver_fe/model/mealplan_model.dart';
+import 'package:pantry_saver_fe/network/data/network_model.dart';
+import 'package:pantry_saver_fe/page/profile.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class MealPlanner extends StatefulWidget {
@@ -16,7 +19,10 @@ class MealPlannerState extends State<MealPlanner> {
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
+  String today = DateTime.now().toIso8601String().substring(0,10);
 
+  List<MealPlanModel> mealPlan = [];
+  late MealPlanBloc bloc = MealPlanBloc();
 
   @override
   Widget build(BuildContext context) {
@@ -61,91 +67,193 @@ class MealPlannerState extends State<MealPlanner> {
                         ),
                       ],
                     ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => ProfilePage()),
+                        );
+                      },
+                      child: Container(
+                        margin: EdgeInsets.all(15),
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(right: 10.0),
+                              child: CircleAvatar(
+                                radius: 15.0,
+                                backgroundImage: AssetImage(
+                                    'assets/images/facebook-default-no-profile-pic.jpg'),
+                                backgroundColor: Colors.transparent,
+                              ),
+                            ),
+                            Text(
+                              "My Profile",
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 20),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                     Center(
                       child: Container(
                         margin: EdgeInsets.symmetric(
                             vertical: 55, horizontal: 65),
                         child: Text(
-                          "Description about the MealPlanner Page, what info does it show, etc.",
+                          "The meal planner plans your meals according to the calendar date, "
+                              "allowing you to plan what recipes you will be making ahead of time.",
                           style: TextStyle(
-                              fontSize: 21, color: Colors.white),
+                              fontSize: 17, color: Colors.white),
                         ),
                       ),
                     ),
                   ],
                 ),
-                /*
-                Container(
-                  margin: EdgeInsets.only(top: 214),
-                  padding: EdgeInsets.symmetric(horizontal: 13),
-                  height: 500,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(50.0),
-                        topLeft: Radius.circular(50.0)),
-                    color: Colors.white,
+              ],
+            ),
+            Container(
+              //margin: EdgeInsets.only(bottom: 214),
+              padding: EdgeInsets.symmetric(horizontal: 13),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(50.0),
+                    topLeft: Radius.circular(50.0)),
+                color: Colors.white,
+              ),
+              child: TableCalendar(
+                firstDay: DateTime.utc(2010),
+                lastDay: DateTime.utc(2040),
+                focusedDay: _focusedDay,
+                calendarFormat: _calendarFormat,
+                selectedDayPredicate: (day) {
+                  return isSameDay(_selectedDay, day);
+                },
+                onDaySelected: (selectedDay, focusedDay) {
+                  if (!isSameDay(_selectedDay, selectedDay)) {
+                    // Call `setState()` when updating the selected day
+                    setState(() {
+                      _selectedDay = selectedDay;
+                      today = _selectedDay!.toIso8601String().substring(0,10);
+                      _focusedDay = focusedDay;
+                    });
+                  }
+                },
+                onPageChanged: (focusedDay) {
+                  // No need to call `setState()` here
+                  _focusedDay = focusedDay;
+                },
+              ),
+            ),
+            const SizedBox(height: 20.0),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 13),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(50.0),
+                    topLeft: Radius.circular(50.0)),
+                color: Colors.orangeAccent,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  const SizedBox(height: 10.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        "Meal for $today",
+                        //overflow: TextOverflow.fade,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontFamily: 'BalsamiqSans',
+                          color: Colors.green,
+                        ),
+                      ),
+                      Text(
+                        "See details",
+                        //overflow: TextOverflow.fade,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontFamily: 'BalsamiqSans',
+                          color: kPrimaryColor,
+                        ),
+                      ),
+                    ],
                   ),
-                  child:
-                ),*/
-              ],
-            ),
-            ListView(
-              shrinkWrap: true,
-              children: [
-                TableCalendar(
-                  firstDay: DateTime.utc(2010),
-                  lastDay: DateTime.utc(2040),
-                  focusedDay: _focusedDay,
-                  calendarFormat: _calendarFormat,
-                  selectedDayPredicate: (day) {
-                    return isSameDay(_selectedDay, day);
-                  },
-                  onDaySelected: (selectedDay, focusedDay) {
-                    if (!isSameDay(_selectedDay, selectedDay)) {
-                      // Call `setState()` when updating the selected day
-                      setState(() {
-                        _selectedDay = selectedDay;
-                        print(_selectedDay);
-                        _focusedDay = focusedDay;
-                      });
-                    }
-                  },
-                  onPageChanged: (focusedDay) {
-                    // No need to call `setState()` here
-                    _focusedDay = focusedDay;
-                  },
-                ),
-                const SizedBox(height: 8.0),
-                /*
-                Expanded(
-                    child: ValueListenableBuilder<List<MealPlanModel>>(
-                      valueListenable: _selectedEvents,
-                      builder: (context, value, _) {
-                        return ListView.builder(
-                          itemCount: value.length,
-                          itemBuilder: (context, index) {
-                            return Container(
-                                margin: const EdgeInsets.symmetric(
-                                  horizontal: 12.0,
-                                  vertical: 4.0,
+                  const SizedBox(height: 10.0),
+                  Center(
+                    child: StreamBuilder<NetworkModel<MealPlanList>>(
+                      stream: bloc.mealPlanStream,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          switch (snapshot.data!.status) {
+                            case Status.LOADING:
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  valueColor:
+                                  AlwaysStoppedAnimation<Color>(greenPrimary),
                                 ),
-                                decoration: BoxDecoration(
-                                  border: Border.all(),
-                                  borderRadius: BorderRadius.circular(12.0),
-                                ),
-                                child: ListTile(
-                                  onTap: () => print('${value[index].recipe_name}'),
-                                  title: Text('${value[index].recipe_name}'),
-                                )
-                            );
-                          },
-                        );
+                              );
+                              break;
+                            case Status.COMPLETED:
+                              mealPlan = snapshot.data!.data!.allMealPlan;
+                              return ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: mealPlan.length,
+                                  itemBuilder: (BuildContext context, int index) =>
+                                      buildCard(context, index));
+                              break;
+                            case Status.ERROR:
+                              break;
+                          }
+                        }
+                        return Container();
                       },
-                    )
-                ),*/
-              ],
+                    ),
+                  ),
+                ],
+              ),
             ),
+            const SizedBox(height: 20.0),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildCard(BuildContext context, int index) {
+    Size size = MediaQuery.of(context).size;
+    return Card(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30)
+      ),
+      color: kPrimaryLightColor,
+      child: InkWell(
+        onTap: (){},
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                  Text(
+                    mealPlan[index].recipe_name,//recipe name,
+                    overflow: TextOverflow.fade,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontFamily: 'BalsamiqSans',
+                      color: Colors.white,
+                    ),
+                  ),
+                ]),
+              )
+            ],
+          ),
         ),
       ),
     );

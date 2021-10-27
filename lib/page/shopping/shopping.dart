@@ -4,6 +4,7 @@ import 'package:pantry_saver_fe/bloc/shopping_bloc.dart';
 import 'package:pantry_saver_fe/config/styles.dart';
 import 'package:pantry_saver_fe/model/shopping_model.dart';
 import 'package:pantry_saver_fe/network/data/network_model.dart';
+import 'package:pantry_saver_fe/page/profile.dart';
 
 class Shopping extends StatefulWidget {
   @override
@@ -62,14 +63,45 @@ class ShoppingState extends State<Shopping> {
                         ),
                       ],
                     ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) => ProfilePage()),
+                        );
+                      },
+                      child: Container(
+                        margin: EdgeInsets.all(15),
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(right: 10.0),
+                              child: CircleAvatar(
+                                radius: 15.0,
+                                backgroundImage: AssetImage(
+                                    'assets/images/facebook-default-no-profile-pic.jpg'),
+                                backgroundColor: Colors.transparent,
+                              ),
+                            ),
+                            Text(
+                              "My Profile",
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 20),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                     Center(
                       child: Container(
                         margin: EdgeInsets.symmetric(
                             vertical: 55, horizontal: 65),
                         child: Text(
-                          "Description about the Shopping Page, what info does it show, etc.",
+                          "This page shows you what items you are missing from fulfilling your meal plan "
+                              "for the next 30 days. It is advised that you purchase these items to "
+                              "fulfill your plan.",
                           style: TextStyle(
-                              fontSize: 21, color: Colors.white),
+                              fontSize: 17, color: Colors.white),
                         ),
                       ),
                     ),
