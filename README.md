@@ -28,14 +28,14 @@ Run the app using "main.dart".
 flutter run -t lib/main.dart
 ```
 ## Building Models with JsonSerializable
-After getting the result from API, you make the models.
+After getting the result from API, you make the models by following this steps:
 1. Write the fields based on the JSON results (Example: models/login.dart)
-2. On 'part of {model_name}.g.dart', write it on the model you want to make. It will be red, but just ignore it for now.
+2. On 'part of {model_name}.g.dart', write the name of the model you want to make. It will be red, but just ignore it for now.
 3. Afte you write all the fields, run
 ```bash
 flutter pub run build_runner build
 ```
-4. It will build a file called {model_name}.g.dart, it should be not red anymore.
+4. It will build a file called {model_name}.g.dart, it should not be red anymore.
 
 ## Passing Data with BLoC
 Read more on [here](https://itnext.io/flutter-handling-your-network-api-calls-like-a-boss-936eef296547) to understand about BLoC. 
