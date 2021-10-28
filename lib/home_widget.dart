@@ -56,7 +56,7 @@ class _HomeState extends State<Home> {
             builder: (context) => QRViewExample(),));
           },
         tooltip: '',
-        child: Icon(IconData(0xe4f7, fontFamily: "MaterialIcons")),
+        child: Icon(const IconData(0xe4f7, fontFamily: "MaterialIcons")),
         elevation: 2.0,
         backgroundColor: kPrimaryLightColor,
       ),
